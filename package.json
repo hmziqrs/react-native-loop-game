@@ -64,7 +64,7 @@
     "@babel/node": "7.7.4",
     "@babel/preset-env": "7.0.0",
     "@react-native-community/eslint-config": "0.0.5",
-    "acorn": "7.1.0",
+    "acorn": "7.1.1",
     "async": "2.4.0",
     "babel-eslint": "10.0.3",
     "babel-generator": "6.26.1",
