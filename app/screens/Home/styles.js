@@ -1,42 +1,38 @@
 import { StyleSheet } from 'react-native';
-import { scaling } from 'rn-hgl/utils';
-import { typography } from 'configs';
-
-import level from 'engine/levels/level-1';
-import { dimensions, platform } from 'rn-hgl';
 import { elevation } from 'rn-hgl/styles';
+import { scaling } from 'rn-hgl/utils';
+import { platform } from 'rn-hgl';
 
-const { theme } = level;
+import { typography, colors } from 'configs';
 
 const styles = StyleSheet.create({
   container: {
     padding: scaling(1),
-    backgroundColor: theme.light.primary,
   },
   title: {
-    margin: scaling(1),
+    marginHorizontal: scaling(2),
     fontSize: typography.heading1,
   },
-  levelsHolder: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'center',
+  description: {
+    color: colors.primary,
+    marginHorizontal: scaling(2),
   },
-  levelBase: {
-    borderWidth: 2,
-    borderRadius: 5,
-    margin: scaling(2),
-    paddingVertical: scaling(3),
-    width: dimensions.width / 5,
-    borderColor: theme.light.accent,
-    backgroundColor: theme.light.primary,
-    ...elevation(platform.isIOS ? 2.5 : 5),
+  buttonsHolder: {
+    marginTop: scaling(2),
   },
-  levelText: {
-    fontWeight: '700',
+  button: {
+    borderRadius: 4,
+    borderWidth: 1.5,
+    marginTop: scaling(3),
+    paddingVertical: scaling(2),
+    marginHorizontal: scaling(2),
+    backgroundColor: colors.white,
+    borderColor: colors.primary.alpha(0.5),
+    ...elevation(platform.isIOS ? 1.5 : 4),
+  },
+  buttonText: {
     textAlign: 'center',
-    color: theme.light.accent,
-    fontSize: typography.label1,
+    color: colors.primary,
   },
 });
 

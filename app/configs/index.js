@@ -8,13 +8,9 @@ const configs = {
 export const colors = {
   ...defaultColors,
   accent: Color('#1565C0'),
-  primary: defaultColors.reddit,
-  secondary: defaultColors.dribble,
-
-  darkText: defaultColors.dark,
-
-  error: Color('#f00'),
-  inputBorderColor: Color('#d9d9d9'),
+  primary: Color('#cc2f2c'),
+  darkBackground: Color('#1b1b1a'),
+  textColor: Color('#1b1b1a'),
 };
 
 export const typography = {

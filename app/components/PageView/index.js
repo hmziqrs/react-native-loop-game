@@ -39,11 +39,7 @@ function PageView({
 
   const child = (
     <>
-      <SafeAreaView
-        forceInset={{ top: false }}
-        {...baseProps}
-        style={[styles.base].concat([baseStyle])}
-      >
+      <SafeAreaView {...baseProps} style={[styles.base].concat([baseStyle])}>
         {afterRender}
         {header ? <Header {...header} /> : null}
         <Comp style={[styles.flex].concat(style)} {...compProps} {...props} ref={innerRef}>

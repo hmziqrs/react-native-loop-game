@@ -3,29 +3,24 @@ import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchNative } from 'rn-hgl';
 
+import levels from 'engine/levels';
+
 import PageView from 'components/PageView';
 
 import styles from './styles';
 
-const links = [
-  { key: 'levels', label: 'Explore Levels' },
-  { key: 'aboutApp', label: 'About App' },
-  { key: 'aboutDev', label: 'About Developer' },
-];
-
 function HomeScreen({ navigation }) {
   return (
     <PageView navigation={navigation} style={styles.container} name="home">
-      <Text style={styles.title}>Welcome</Text>
-      <Text style={styles.description}>Explore loop game&apos;s clone build with react native</Text>
-      <View style={styles.buttonsHolder}>
-        {links.map((link) => (
+      <Text style={styles.title}>Levels</Text>
+      <View style={styles.levelsHolder}>
+        {Object.keys(levels).map((level) => (
           <TouchNative
-            key={link.key}
-            style={styles.button}
-            onPress={() => navigation.navigate(link.key)}
+            key={level}
+            style={styles.levelBase}
+            onPress={() => navigation.navigate('level', { level })}
           >
-            <Text style={styles.buttonText}>{link.label}</Text>
+            <Text style={styles.levelText}>Level {level}</Text>
           </TouchNative>
         ))}
       </View>
