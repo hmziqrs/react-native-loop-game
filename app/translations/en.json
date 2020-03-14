@@ -1,0 +1,8 @@
+{
+  "AuthScreen.placeholders.name": "Input your name",
+  "AuthScreen.title": "Auth Screen",
+  "HomeScreen.hello": "Hello, {name}",
+  "HomeScreen.title": "Home Screen",
+  "SettingsScreen.changeLocale": "Change Locale",
+  "SettingsScreen.title": "Settings"
+}
