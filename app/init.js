@@ -6,6 +6,7 @@ import analytics from '@react-native-firebase/analytics';
 import { enableScreens } from 'react-native-screens'; //eslint-disable-line
 import { setDomain } from 'rn-hgl/services';
 import '@react-native-firebase/crashlytics';
+import 'react-native-gesture-handler';
 
 import configs, { colors, typography } from 'configs';
 

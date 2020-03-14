@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { StatusBar, UIManager } from 'react-native';
-import { Provider } from 'react-redux';
 import analytics from '@react-native-firebase/analytics';
-import 'react-native-gesture-handler';
 
 // It's necessary to call init here to load & initialize required libraries
 import './init';
@@ -14,10 +12,6 @@ import { colors } from 'configs';
 
 import Navigator from './Navigator';
 import routesMap from './routes.map';
-import configureStore from './store';
-import Wrapper from './Wrapper';
-
-const store = configureStore();
 
 function onRouteChange(prevState, currentState) {
   const currentScreen = getActiveRouteName(currentState);
@@ -47,13 +41,7 @@ function App() {
     clearTimeout(timeout);
   });
 
-  return (
-    <Provider store={store}>
-      <Wrapper>
-        <Navigator onNavigationStateChange={onRouteChange} />
-      </Wrapper>
-    </Provider>
-  );
+  return <Navigator onNavigationStateChange={onRouteChange} />;
 }
 
 export default App;

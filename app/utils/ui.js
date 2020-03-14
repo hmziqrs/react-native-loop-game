@@ -1,20 +1,4 @@
 import { LayoutAnimation } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-
-import { colors } from 'configs';
-
-export function alert(type, props) {
-  let backgroundColor = colors.linkedin.string();
-  if (type === 'error') {
-    backgroundColor = colors.error.string();
-  } else if (type === 'success') {
-    backgroundColor = colors.success.string();
-  }
-  showMessage({
-    backgroundColor,
-    ...props,
-  });
-}
 
 export const animationConfig = {
   duration: 200,

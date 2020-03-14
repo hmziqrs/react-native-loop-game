@@ -1,19 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { Message, TouchNative } from 'rn-hgl';
+import { TouchNative } from 'rn-hgl';
 
 import levels from 'engine/levels';
 
 import PageView from 'components/PageView';
 
-import { messages } from './messages';
 import styles from './styles';
 
 function HomeScreen({ navigation }) {
   return (
     <PageView navigation={navigation} style={styles.container} name="home">
-      <Message {...messages.title} style={styles.title} />
+      <Text style={styles.title}>Levels</Text>
       <View style={styles.levelsHolder}>
         {Object.keys(levels).map((level) => (
           <TouchNative
