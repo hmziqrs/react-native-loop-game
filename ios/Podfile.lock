@@ -320,6 +320,8 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
+  - RNCAsyncStorage (1.8.1):
+    - React
   - RNDeviceInfo (5.3.1):
     - React
   - RNFBAnalytics (6.3.4):
@@ -381,6 +383,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -468,6 +471,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFBAnalytics:
@@ -538,6 +543,7 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
+  RNCAsyncStorage: 00bdf63f7f1e0f11d3323533dba4f222e58bf092
   RNDeviceInfo: e5976ab5c3bed0b5c78f188e0b8abb139b33a9da
   RNFBAnalytics: b8bad44e6653af73219b1a7af24bf3452cb02c1b
   RNFBApp: 7d4006751de8bb5cafa2e8d2e7d94ee250df81db
@@ -550,6 +556,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: fb41065d78bd22f8c5b419c40cad8578f78e77ef
+PODFILE CHECKSUM: c0c3c639e1bc8f762f8d5b2e0d5e23854db850fc
 
 COCOAPODS: 1.8.4

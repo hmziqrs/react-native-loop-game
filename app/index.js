@@ -10,6 +10,8 @@ import { isIOS } from 'rn-hgl/platform';
 
 import { colors } from 'configs';
 
+import SettingsContextProvider from 'contexts/Settings';
+
 import Navigator from './Navigator';
 import routesMap from './routes.map';
 
@@ -41,7 +43,13 @@ function App() {
     clearTimeout(timeout);
   });
 
-  return <Navigator onNavigationStateChange={onRouteChange} />;
+  return (
+    <>
+      <SettingsContextProvider>
+        <Navigator onNavigationStateChange={onRouteChange} />
+      </SettingsContextProvider>
+    </>
+  );
 }
 
 export default App;

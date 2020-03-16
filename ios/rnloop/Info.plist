@@ -52,6 +52,7 @@
 		<string>Muli-Light.ttf</string>
 		<string>Muli-Regular.ttf</string>
 		<string>Muli-SemiBold.ttf</string>
+		<string>._Muli-Black.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

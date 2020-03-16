@@ -4,6 +4,7 @@ const map = {
   levels: { statusBar: 'dark-content' },
   aboutApp: { statusBar: 'dark-content' },
   aboutDeveloper: { statusBar: 'dark-content' },
+  settings: { statusBar: 'dark-content' },
 };
 
 export default map;

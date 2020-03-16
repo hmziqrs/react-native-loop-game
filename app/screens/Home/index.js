@@ -11,6 +11,7 @@ const links = [
   { key: 'levels', label: 'Explore Levels' },
   { key: 'aboutApp', label: 'About App' },
   { key: 'aboutDeveloper', label: 'About Developer' },
+  { key: 'settings', label: 'Settings' },
 ];
 
 function HomeScreen({ navigation }) {
@@ -29,6 +30,7 @@ function HomeScreen({ navigation }) {
           </TouchNative>
         ))}
       </View>
+      <Text style={styles.version}>VERSION 1.0.0</Text>
     </PageView>
   );
 }

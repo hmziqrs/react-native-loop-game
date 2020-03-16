@@ -21,12 +21,16 @@
     "setup": "npm i react-native-asset eslint -g"
   },
   "lint-staged": {
-    "*.js": ["eslint ./app", "prettier --write"]
+    "*.js": [
+      "eslint ./app",
+      "prettier --write"
+    ]
   },
   "pre-commit": "lint:staged",
   "dependencies": {
     "@babel/polyfill": "7.7.0",
     "@babel/runtime": "7.7.5",
+    "@react-native-community/async-storage": "^1.8.1",
     "@react-native-firebase/analytics": "^6.3.4",
     "@react-native-firebase/app": "^6.3.4",
     "@react-native-firebase/crashlytics": "^6.3.4",

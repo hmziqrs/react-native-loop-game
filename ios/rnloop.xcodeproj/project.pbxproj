@@ -28,6 +28,10 @@
 		987AD1E647E34B8A93A5A118 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */; };
 		4FF28596871E45EA9C063E6D /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */; };
 		11F74E3324AE4CC2A5E6B227 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */; };
+		D55110291DE74F1693CEAFD8 /* ._Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F481000C789043F1B69F1004 /* ._Muli-Black.ttf */; };
+		D09869EE0EF54009912F2569 /* ambient.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5901C56E908F4379B0BFCBFB /* ambient.mp3 */; };
+		8B743B6B26D74ACEB35C1F66 /* forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EDD426D35A6649C9AF0A81A4 /* forest.mp3 */; };
+		FE8CB700B57542E29F9844B1 /* piano.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82C87A6E978D41A4A79278D7 /* piano.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +87,10 @@
 		6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */ = {isa = PBXFileReference; name = "Muli-Light.ttf"; path = "../assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */ = {isa = PBXFileReference; name = "Muli-Regular.ttf"; path = "../assets/fonts/Muli-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; name = "Muli-SemiBold.ttf"; path = "../assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F481000C789043F1B69F1004 /* ._Muli-Black.ttf */ = {isa = PBXFileReference; name = "._Muli-Black.ttf"; path = "../assets/fonts/._Muli-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5901C56E908F4379B0BFCBFB /* ambient.mp3 */ = {isa = PBXFileReference; name = "ambient.mp3"; path = "../assets/mp3s/ambient.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EDD426D35A6649C9AF0A81A4 /* forest.mp3 */ = {isa = PBXFileReference; name = "forest.mp3"; path = "../assets/mp3s/forest.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		82C87A6E978D41A4A79278D7 /* piano.mp3 */ = {isa = PBXFileReference; name = "piano.mp3"; path = "../assets/mp3s/piano.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +233,10 @@
 				6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */,
 				86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */,
 				6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */,
+				F481000C789043F1B69F1004 /* ._Muli-Black.ttf */,
+				5901C56E908F4379B0BFCBFB /* ambient.mp3 */,
+				EDD426D35A6649C9AF0A81A4 /* forest.mp3 */,
+				82C87A6E978D41A4A79278D7 /* piano.mp3 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -382,6 +394,10 @@
 				987AD1E647E34B8A93A5A118 /* Muli-Light.ttf in Resources */,
 				4FF28596871E45EA9C063E6D /* Muli-Regular.ttf in Resources */,
 				11F74E3324AE4CC2A5E6B227 /* Muli-SemiBold.ttf in Resources */,
+				D55110291DE74F1693CEAFD8 /* ._Muli-Black.ttf in Resources */,
+				D09869EE0EF54009912F2569 /* ambient.mp3 in Resources */,
+				8B743B6B26D74ACEB35C1F66 /* forest.mp3 in Resources */,
+				FE8CB700B57542E29F9844B1 /* piano.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

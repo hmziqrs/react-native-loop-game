@@ -1,6 +1,7 @@
 import Home from 'screens/Home';
 import Level from 'screens/Level';
 import Levels from 'screens/Levels';
+import Settings from 'screens/Settings';
 import AboutApp from 'screens/AboutApp';
 import AboutDeveloper from 'screens/AboutDeveloper';
 
@@ -9,6 +10,7 @@ export const routes = {
   level: { screen: Level },
   levels: { screen: Levels },
   aboutApp: { screen: AboutApp },
+  settings: { screen: Settings },
   aboutDeveloper: { screen: AboutDeveloper },
 };
 

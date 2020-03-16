@@ -39,6 +39,12 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: typography.label1,
   },
+  version: {
+    ...getFont(600),
+    textAlign: 'center',
+    marginTop: scaling(4),
+    color: colors.darkBackground.alpha(0.4),
+  },
 });
 
 export default styles;
