@@ -76,7 +76,12 @@ export default function LevelScreen({ navigation }) {
             <Icon
               animated
               name={success ? 'camera' : 'menu'}
-              style={[styles.captureIcon, { color: animateColor('accent', 'accent') }]}
+              style={[
+                styles.captureIcon,
+                {
+                  color: success ? animateColor('accent', 'accent') : theme.light.accent.alpha(0.4),
+                },
+              ]}
             />
           </TouchNative>
         </View>

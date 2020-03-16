@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, Animated } from 'react-native';
 import PropTypes from 'prop-types';
-import { TouchNative } from 'rn-hgl';
+import { TouchNative, scaling } from 'rn-hgl';
 
 import { initLayout } from 'utils/ui';
 
@@ -19,10 +19,11 @@ export default function LevelSelectOverlay({
   setToggle,
   navigation,
 }) {
-  const { opacity, mount, header, setHeader } = useHook(toggle);
+  const { animation, mount, header, setHeader } = useHook(toggle);
   const init = () => initLayout(600, 'spring');
 
   useEffect(() => {
+    initLayout();
     let timeout;
     if (toggle) {
       timeout = setTimeout(() => {
@@ -45,7 +46,10 @@ export default function LevelSelectOverlay({
     return (
       <TouchNative noFeedback style={[styles.base]} onPress={close}>
         <Animated.View
-          style={[styles.flex, { opacity, backgroundColor: theme.light.primary.alpha(0.7) }]}
+          style={[
+            styles.flex,
+            { opacity: animation, backgroundColor: theme.light.primary.alpha(0.7) },
+          ]}
         >
           <Animated.View style={styles.header}>
             <TouchNative
@@ -74,7 +78,19 @@ export default function LevelSelectOverlay({
               React Native Loop
             </Animated.Text>
           </View>
-          <Animated.View style={[styles.controlsHolder, { backgroundColor: theme.light.primary }]}>
+          <Animated.View
+            style={[
+              styles.controlsHolder,
+              {
+                backgroundColor: theme.light.primary,
+                opacity: animation,
+                top: animation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [scaling(16), 0],
+                }),
+              },
+            ]}
+          >
             <TouchNative onPress={prev} style={styles.controlButton}>
               <Icon
                 name="chevron-left"

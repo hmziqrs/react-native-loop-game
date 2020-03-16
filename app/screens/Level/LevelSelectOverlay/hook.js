@@ -4,13 +4,13 @@ import { Animated, Easing } from 'react-native';
 export default function useHook(toggle) {
   const [mount, setMount] = useState(toggle);
   const [header, setHeader] = useState(false);
-  const [opacity] = useState(new Animated.Value(0.0));
+  const [animation] = useState(new Animated.Value(0.0));
 
   useEffect(() => {
     if (toggle) {
       setMount(true);
     }
-    Animated.timing(opacity, {
+    Animated.timing(animation, {
       toValue: toggle ? 1.0 : 0.0,
       duration: 400,
       ease: Easing.ease,
@@ -23,7 +23,7 @@ export default function useHook(toggle) {
   return useMemo(() => ({
     mount,
     header,
-    opacity,
+    animation,
     setHeader,
   }));
 }

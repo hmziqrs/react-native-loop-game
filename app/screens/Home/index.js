@@ -10,7 +10,7 @@ import styles from './styles';
 const links = [
   { key: 'levels', label: 'Explore Levels' },
   { key: 'aboutApp', label: 'About App' },
-  { key: 'aboutDev', label: 'About Developer' },
+  { key: 'aboutDeveloper', label: 'About Developer' },
 ];
 
 function HomeScreen({ navigation }) {
