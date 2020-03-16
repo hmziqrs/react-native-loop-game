@@ -15,7 +15,7 @@ import styles from './styles';
 
 function AboutDeveloperScreen({ navigation }) {
   return (
-    <PageView type="scroll" navigation={navigation} baseStyle={styles.page} name="home">
+    <PageView type="scroll" navigation={navigation} baseStyle={styles.page}>
       <View style={styles.redSection}>
         <TouchNative style={styles.backButtonBase} onPress={() => navigation.pop()}>
           <Icon name="chevron-left" style={styles.backButtonIcon} />

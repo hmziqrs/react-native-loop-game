@@ -11,13 +11,13 @@ const styles = StyleSheet.create({
     padding: scaling(1),
   },
   title: {
+    ...getFont(700),
     marginHorizontal: scaling(2),
     fontSize: typography.heading1,
-    ...getFont(700),
   },
   description: {
-    fontSize: typography.label1,
     color: colors.primary,
+    fontSize: typography.label1,
     marginHorizontal: scaling(2),
   },
   buttonsHolder: {
@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
     ...elevation(platform.isIOS ? 1.5 : 4),
   },
   buttonText: {
+    ...getFont(600),
     textAlign: 'center',
     color: colors.primary,
     fontSize: typography.label1,
-    ...getFont(600),
   },
 });
 

@@ -11,7 +11,7 @@ import styles from './styles';
 
 function HomeScreen({ navigation }) {
   return (
-    <PageView navigation={navigation} style={styles.container} name="home">
+    <PageView navigation={navigation}>
       <Text style={styles.title}>Levels</Text>
       <View style={styles.levelsHolder}>
         {Object.keys(levels).map((level) => (

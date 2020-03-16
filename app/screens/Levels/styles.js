@@ -1,41 +1,40 @@
 import { StyleSheet } from 'react-native';
-import { scaling } from 'rn-hgl/utils';
-import { typography } from 'configs';
+import { scaling } from 'rn-hgl';
 
-import level from 'engine/levels/level-1';
-import { dimensions, platform } from 'rn-hgl';
-import { elevation } from 'rn-hgl/styles';
+import { typography, colors } from 'configs';
 
-const { theme } = level;
+import { getMaxWidth } from 'utils/ui';
+import { getFont } from 'utils/fonts';
+
+const BUTTON_WIDTH = getMaxWidth() / 2 - scaling(4) - 4;
 
 const styles = StyleSheet.create({
   container: {
     padding: scaling(1),
-    backgroundColor: theme.light.primary,
   },
   title: {
-    margin: scaling(1),
+    ...getFont(700),
+    marginHorizontal: scaling(3),
     fontSize: typography.heading1,
   },
   levelsHolder: {
     flexWrap: 'wrap',
     flexDirection: 'row',
+    margin: scaling(1.5),
+    marginTop: scaling(2),
     justifyContent: 'center',
   },
   levelBase: {
-    borderWidth: 2,
     borderRadius: 5,
-    margin: scaling(2),
+    borderWidth: 1.5,
+    width: BUTTON_WIDTH,
+    margin: scaling(1.5),
+    borderColor: colors.primary,
     paddingVertical: scaling(3),
-    width: dimensions.width / 5,
-    borderColor: theme.light.accent,
-    backgroundColor: theme.light.primary,
-    ...elevation(platform.isIOS ? 2.5 : 5),
   },
   levelText: {
-    fontWeight: '700',
+    ...getFont(600),
     textAlign: 'center',
-    color: theme.light.accent,
     fontSize: typography.label1,
   },
 });

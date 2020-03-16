@@ -4,23 +4,12 @@ import { Text } from 'react-native';
 
 import analytics from '@react-native-firebase/analytics';
 import { enableScreens } from 'react-native-screens'; //eslint-disable-line
-import { setDomain } from 'rn-hgl/services';
 import '@react-native-firebase/crashlytics';
 import 'react-native-gesture-handler';
 
 import { getFont } from 'utils/fonts';
 
-import configs, { colors, typography } from 'configs';
-
-// const defaultStyles = {
-//   allowFontScaling: false,
-//   style: {
-//     color: colors.reddit.string(),
-//     fontSize: typography.label1,
-//     ...getFont(),
-//     fontFamily: 'Muli-Regular',
-//   },
-// };
+import { colors, typography } from 'configs';
 
 const sourceRender = Text.render;
 Text.render = function render(props, ref) {
@@ -36,8 +25,5 @@ Text.render = function render(props, ref) {
   ]);
 };
 
-analytics().setAnalyticsCollectionEnabled(true);
 enableScreens();
-setDomain(configs.DOMAIN);
-// setCustomText(defaultStyles);
-// setCustomTextInput(defaultStyles);
+analytics().setAnalyticsCollectionEnabled(true);

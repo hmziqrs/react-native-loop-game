@@ -23,7 +23,7 @@ const links = [
 
 function AboutAppScreen({ navigation }) {
   return (
-    <PageView navigation={navigation} style={styles.container} name="about">
+    <PageView navigation={navigation} style={styles.container}>
       <Text style={styles.title}>About App</Text>
       <Text style={styles.description}>React Native Loop is just a fun experimint of mine.</Text>
       <Text style={styles.description2}>
