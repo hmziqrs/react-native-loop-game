@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { platform, scaling, dimensions } from 'rn-hgl';
+import { scaling, dimensions } from 'rn-hgl';
 
 import { typography, colors } from 'configs';
 import { getFont } from 'utils/fonts';

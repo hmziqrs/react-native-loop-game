@@ -18,11 +18,10 @@
     "lint:staged": "lint-staged",
     "prettify": "prettier --config .prettierrc --write \"**/*.js\"",
     "tmp-fix": "babel-node ./temp/fix.js",
-    "setup": "npm i react-native-asset -g"
+    "setup": "npm i react-native-asset eslint -g"
   },
   "lint-staged": {
-    "*.js": "eslint",
-    "*.json": "prettier --write"
+    "*.js": ["eslint ./app", "prettier --write"]
   },
   "pre-commit": "lint:staged",
   "dependencies": {
@@ -86,7 +85,7 @@
     "eslint-plugin-react-native": "3.8.1",
     "eslint-plugin-redux-saga": "1.1.1",
     "jetifier": "1.6.5",
-    "lint-staged": "9.5.0",
+    "lint-staged": "10.0.8",
     "metro-react-native-babel-preset": "0.57.0",
     "node-plop": "0.23.0",
     "plop": "2.5.3",

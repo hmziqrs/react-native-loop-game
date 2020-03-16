@@ -41,6 +41,7 @@ export default function LevelScreen({ navigation }) {
             #{level}
           </Animated.Text>
           {grid.map((column, y) => (
+            // eslint-disable-next-line
             <View key={y} style={styles.row}>
               {column.map(({ id, type, animation }, x) => (
                 <Shapes
@@ -52,6 +53,7 @@ export default function LevelScreen({ navigation }) {
                   animateColor={animateColor}
                   theme={success ? theme.dark : theme.light}
                   setRotate={() => {
+                    // eslint-disable-next-line
                     if (['null'].indexOf(type) === -1 && Number.isInteger(animation._value)) {
                       setRotate(x, y);
                     }

@@ -1,5 +1,5 @@
 /*
-    This styles.js doesn't contain any prebuilt styles 
+    This styles.js doesn't contain any prebuilt styles
 */
 
 const arcOffsets = {
@@ -10,7 +10,7 @@ const arcOffsets = {
 };
 
 let color = () => {};
-let success = false;
+let success = false; // eslint-disable-line
 let size = 0;
 
 export function setData(animateColor, bool, dimensions) {

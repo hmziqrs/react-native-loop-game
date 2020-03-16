@@ -46,28 +46,26 @@ export function rotateBox(box) {
   bottom: 2
   left: 3
 */
-
 export function calculateSuccess(grid) {
   const yEnd = grid.length - 1;
   const yStart = 0;
 
-  // console.log('/* Before loop */');
-  // let loop = 0;
-
+  // eslint-disable-next-line
   for (let y = 0; y < grid.length; y++) {
     const row = grid[y];
 
+    // eslint-disable-next-line
     for (let x = 0; x < row.length; x++) {
       const box = row[x];
       const xEnd = row.length - 1;
       const xStart = 0;
 
       if (box.type === 'null') {
-        continue;
+        continue; //eslint-disable-line
       }
 
+      // eslint-disable-next-line
       for (let index = 0; index < box.values.length; index++) {
-        // loop++;
         const value = box.values[index];
         // console.log(`y: ${y}, x: ${x}, index: ${index}, type ${box.type}, values: ${box.values}`);
 
@@ -93,8 +91,6 @@ export function calculateSuccess(grid) {
       }
     }
   }
-  // console.log('/* After loop */');
-  // console.log('Loop', loop);
 
   return true;
 }

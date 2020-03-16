@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchNative } from 'rn-hgl';
 
 import * as styles from './styles';
 
-export default function Shapes({ size, animation, type, setRotate, theme, success, animateColor }) {
+export default function Shapes({ size, animation, type, setRotate, success, animateColor }) {
   styles.setData(animateColor, success, size);
   let child = null;
   const rotate = animation.interpolate({
@@ -56,7 +56,6 @@ Shapes.propTypes = {
   setRotate: PropTypes.func.isRequired,
   animation: PropTypes.any.isRequired,
   success: PropTypes.bool.isRequired,
-  theme: PropTypes.object.isRequired,
   size: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
 };

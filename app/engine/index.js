@@ -10,7 +10,7 @@ import * as UI from './utils/ui';
 
 import levels from './levels';
 
-export default function useEngine(forceLevel, overlayToggle) {
+export default function useEngine(forceLevel) {
   const [level, setLevel] = useState(forceLevel);
   const { data, theme } = levels[level];
   const [grid, setGrid] = useState(data2Grid(data));

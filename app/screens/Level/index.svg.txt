@@ -8,8 +8,6 @@
   I thought to do this in canvas but canvas use WebView under the hood so that'a no go as well
 */
 
-
-
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import color from 'color';
@@ -66,7 +64,11 @@ export default function LevelScreen({ navigation }) {
           rowGrid.map(({ x, y }) => {
             const key = getKey(x, y);
             return (
-              <Shapes.G key={key} transform={`rotate(0 ${origin + x * size} ${origin + y * size})`} onPress={() => setRotate(x,y)}>
+              <Shapes.G
+                key={key}
+                transform={`rotate(0 ${origin + x * size} ${origin + y * size})`}
+                onPress={() => setRotate(x, y)}
+              >
                 <Shapes.Rect
                   x={x + x * size + 1}
                   y={y + y * size + 1}

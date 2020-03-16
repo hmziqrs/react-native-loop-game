@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "es2020",
     "allowSyntheticDefaultImports": true,
+    "target": "ES6",
+    "moduleResolution": "node",
     "baseUrl": "./app/"
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
