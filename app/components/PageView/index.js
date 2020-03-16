@@ -42,7 +42,7 @@ function PageView({
       <SafeAreaView {...baseProps} style={[styles.base].concat([baseStyle])}>
         {afterRender}
         {header ? <Header {...header} /> : null}
-        <Comp style={[styles.flex].concat(style)} {...compProps} {...props} ref={innerRef}>
+        <Comp style={[styles.container].concat(style)} {...compProps} {...props} ref={innerRef}>
           {children}
         </Comp>
         {footer}

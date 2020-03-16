@@ -10,7 +10,7 @@ import * as UI from './utils/ui';
 
 import levels from './levels';
 
-export default function useEngine(forceLevel) {
+export default function useEngine(forceLevel, overlayToggle) {
   const [level, setLevel] = useState(forceLevel);
   const { data, theme } = levels[level];
   const [grid, setGrid] = useState(data2Grid(data));
@@ -26,6 +26,7 @@ export default function useEngine(forceLevel) {
     let toValue = newBox.rotate;
 
     if (newBox.type === 'line') {
+      // eslint-disable-next-line
       toValue = newBox.animation._value + 1;
     }
     if (toValue === 0) {
@@ -92,7 +93,8 @@ export default function useEngine(forceLevel) {
 
   useEffect(() => {
     const check = calculateSuccess(grid);
-    setTimeout(() => setSuccess(check), delay / 2);
+    const timeout = setTimeout(() => setSuccess(check), delay / 2);
+    return () => clearTimeout(timeout);
   });
 
   useEffect(() => {

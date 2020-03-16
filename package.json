@@ -17,7 +17,8 @@
     "eslint:fix": "eslint ./app --fix",
     "lint:staged": "lint-staged",
     "prettify": "prettier --config .prettierrc --write \"**/*.js\"",
-    "tmp-fix": "babel-node ./temp/fix.js"
+    "tmp-fix": "babel-node ./temp/fix.js",
+    "setup": "npm i react-native-asset -g"
   },
   "lint-staged": {
     "*.js": "eslint",

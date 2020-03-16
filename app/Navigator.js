@@ -3,15 +3,9 @@ import createNativeStackNavigator from 'react-native-screens/createNativeStackNa
 
 import routes from './routes';
 
-const Navigator = createNativeStackNavigator(
-  {
-    home: routes.home,
-    level: routes.level,
-  },
-  {
-    initialRouteName: 'home',
-    headerMode: 'none',
-  },
-);
+const Navigator = createNativeStackNavigator(routes, {
+  initialRouteName: 'home',
+  headerMode: 'none',
+});
 
 export default createAppContainer(Navigator);

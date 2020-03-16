@@ -22,6 +22,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+._*
 
 # BUCK
 buck-out/

@@ -20,11 +20,11 @@ export const typography = {
 
   body1: scaling(5.0),
   body2: scaling(4.5),
-  body3: scaling(4),
+  body3: scaling(4.0),
 
-  label1: scaling(3),
-  label2: scaling(2.5),
-  label3: scaling(2),
+  label1: scaling(3.5),
+  label2: scaling(3.0),
+  label3: scaling(2.5),
 };
 
 export const themes = {

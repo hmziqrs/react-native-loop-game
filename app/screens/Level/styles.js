@@ -4,8 +4,8 @@ import { scaling, dimensions } from 'rn-hgl';
 import { colors, typography } from 'configs';
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.white.string(),
+  transparent: {
+    backgroundColor: colors.transparent,
   },
   currentLevel: {
     textAlign: 'center',
@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
     marginTop: scaling(4),
   },
   blockBase: {
-    top: dimensions.height,
     left: 0,
     right: 0,
     bottom: 0,
     position: 'absolute',
+    top: dimensions.height,
     backgroundColor: colors.transparent,
   },
   blockVisible: {

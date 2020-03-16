@@ -21,6 +21,13 @@
 		71832B3912205982479CC9A3 /* libPods-rnloop-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC8DDD7911ED760476B8670 /* libPods-rnloop-tvOS.a */; };
 		92037739241CE73900223CAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92037738241CE73900223CAA /* GoogleService-Info.plist */; };
 		F30E33E30CE063EE67DFD3FD /* libPods-rnloop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D363B2868308B0ED0C2BE60 /* libPods-rnloop.a */; };
+		A7C4981E506B42A496A338B3 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742BC9BF469F4F1084C850AE /* Muli-Black.ttf */; };
+		4ED736FF77A046D88418B44F /* Muli-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98F628D823F54ABDA912F830 /* Muli-Bold.ttf */; };
+		CD4170F6D1A3486EB3DAE830 /* Muli-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */; };
+		4799B3DF10F44CDD96BCC403 /* Muli-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */; };
+		987AD1E647E34B8A93A5A118 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */; };
+		4FF28596871E45EA9C063E6D /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */; };
+		11F74E3324AE4CC2A5E6B227 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +76,13 @@
 		EAC8DDD7911ED760476B8670 /* libPods-rnloop-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnloop-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		742BC9BF469F4F1084C850AE /* Muli-Black.ttf */ = {isa = PBXFileReference; name = "Muli-Black.ttf"; path = "../assets/fonts/Muli-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		98F628D823F54ABDA912F830 /* Muli-Bold.ttf */ = {isa = PBXFileReference; name = "Muli-Bold.ttf"; path = "../assets/fonts/Muli-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Muli-ExtraBold.ttf"; path = "../assets/fonts/Muli-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Muli-ExtraLight.ttf"; path = "../assets/fonts/Muli-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */ = {isa = PBXFileReference; name = "Muli-Light.ttf"; path = "../assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */ = {isa = PBXFileReference; name = "Muli-Regular.ttf"; path = "../assets/fonts/Muli-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; name = "Muli-SemiBold.ttf"; path = "../assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +182,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				DEDEA9C8C11726977249AA1A /* Pods */,
+				1EAC85EB5E304F5489B55078 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -199,6 +214,21 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		1EAC85EB5E304F5489B55078 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				742BC9BF469F4F1084C850AE /* Muli-Black.ttf */,
+				98F628D823F54ABDA912F830 /* Muli-Bold.ttf */,
+				EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */,
+				4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */,
+				6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */,
+				86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */,
+				6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -290,7 +320,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -345,6 +375,13 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				92037739241CE73900223CAA /* GoogleService-Info.plist in Resources */,
+				A7C4981E506B42A496A338B3 /* Muli-Black.ttf in Resources */,
+				4ED736FF77A046D88418B44F /* Muli-Bold.ttf in Resources */,
+				CD4170F6D1A3486EB3DAE830 /* Muli-ExtraBold.ttf in Resources */,
+				4799B3DF10F44CDD96BCC403 /* Muli-ExtraLight.ttf in Resources */,
+				987AD1E647E34B8A93A5A118 /* Muli-Light.ttf in Resources */,
+				4FF28596871E45EA9C063E6D /* Muli-Regular.ttf in Resources */,
+				11F74E3324AE4CC2A5E6B227 /* Muli-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

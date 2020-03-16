@@ -8,6 +8,7 @@ import Icon from 'components/Icon';
 
 import useEngine from 'engine';
 
+import LevelSelectOverlay from './LevelSelectOverlay';
 import useToggle from './toggle.hook';
 import Shapes from './Shapes';
 import styles from './styles';
@@ -15,73 +16,80 @@ import styles from './styles';
 export default function LevelScreen({ navigation }) {
   const { params } = navigation.state;
   const forceLevel = parseInt(params.level, 10) || 1;
+  const { toggle, setToggle } = useToggle();
+
   const {
     level,
     size,
     grid,
-    controls,
-    setRotate,
+    theme,
     capture,
     success,
-    theme,
+    controls,
+    setRotate,
     animateColor,
-  } = useEngine(forceLevel);
+  } = useEngine(forceLevel, toggle);
   const ref = useRef();
-  const { toggle, setToggle } = useToggle();
 
+  const bgStyle = { flex: 1, backgroundColor: animateColor('primary', 'primary') };
   return (
-    <PageView key={level} navigation={navigation} style={styles.container}>
-      <StatusBar animated barStyle={success ? 'light-content' : 'dark-content'} />
-      <Animated.View
-        ref={ref}
-        style={[styles.gridContainer, { backgroundColor: animateColor('primary', 'primary') }]}
-      >
-        <Animated.Text style={[styles.currentLevel, { color: animateColor('accent', 'accent') }]}>
-          #{level}
-        </Animated.Text>
-        {grid.map((column, y) => (
-          <View key={y} style={styles.row}>
-            {column.map(({ id, type, animation }, x) => (
-              <Shapes
-                key={id}
-                size={size}
-                type={type}
-                success={success}
-                animation={animation}
-                animateColor={animateColor}
-                theme={success ? theme.dark : theme.light}
-                setRotate={() => {
-                  if (['null'].indexOf(type) === -1 && Number.isInteger(animation._value)) {
-                    setRotate(x, y);
-                  }
-                }}
-              />
-            ))}
-          </View>
-        ))}
-      </Animated.View>
-      <TouchNative
-        noFeedback
-        style={[styles.blockBase, success ? styles.blockVisible : {}]}
-        onPress={() => {
-          controls.next();
-        }}
-      >
-        <View />
-      </TouchNative>
-      <View style={[styles.captureBase, { backgroundColor: theme.primary }]}>
+    <Animated.View style={bgStyle}>
+      <PageView key={level} navigation={navigation} baseStyle={styles.transparent}>
+        <StatusBar animated barStyle={success ? 'light-content' : 'dark-content'} />
+        <View ref={ref} style={[styles.gridContainer]}>
+          <Animated.Text style={[styles.currentLevel, { color: animateColor('accent', 'accent') }]}>
+            #{level}
+          </Animated.Text>
+          {grid.map((column, y) => (
+            <View key={y} style={styles.row}>
+              {column.map(({ id, type, animation }, x) => (
+                <Shapes
+                  key={id}
+                  size={size}
+                  type={type}
+                  success={success}
+                  animation={animation}
+                  animateColor={animateColor}
+                  theme={success ? theme.dark : theme.light}
+                  setRotate={() => {
+                    if (['null'].indexOf(type) === -1 && Number.isInteger(animation._value)) {
+                      setRotate(x, y);
+                    }
+                  }}
+                />
+              ))}
+            </View>
+          ))}
+        </View>
         <TouchNative
-          style={styles.capture}
-          onPress={() => (success ? capture(ref) : setToggle(true))}
+          noFeedback
+          onPress={controls.next}
+          style={[styles.blockBase, success ? styles.blockVisible : {}]}
         >
-          <Icon
-            animated
-            name={success ? 'camera' : 'menu'}
-            style={[styles.captureIcon, { color: animateColor('accent', 'accent') }]}
-          />
+          <View />
         </TouchNative>
-      </View>
-    </PageView>
+        <View style={[styles.captureBase, { backgroundColor: theme.primary }]}>
+          <TouchNative
+            style={styles.capture}
+            onPress={() => (success ? capture(ref) : setToggle(true))}
+          >
+            <Icon
+              animated
+              name={success ? 'camera' : 'menu'}
+              style={[styles.captureIcon, { color: animateColor('accent', 'accent') }]}
+            />
+          </TouchNative>
+        </View>
+      </PageView>
+      <LevelSelectOverlay
+        theme={theme}
+        level={level}
+        toggle={toggle}
+        setToggle={setToggle}
+        navigation={navigation}
+        {...controls}
+      />
+    </Animated.View>
   );
 }
 

@@ -4,6 +4,7 @@ import { scaling } from 'rn-hgl/utils';
 import { platform } from 'rn-hgl';
 
 import { typography, colors } from 'configs';
+import { getFont } from 'utils/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,8 +13,10 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: scaling(2),
     fontSize: typography.heading1,
+    ...getFont(700),
   },
   description: {
+    fontSize: typography.label1,
     color: colors.primary,
     marginHorizontal: scaling(2),
   },
@@ -33,6 +36,8 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: colors.primary,
+    fontSize: typography.label1,
+    ...getFont(600),
   },
 });
 

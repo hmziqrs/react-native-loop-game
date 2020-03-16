@@ -1,22 +1,26 @@
 import { LayoutAnimation } from 'react-native';
 
-export const animationConfig = {
-  duration: 200,
-  create: {
-    duration: 200,
-    type: LayoutAnimation.Types.linear,
-    property: LayoutAnimation.Properties.opacity,
-  },
-  update: {
-    duration: 200,
-    type: LayoutAnimation.Types.linear,
-    property: LayoutAnimation.Properties.opacity,
-  },
-  delete: {
-    duration: 200,
-    type: LayoutAnimation.Types.linear,
-    property: LayoutAnimation.Properties.opacity,
-  },
-};
+export const initLayout = (duration = 200, type = 'linear') => {
+  if (type === 'spring') {
+    return LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+  }
 
-export const initLayout = () => LayoutAnimation.configureNext(animationConfig);
+  return LayoutAnimation.configureNext({
+    duration,
+    create: {
+      duration,
+      type: LayoutAnimation.Types[type],
+      property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+      duration,
+      type: LayoutAnimation.Types[type],
+      property: LayoutAnimation.Properties.opacity,
+    },
+    delete: {
+      duration,
+      type: LayoutAnimation.Types[type],
+      property: LayoutAnimation.Properties.opacity,
+    },
+  });
+};
