@@ -44,11 +44,9 @@ function App() {
   });
 
   return (
-    <>
-      <SettingsContextProvider>
-        <Navigator onNavigationStateChange={onRouteChange} />
-      </SettingsContextProvider>
-    </>
+    <SettingsContextProvider>
+      <Navigator onNavigationStateChange={onRouteChange} />
+    </SettingsContextProvider>
   );
 }
 

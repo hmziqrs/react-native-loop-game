@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Text } from 'react-native';
+import { useIsFocused } from 'react-navigation-hooks';
 import PropTypes from 'prop-types';
 import { TouchNative } from 'rn-hgl';
+
+import { SettingsContext } from 'contexts/Settings';
 
 import PageView from 'components/PageView';
 
@@ -15,6 +18,13 @@ const links = [
 ];
 
 function HomeScreen({ navigation }) {
+  const isFocused = useIsFocused();
+  const state = useContext(SettingsContext);
+  useEffect(() => {
+    if (isFocused) {
+      state.player.pause();
+    }
+  }, [isFocused]);
   return (
     <PageView navigation={navigation} style={styles.container}>
       <Text style={styles.title}>Welcome</Text>

@@ -3,8 +3,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { captureRef } from 'react-native-view-shot';
 import share from 'react-native-share';
 
-// import { initLayout } from 'utils/ui';
-
 import { rotateBox, calculateSuccess, data2Grid } from './utils';
 import * as UI from './utils/ui';
 

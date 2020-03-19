@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 export function sleep(data = null, duration = 1000) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -37,4 +39,11 @@ export function socialLink(username, platform) {
     return `${base}/linkedin.com/in/${username}`;
   }
   return null;
+}
+
+export function useDidMount() {
+  const [didMount, setDidMount] = useState(false);
+  useEffect(() => setDidMount(true), []);
+
+  return didMount;
 }

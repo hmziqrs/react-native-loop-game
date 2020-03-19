@@ -19,6 +19,16 @@ const links = [
     label: 'Original App',
     url: 'https://play.google.com/store/apps/details?id=com.balysv.loop',
   },
+  {
+    icon: 'apple',
+    label: 'Original App',
+    url: 'https://apps.apple.com/us/app/infinity-loop-endless-zen/id977028266',
+  },
+  {
+    icon: 'web',
+    label: 'Orange Free Sounds',
+    url: 'http://www.orangefreesounds.com/',
+  },
 ];
 
 function AboutAppScreen({ navigation }) {
@@ -29,11 +39,14 @@ function AboutAppScreen({ navigation }) {
       <Text style={styles.description2}>
         I crafted this app becuase I wanted to understand how does loop game calculate result &
         figure out a way to implement the game interface in React Native Eco-system as much as
-        possible with all the good animations & themes. So I implemented first 13 levels with clean
-        code, good architecture & no redux.
+        possible with all the good animations & themes. So I implemented few levels with clean code,
+        good architecture & no redux.
       </Text>
       <Text style={styles.note}>
         Original app & Github code&apos;s link is shared below & any peice of code is free to use
+      </Text>
+      <Text style={styles.note}>
+        All musics are downloaded from orangefreesounds.com. Link is shared below
       </Text>
       <View style={styles.buttonsHolder}>
         {links.map((link) => (
