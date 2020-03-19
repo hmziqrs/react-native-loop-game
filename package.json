@@ -1,24 +1,26 @@
 {
   "name": "rnloop",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "12.13.1",
+    "npm": "6.12.1"
+  },
   "scripts": {
     "start": "npx react-native start",
     "setup-ios": "cd node_modules/react-native && scripts/ios-install-third-party.sh && cd third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh",
     "setup-pods": "cd ios && pod install",
     "ios": "npx react-native run-ios --simulator=\"iPhone 8\"",
+    "ios-link": "cd ios && pod install && cd .. && npm run ios",
     "android": "npx react-native run-android",
     "clean-native": "rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-* && watchman watch-del-all && rm -rf .git/index.lock package-lock.json yarn.lock node_modules/ ios/build android/build/ android/app/build && npm i && cd ios && pod cache clean -all && pod install && cd .. && npm start -- --reset-cache",
     "clean-android": "rm -rf android/app/build",
-    "extract-intl": "babel-node ./internals/scripts/extract-intl.js",
-    "npmcheckversion": "node ./internals/scripts/npmcheckversion.js",
-    "generate": "plop --plopfile internals/generators/index.js",
     "eslint": "eslint ./app",
     "eslint:fix": "eslint ./app --fix",
     "lint:staged": "lint-staged",
     "prettify": "prettier --config .prettierrc --write \"**/*.js\"",
     "tmp-fix": "babel-node ./temp/fix.js",
-    "setup": "npm i react-native-asset eslint -g"
+    "setup": "npm i react-native-asset@2.0.0 eslint@6.8.0 prettier@1.19.1 react-native-cli@2.0.1 -g"
   },
   "lint-staged": {
     "*.js": [
@@ -45,7 +47,7 @@
     "react": "16.12.0",
     "react-intl": "3.9.1",
     "react-native": "0.61.5",
-    "react-native-animatable": "^1.3.3",
+    "react-native-animatable": "1.3.3",
     "react-native-device-info": "5.3.1",
     "react-native-gesture-handler": "1.5.2",
     "react-native-global-props": "1.1.5",
@@ -80,7 +82,7 @@
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "babel-polyfill": "6.26.0",
     "babel-preset-react-native": "4.0.1",
-    "eslint": "6.7.2",
+    "eslint": "6.8.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-config-prettier": "6.7.0",
