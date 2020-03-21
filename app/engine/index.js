@@ -1,6 +1,7 @@
 import { Animated, Easing } from 'react-native';
 import { useState, useEffect, useMemo } from 'react';
 import { captureRef } from 'react-native-view-shot';
+import performance from '@react-native-firebase/perf';
 import share from 'react-native-share';
 
 import { rotateBox, calculateSuccess, data2Grid } from './utils';
@@ -8,7 +9,13 @@ import * as UI from './utils/ui';
 
 import levels from './levels';
 
-export default function useEngine(forceLevel) {
+/**
+ * I had to pass player refrence becuase when we share screenshot
+ * it calls a native library to share image & I kind of put app in background state
+ * react-native-audio-toolkit is configured only play music when app is on screen
+ */
+
+export default function useEngine(forceLevel, player) {
   const [level, setLevel] = useState(forceLevel);
   const { data, theme } = levels[level];
   const [grid, setGrid] = useState(data2Grid(data));
@@ -50,16 +57,25 @@ export default function useEngine(forceLevel) {
 
   async function capture(ref) {
     try {
+      const trace = await performance().startTrace('capture_screenshot');
+
       const base64 = await captureRef(ref, {
         format: 'jpg',
         quality: 1.0,
         result: 'base64',
       });
+      await trace.stop();
       await share.open({
-        url: `data:image/jpg;base64,${base64}`,
+        url: `data:image/jpeg;base64,${base64}`,
         filename: `rn-loop-game-${new Date().getTime()}`,
       });
+
+      // await sleep(4000);
+      player.play();
     } catch (e) {
+      console.log(e);
+
+      player.play();
       // e
     }
   }

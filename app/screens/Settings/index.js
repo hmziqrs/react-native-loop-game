@@ -29,6 +29,7 @@ function SettingsScreen({ navigation }) {
       <Text style={styles.heading}>Volume: {parseInt(volume * 100, 10)}</Text>
       <View>
         <Slider
+          step={0.1}
           minimumValue={0}
           maximumValue={1}
           style={styles.volumeSlider}

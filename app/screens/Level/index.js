@@ -30,84 +30,93 @@ export default function LevelScreen({ navigation }) {
     controls,
     setRotate,
     animateColor,
-  } = useEngine(forceLevel, toggle);
+  } = useEngine(forceLevel, state.player);
   const ref = useRef();
 
-  useEffect(() => {
-    if (!state.player.isPlaying) {
-      state.player.play();
-    }
-    return () => {
-      state.player.pause();
-    };
-  }, ['hard-code']);
+  state.getPlayer().play();
+  useEffect(
+    () => () => {
+      state.getPlayer().pause();
+    },
+    [],
+  );
 
   const bgStyle = { flex: 1, backgroundColor: animateColor('primary', 'primary') };
   return (
-    <Animated.View ref={ref} style={bgStyle}>
-      <PageView key={level} navigation={navigation} baseStyle={styles.transparent}>
-        <StatusBar animated barStyle={success ? 'light-content' : 'dark-content'} />
-        <View style={[styles.gridContainer]}>
-          <Animated.Text style={[styles.currentLevel, { color: animateColor('accent', 'accent') }]}>
-            #{level}
-          </Animated.Text>
-          {grid.map((column, y) => (
-            // eslint-disable-next-line
-            <View key={y} style={styles.row}>
-              {column.map(({ id, type, animation }, x) => (
-                <Shapes
-                  key={id}
-                  size={size}
-                  type={type}
-                  success={success}
-                  animation={animation}
-                  animateColor={animateColor}
-                  theme={success ? theme.dark : theme.light}
-                  setRotate={() => {
-                    // eslint-disable-next-line
-                    if (['null'].indexOf(type) === -1 && Number.isInteger(animation._value)) {
-                      setRotate(x, y);
-                    }
-                  }}
-                />
-              ))}
-            </View>
-          ))}
-        </View>
-        <TouchNative
-          noFeedback
-          onPress={controls.next}
-          style={[styles.blockBase, success ? styles.blockVisible : {}]}
-        >
-          <View />
-        </TouchNative>
-        <View style={[styles.captureBase, { backgroundColor: theme.primary }]}>
+    <>
+      <Animated.View ref={ref} style={bgStyle}>
+        <PageView key={level} navigation={navigation} baseStyle={styles.transparent}>
+          <StatusBar animated barStyle={success ? 'light-content' : 'dark-content'} />
+          <View style={[styles.gridContainer]}>
+            <Animated.Text
+              style={[styles.currentLevel, { color: animateColor('accent', 'accent') }]}
+            >
+              #{level}
+            </Animated.Text>
+            {grid.map((column, y) => (
+              // eslint-disable-next-line
+              <View key={y} style={styles.row}>
+                {column.map(({ id, type, animation }, x) => (
+                  <Shapes
+                    key={id}
+                    size={size}
+                    type={type}
+                    success={success}
+                    animation={animation}
+                    animateColor={animateColor}
+                    theme={success ? theme.dark : theme.light}
+                    setRotate={() => {
+                      // eslint-disable-next-line
+                      if (['null'].indexOf(type) === -1 && Number.isInteger(animation._value)) {
+                        setRotate(x, y);
+                      }
+                    }}
+                  />
+                ))}
+              </View>
+            ))}
+          </View>
           <TouchNative
-            style={styles.capture}
-            onPress={() => (success ? capture(ref) : setToggle(true))}
+            noFeedback
+            onPress={controls.next}
+            style={[styles.blockBase, success ? styles.blockVisible : {}]}
           >
-            <Icon
-              animated
-              name={success ? 'camera' : 'menu'}
-              style={[
-                styles.captureIcon,
-                {
-                  color: success ? animateColor('accent', 'accent') : theme.light.accent.alpha(0.4),
-                },
-              ]}
-            />
+            <View />
           </TouchNative>
-        </View>
-      </PageView>
-      <LevelSelectOverlay
-        theme={theme}
-        level={level}
-        toggle={toggle}
-        setToggle={setToggle}
-        navigation={navigation}
-        {...controls}
-      />
-    </Animated.View>
+          <View style={styles.watermark}>
+            <Animated.Text style={[styles.watermarkText, { color: animateColor('accent') }]}>
+              React Native Loop
+            </Animated.Text>
+          </View>
+        </PageView>
+
+        <LevelSelectOverlay
+          theme={theme}
+          level={level}
+          toggle={toggle}
+          setToggle={setToggle}
+          navigation={navigation}
+          {...controls}
+        />
+      </Animated.View>
+      <Animated.View style={[styles.captureBase, { backgroundColor: animateColor('primary') }]}>
+        <TouchNative
+          style={styles.capture}
+          onPress={() => (success ? capture(ref) : setToggle(true))}
+        >
+          <Icon
+            animated
+            name={success ? 'camera' : 'menu'}
+            style={[
+              styles.captureIcon,
+              {
+                color: success ? animateColor('accent', 'accent') : theme.light.accent.alpha(0.4),
+              },
+            ]}
+          />
+        </TouchNative>
+      </Animated.View>
+    </>
   );
 }
 

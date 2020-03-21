@@ -27,6 +27,7 @@ function PageView({
   noKeyBoard,
   navigation,
   afterRender,
+  disableMaxContainer,
   ...props
 }) {
   let Comp = View;
@@ -42,7 +43,12 @@ function PageView({
       <SafeAreaView {...baseProps} style={[styles.base].concat([baseStyle])}>
         {afterRender}
         {header ? <Header {...header} /> : null}
-        <Comp style={[styles.container].concat(style)} {...compProps} {...props} ref={innerRef}>
+        <Comp
+          style={[styles.container, disableMaxContainer ? {} : styles.maxContainer].concat(style)}
+          {...compProps}
+          {...props}
+          ref={innerRef}
+        >
           {children}
         </Comp>
         {footer}
@@ -58,6 +64,7 @@ PageView.propTypes = {
   gradient: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   navigation: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
+  disableMaxContainer: PropTypes.bool,
   afterRender: PropTypes.node,
   baseProps: PropTypes.object,
   noKeyBoard: PropTypes.bool,
@@ -70,6 +77,7 @@ PageView.propTypes = {
 };
 
 PageView.defaultProps = {
+  disableMaxContainer: false,
   innerRef: () => {},
   afterRender: null,
   noKeyBoard: false,

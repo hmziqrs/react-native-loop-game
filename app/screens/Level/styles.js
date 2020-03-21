@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { scaling, dimensions } from 'rn-hgl';
 
 import { colors, typography } from 'configs';
+import { getFont } from 'utils/fonts';
 
 const styles = StyleSheet.create({
   transparent: {
@@ -21,19 +22,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  watermark: {
-    fontWeight: '600',
-    bottom: scaling(4),
-    textAlign: 'center',
-    position: 'absolute',
-    fontSize: typography.body3,
-  },
   captureBase: {
     left: 0,
     right: 0,
     bottom: 0,
     position: 'absolute',
-    paddingBottom: scaling(4),
+    paddingBottom: scaling(5),
   },
   capture: {
     alignSelf: 'center',
@@ -44,6 +38,17 @@ const styles = StyleSheet.create({
   },
   nextLevel: {
     marginTop: scaling(4),
+  },
+  watermark: {
+    left: 0,
+    right: 0,
+    bottom: scaling(6),
+    position: 'absolute',
+  },
+  watermarkText: {
+    ...getFont(600),
+    fontSize: typography.heading3,
+    textAlign: 'center',
   },
   blockBase: {
     left: 0,

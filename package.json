@@ -14,7 +14,7 @@
     "ios-link": "cd ios && pod install && cd .. && npm run ios",
     "android": "npx react-native run-android",
     "clean-native": "rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-* && watchman watch-del-all && rm -rf .git/index.lock package-lock.json yarn.lock node_modules/ ios/build android/build/ android/app/build && npm i && cd ios && pod cache clean -all && pod install && cd .. && npm start -- --reset-cache",
-    "clean-android": "rm -rf android/app/build",
+    "clean-android": "rm -rf android/app/build && ./gradlew clean",
     "eslint": "eslint ./app",
     "eslint:fix": "eslint ./app --fix",
     "lint:staged": "lint-staged",
@@ -66,7 +66,7 @@
     "redux-immutable": "4.0.0",
     "redux-saga": "1.1.3",
     "reselect": "4.0.0",
-    "rn-hgl": "0.6.2"
+    "rn-hgl": "0.6.4"
   },
   "devDependencies": {
     "@babel/cli": "7.7.5",
