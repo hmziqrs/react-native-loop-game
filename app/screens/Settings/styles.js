@@ -23,7 +23,8 @@ const styles = new DynamicStyleSheet({
   },
   radioBase: {
     flexDirection: 'row',
-    marginTop: scaling(3),
+    marginVertical: scaling(1.5),
+    paddingVertical: scaling(1),
   },
   radioLabel: {
     marginLeft: scaling(3),

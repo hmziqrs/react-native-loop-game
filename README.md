@@ -30,23 +30,6 @@
 > Please note that this project's code is not meant for beginners! If you're just getting started with flutter I recommend you to explore some ToDo and basic setState apps and get yourself familiar with react eco-system becuase in this project intermediate and advance implementations are use which will confuse you and won't help much in terms of learning.
 
 - `init.js` initialize default settings like styles, theme & API.
-- `UI.dart` provides constant for building responsive UI.
-- `blocs/` Intially I was going to implement Rest APIs but that seemed unnecessary & a lot of work So I'll probably remove `blocs/` in futrue.
-- `configs/AppDimensions.dart` this is the magical file. It provides the app with:
-  - My custom size unit based on device's width, height & pixel density.
-  - Responsive containers.
-  - Padding multiplier unit (I learned it with experience instead of using 1,2,3px should use multiplier. it helps maintain constancy around the app).
-- `Widgets/Screen.dart` This widget is necessary when building a new screen.
-  - configure theme & font style.
-  - You can show popUps. `final screenKey = GlobalKey<ScreenState>();` & `this.screenKey.showPopUp(message: "your message");`
-  - It also recieve a `belowBuilder` parameter which builds custom background (This enables us to build Parallax, Animated background & Any thing you could imagine in background). you can find an example in `Screens/Download/Download.dart`
-- Code structure is pretty much simple.
-  - Don't import anything form ScreenA in ScreenB.
-  - Don't import anthing from Screen/Widget in universal files.
-  - Don't import anthing from ScreenA specific Widget in universal files.
-  - Each Screen will have `Dimensions.dart` where you can write Screen's responsive logic.
-  - I didn't use snake_case in naming convention just becuase I don't prefer it.
-  - I use `this` for class's properties & methods I helps keep track of vriables & functions.
 
 
 ## Show support
@@ -61,14 +44,6 @@
 
 ## Download
 
-<div id="downloads">
-  <a href="https://play.google.com/store/apps/details?id=com.onemdev.flutter_ui_challenges">
-    <img src="https://raw.githubusercontent.com/hackerhgl/flutter-ui-designs/master/.github/assets/google-play.png" alt="Play Store badge" width="200" />
-  </a>
-  <a href="https://github.com/hackerhgl/flutter-ui-designs/releases/latest/download/app-release.apk">
-    <img src="https://raw.githubusercontent.com/hackerhgl/flutter-ui-designs/master/.github/assets/android.png" alt="Android badge" width="200" />
-  </a>
-</div>
 
 ## License
 

@@ -23,7 +23,7 @@ function SettingsScreen({ navigation }) {
   const [volume, setVolume] = useState(state.player.volume);
   const [activeTack, setTrack] = useState(-1);
   const styles = useDynamicStyleSheet(rawStyles);
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme, isDark } = useContext(ThemeContext);
 
   useEffect(() => {
     state.player.volume = volume;
@@ -40,7 +40,6 @@ function SettingsScreen({ navigation }) {
           maximumValue={1}
           style={styles.volumeSlider}
           value={volume}
-          maximumTrackTintColor="#000000"
           onSlidingStart={() => {
             if (!state.player.isPlaying) {
               forcePlay = true;
@@ -54,6 +53,8 @@ function SettingsScreen({ navigation }) {
             }
           }}
           minimumTrackTintColor={colors.primary}
+          thumbTintColor={isDark ? colors.white : colors.black}
+          maximumTrackTintColor={isDark ? colors.white : colors.black}
           onValueChange={(val) => {
             setVolume(val);
           }}

@@ -74,6 +74,7 @@ export default function ThemeContextProvider({ children }) {
       <ThemeContext.Provider
         value={{
           ...state,
+          isDark,
           setTheme,
           setDefaultStatusBar,
         }}

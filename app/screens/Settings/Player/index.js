@@ -152,8 +152,9 @@ export default function Player({ isActive, mp3, toggle, state, updateParent }) {
               minimumValue={0.0}
               maximumValue={state.player.duration}
               value={status.progress.asMilliseconds()}
-              maximumTrackTintColor="#000000"
               minimumTrackTintColor={colors.primary}
+              thumbTintColor={isDark ? colors.white : colors.black}
+              maximumTrackTintColor={isDark ? colors.white : colors.black}
               style={styles.bodySlider}
               onSlidingStart={() => {
                 runProgressBar(false);

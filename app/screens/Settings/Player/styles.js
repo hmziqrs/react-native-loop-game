@@ -52,6 +52,7 @@ const styles = new DynamicStyleSheet({
   },
   playIcon: {
     fontSize: scaling(7),
+    color: new DynamicValue(colors.dark, colors.white),
   },
   bodySlider: {
     flex: 1,
