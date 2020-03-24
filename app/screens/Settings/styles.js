@@ -1,10 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import { scaling } from 'rn-hgl/utils';
 
 import { typography, colors } from 'configs';
 import { getFont } from 'utils/fonts';
 
-const styles = StyleSheet.create({
+const styles = new DynamicStyleSheet({
+  screen: {
+    backgroundColor: new DynamicValue(colors.white, colors.darkBackground),
+  },
   container: {
     padding: scaling(3),
   },
@@ -17,6 +20,14 @@ const styles = StyleSheet.create({
     marginTop: scaling(4),
     color: colors.primary,
     fontSize: typography.body2,
+  },
+  radioBase: {
+    flexDirection: 'row',
+    marginTop: scaling(3),
+  },
+  radioLabel: {
+    marginLeft: scaling(3),
+    fontSize: typography.body3,
   },
 });
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDynamicStyleSheet, useDarkMode } from 'react-native-dark-mode';
 import * as Animatable from 'react-native-animatable';
 import Slider from '@react-native-community/slider';
 import moment from 'moment';
@@ -12,7 +13,7 @@ import { useDidMount } from 'utils';
 
 import Icon from 'components/Icon';
 
-import styles from './styles';
+import rawStyles from './styles';
 
 let intervalState;
 
@@ -24,6 +25,10 @@ export default function Player({ isActive, mp3, toggle, state, updateParent }) {
   const didMount = useDidMount();
   const [mount, setMount] = useState(true);
   const setStatusSafe = (v) => setStatus({ ...status, ...v });
+  const styles = useDynamicStyleSheet(rawStyles);
+  const isDark = useDarkMode();
+  const themeColor = isDark ? 'white' : 'dark';
+
   const runProgressBar = (bool) => {
     if (bool) {
       intervalState = setInterval(() => {
@@ -57,19 +62,14 @@ export default function Player({ isActive, mp3, toggle, state, updateParent }) {
 
   return (
     <View style={styles.playerBase}>
-      <TouchNative
-        onPress={() => {
-          toggle();
-        }}
-        style={styles.playerHeader}
-      >
+      <TouchNative onPress={toggle} style={styles.playerHeader}>
         <Animatable.Text
           duration={400}
           transition="color"
           style={[
             styles.playerHeaderText,
             {
-              color: colors[isActive ? 'primary' : 'black'].fade(0.0001).string(),
+              color: colors[isActive ? 'primary' : themeColor].fade(0.0001).string(),
             },
           ]}
         >
@@ -83,7 +83,7 @@ export default function Player({ isActive, mp3, toggle, state, updateParent }) {
           style={[
             styles.playerHeaderIcon,
             {
-              color: colors[isActive ? 'primary' : 'black'].fade(0.0001).string(),
+              color: colors[isActive ? 'primary' : themeColor].fade(0.0001).string(),
               transform: [
                 {
                   rotate: isActive ? '180deg' : '0deg',

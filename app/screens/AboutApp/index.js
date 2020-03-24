@@ -1,39 +1,19 @@
 import React from 'react';
 import { View, Text, Linking } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { TouchNative } from 'rn-hgl';
 
 import PageView from 'components/PageView';
 import Icon from 'components/Icon';
 
-import styles from './styles';
-
-const links = [
-  {
-    label: 'Github',
-    icon: 'github-circle',
-    url: 'https://github.com/hackerhgl/react-native-loop-clone',
-  },
-  {
-    icon: 'google-play',
-    label: 'Original App',
-    url: 'https://play.google.com/store/apps/details?id=com.balysv.loop',
-  },
-  {
-    icon: 'apple',
-    label: 'Original App',
-    url: 'https://apps.apple.com/us/app/infinity-loop-endless-zen/id977028266',
-  },
-  {
-    icon: 'web',
-    label: 'Orange Free Sounds',
-    url: 'http://www.orangefreesounds.com/',
-  },
-];
+import rawStyles from './styles';
+import { links } from './data';
 
 function AboutAppScreen({ navigation }) {
+  const styles = useDynamicStyleSheet(rawStyles);
   return (
-    <PageView navigation={navigation} style={styles.container}>
+    <PageView navigation={navigation} style={styles.container} baseStyle={styles.screen}>
       <Text style={styles.title}>About App</Text>
       <Text style={styles.description}>React Native Loop is just a fun experimint of mine.</Text>
       <Text style={styles.description2}>

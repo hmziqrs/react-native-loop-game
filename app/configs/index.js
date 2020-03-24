@@ -9,7 +9,7 @@ export const colors = {
   ...defaultColors,
   accent: Color('#1565C0'),
   primary: Color('#cc2f2c'),
-  darkBackground: Color('#1b1b1a'),
+  darkBackground: Color('#1c1c1e'),
   textColor: Color('#1b1b1a'),
 };
 

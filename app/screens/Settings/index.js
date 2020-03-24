@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDynamicStyleSheet } from 'react-native-dark-mode';
+import RadioButton from 'react-native-radio-button';
 import Slider from '@react-native-community/slider';
+import { TouchNative, scaling } from 'rn-hgl';
 
 import { colors } from 'configs';
 
 import { SettingsContext, MP3S } from 'contexts/Settings';
+import { ThemeContext, THEMES } from 'contexts/Theme';
 
 import PageView from 'components/PageView';
 
-import styles from './styles';
+import rawStyles from './styles';
 import Player from './Player';
 
 let forcePlay = false;
@@ -18,13 +22,15 @@ function SettingsScreen({ navigation }) {
   const state = useContext(SettingsContext);
   const [volume, setVolume] = useState(state.player.volume);
   const [activeTack, setTrack] = useState(-1);
+  const styles = useDynamicStyleSheet(rawStyles);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     state.player.volume = volume;
   }, [volume]);
 
   return (
-    <PageView navigation={navigation} style={styles.container}>
+    <PageView navigation={navigation} style={styles.container} baseStyle={styles.screen}>
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.heading}>Volume: {parseInt(volume * 100, 10)}</Text>
       <View>
@@ -53,9 +59,7 @@ function SettingsScreen({ navigation }) {
           }}
         />
       </View>
-
       <Text style={styles.heading}>MP3 Track: {state.mp3.replace('.mp3', '')}</Text>
-
       {Object.keys(MP3S).map((key, index) => {
         const mp3 = MP3S[key];
         const isActive = index === activeTack;
@@ -70,6 +74,19 @@ function SettingsScreen({ navigation }) {
           />
         );
       })}
+      <Text style={styles.heading}>Theme: {theme}</Text>
+      {Object.keys(THEMES).map((key) => (
+        <TouchNative key={key} style={styles.radioBase} onPress={() => setTheme(key)}>
+          <RadioButton
+            animation="fadeIn"
+            isSelected={key === theme}
+            size={scaling(3)}
+            innerColor={colors.primary.string()}
+            outerColor={colors.primary.string()}
+          />
+          <Text style={styles.radioLabel}>{key}</Text>
+        </TouchNative>
+      ))}
     </PageView>
   );
 }

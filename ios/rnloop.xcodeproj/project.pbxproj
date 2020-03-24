@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* rnloopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* rnloopTests.m */; };
+		11F74E3324AE4CC2A5E6B227 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -17,20 +18,19 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* rnloopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* rnloopTests.m */; };
+		4799B3DF10F44CDD96BCC403 /* Muli-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */; };
+		4ED736FF77A046D88418B44F /* Muli-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98F628D823F54ABDA912F830 /* Muli-Bold.ttf */; };
+		4FF28596871E45EA9C063E6D /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */; };
 		52DD2B45DF65AC7F7A2BD46B /* libPods-rnloop-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B48DFA631AB1F05CF8261670 /* libPods-rnloop-tvOSTests.a */; };
 		71832B3912205982479CC9A3 /* libPods-rnloop-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC8DDD7911ED760476B8670 /* libPods-rnloop-tvOS.a */; };
-		92037739241CE73900223CAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92037738241CE73900223CAA /* GoogleService-Info.plist */; };
-		F30E33E30CE063EE67DFD3FD /* libPods-rnloop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D363B2868308B0ED0C2BE60 /* libPods-rnloop.a */; };
-		A7C4981E506B42A496A338B3 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742BC9BF469F4F1084C850AE /* Muli-Black.ttf */; };
-		4ED736FF77A046D88418B44F /* Muli-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98F628D823F54ABDA912F830 /* Muli-Bold.ttf */; };
-		CD4170F6D1A3486EB3DAE830 /* Muli-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */; };
-		4799B3DF10F44CDD96BCC403 /* Muli-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */; };
-		987AD1E647E34B8A93A5A118 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */; };
-		4FF28596871E45EA9C063E6D /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */; };
-		11F74E3324AE4CC2A5E6B227 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */; };
-		D55110291DE74F1693CEAFD8 /* ._Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F481000C789043F1B69F1004 /* ._Muli-Black.ttf */; };
-		D09869EE0EF54009912F2569 /* ambient.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5901C56E908F4379B0BFCBFB /* ambient.mp3 */; };
 		8B743B6B26D74ACEB35C1F66 /* forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EDD426D35A6649C9AF0A81A4 /* forest.mp3 */; };
+		92037739241CE73900223CAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92037738241CE73900223CAA /* GoogleService-Info.plist */; };
+		987AD1E647E34B8A93A5A118 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */; };
+		A7C4981E506B42A496A338B3 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742BC9BF469F4F1084C850AE /* Muli-Black.ttf */; };
+		CD4170F6D1A3486EB3DAE830 /* Muli-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */; };
+		D09869EE0EF54009912F2569 /* ambient.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5901C56E908F4379B0BFCBFB /* ambient.mp3 */; };
+		D55110291DE74F1693CEAFD8 /* ._Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F481000C789043F1B69F1004 /* ._Muli-Black.ttf */; };
+		F30E33E30CE063EE67DFD3FD /* libPods-rnloop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D363B2868308B0ED0C2BE60 /* libPods-rnloop.a */; };
 		FE8CB700B57542E29F9844B1 /* piano.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82C87A6E978D41A4A79278D7 /* piano.mp3 */; };
 /* End PBXBuildFile section */
 
@@ -68,10 +68,18 @@
 		2D02E4901E0B4A5D006451C7 /* rnloop-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rnloop-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3094B47B60186511A1CD1973 /* libPods-rnloopTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnloopTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A949B43711D420DEE1081DC /* Pods-rnloop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnloop.debug.xcconfig"; path = "Target Support Files/Pods-rnloop/Pods-rnloop.debug.xcconfig"; sourceTree = "<group>"; };
+		4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-ExtraLight.ttf"; path = "../assets/fonts/Muli-ExtraLight.ttf"; sourceTree = "<group>"; };
+		5901C56E908F4379B0BFCBFB /* ambient.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = ambient.mp3; path = ../assets/mp3s/ambient.mp3; sourceTree = "<group>"; };
 		5B8D2533098FF2DFC364DB67 /* Pods-rnloopTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnloopTests.release.xcconfig"; path = "Target Support Files/Pods-rnloopTests/Pods-rnloopTests.release.xcconfig"; sourceTree = "<group>"; };
+		6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-SemiBold.ttf"; path = "../assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; };
+		6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Light.ttf"; path = "../assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; };
 		6D363B2868308B0ED0C2BE60 /* libPods-rnloop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnloop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		742BC9BF469F4F1084C850AE /* Muli-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Black.ttf"; path = "../assets/fonts/Muli-Black.ttf"; sourceTree = "<group>"; };
 		81E08FFD93AD69E9866F1751 /* Pods-rnloopTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnloopTests.debug.xcconfig"; path = "Target Support Files/Pods-rnloopTests/Pods-rnloopTests.debug.xcconfig"; sourceTree = "<group>"; };
+		82C87A6E978D41A4A79278D7 /* piano.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = piano.mp3; path = ../assets/mp3s/piano.mp3; sourceTree = "<group>"; };
+		86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Regular.ttf"; path = "../assets/fonts/Muli-Regular.ttf"; sourceTree = "<group>"; };
 		92037738241CE73900223CAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		98F628D823F54ABDA912F830 /* Muli-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Bold.ttf"; path = "../assets/fonts/Muli-Bold.ttf"; sourceTree = "<group>"; };
 		A9BB70DBC89CB8664634A76B /* Pods-rnloop-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnloop-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-rnloop-tvOSTests/Pods-rnloop-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		B48DFA631AB1F05CF8261670 /* libPods-rnloop-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnloop-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA42029E92DF3A12D504F428 /* Pods-rnloop-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnloop-tvOS.release.xcconfig"; path = "Target Support Files/Pods-rnloop-tvOS/Pods-rnloop-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -80,17 +88,9 @@
 		EAC8DDD7911ED760476B8670 /* libPods-rnloop-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnloop-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		742BC9BF469F4F1084C850AE /* Muli-Black.ttf */ = {isa = PBXFileReference; name = "Muli-Black.ttf"; path = "../assets/fonts/Muli-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		98F628D823F54ABDA912F830 /* Muli-Bold.ttf */ = {isa = PBXFileReference; name = "Muli-Bold.ttf"; path = "../assets/fonts/Muli-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Muli-ExtraBold.ttf"; path = "../assets/fonts/Muli-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Muli-ExtraLight.ttf"; path = "../assets/fonts/Muli-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */ = {isa = PBXFileReference; name = "Muli-Light.ttf"; path = "../assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */ = {isa = PBXFileReference; name = "Muli-Regular.ttf"; path = "../assets/fonts/Muli-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; name = "Muli-SemiBold.ttf"; path = "../assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F481000C789043F1B69F1004 /* ._Muli-Black.ttf */ = {isa = PBXFileReference; name = "._Muli-Black.ttf"; path = "../assets/fonts/._Muli-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5901C56E908F4379B0BFCBFB /* ambient.mp3 */ = {isa = PBXFileReference; name = "ambient.mp3"; path = "../assets/mp3s/ambient.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EDD426D35A6649C9AF0A81A4 /* forest.mp3 */ = {isa = PBXFileReference; name = "forest.mp3"; path = "../assets/mp3s/forest.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		82C87A6E978D41A4A79278D7 /* piano.mp3 */ = {isa = PBXFileReference; name = "piano.mp3"; path = "../assets/mp3s/piano.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EDD426D35A6649C9AF0A81A4 /* forest.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = forest.mp3; path = ../assets/mp3s/forest.mp3; sourceTree = "<group>"; };
+		EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-ExtraBold.ttf"; path = "../assets/fonts/Muli-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F481000C789043F1B69F1004 /* ._Muli-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "._Muli-Black.ttf"; path = "../assets/fonts/._Muli-Black.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +161,24 @@
 			name = rnloop;
 			sourceTree = "<group>";
 		};
+		1EAC85EB5E304F5489B55078 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				742BC9BF469F4F1084C850AE /* Muli-Black.ttf */,
+				98F628D823F54ABDA912F830 /* Muli-Bold.ttf */,
+				EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */,
+				4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */,
+				6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */,
+				86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */,
+				6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */,
+				F481000C789043F1B69F1004 /* ._Muli-Black.ttf */,
+				5901C56E908F4379B0BFCBFB /* ambient.mp3 */,
+				EDD426D35A6649C9AF0A81A4 /* forest.mp3 */,
+				82C87A6E978D41A4A79278D7 /* piano.mp3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,25 +240,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		1EAC85EB5E304F5489B55078 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				742BC9BF469F4F1084C850AE /* Muli-Black.ttf */,
-				98F628D823F54ABDA912F830 /* Muli-Bold.ttf */,
-				EDEEB33904C143368F6C47CB /* Muli-ExtraBold.ttf */,
-				4534EDB9D1D94B21BA45561C /* Muli-ExtraLight.ttf */,
-				6488E09F79BA462A8EDFFF30 /* Muli-Light.ttf */,
-				86D7AC0F1D6146A0A647BD70 /* Muli-Regular.ttf */,
-				6434B6DFEA574F5E943FEC4F /* Muli-SemiBold.ttf */,
-				F481000C789043F1B69F1004 /* ._Muli-Black.ttf */,
-				5901C56E908F4379B0BFCBFB /* ambient.mp3 */,
-				EDD426D35A6649C9AF0A81A4 /* forest.mp3 */,
-				82C87A6E978D41A4A79278D7 /* piano.mp3 */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

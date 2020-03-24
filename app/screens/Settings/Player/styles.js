@@ -1,14 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import { scaling } from 'rn-hgl/utils';
 
 import { colors } from 'configs';
 import { getFont } from 'utils/fonts';
 
-const styles = StyleSheet.create({
+const borderColor = new DynamicValue(colors.darkBackground.alpha(0.15), colors.white.alpha(0.15));
+
+const styles = new DynamicStyleSheet({
   playerBase: {
+    borderColor,
     borderWidth: 1,
     borderRadius: 4,
-    borderColor: colors.darkBackground.alpha(0.15),
     marginTop: scaling(3),
   },
   playerHeader: {
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
   },
   br: {
     height: 0.0,
-    backgroundColor: colors.darkBackground.alpha(0.15),
+    backgroundColor: borderColor,
   },
   brActive: {
     height: 1.0,

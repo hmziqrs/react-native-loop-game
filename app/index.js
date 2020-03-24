@@ -11,16 +11,15 @@ import { isIOS } from 'rn-hgl/platform';
 import { colors } from 'configs';
 
 import SettingsContextProvider from 'contexts/Settings';
+import ThemeContextProvider from 'contexts/Theme';
 
 import Navigator from './Navigator';
-import routesMap from './routes.map';
 
 function onRouteChange(prevState, currentState) {
   const currentScreen = getActiveRouteName(currentState);
   const prevScreen = getActiveRouteName(prevState);
   if (prevScreen !== currentScreen) {
     analytics().setCurrentScreen(currentScreen, currentScreen);
-    StatusBar.setBarStyle(routesMap[currentScreen].statusBar);
   }
 }
 
@@ -32,21 +31,24 @@ function initStatusbar() {
 }
 
 function App() {
+  const timeout = setTimeout(initStatusbar, 100);
+
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  const timeout = setTimeout(initStatusbar, 100);
-
   initStatusbar();
+
   useEffect(() => () => {
     clearTimeout(timeout);
   });
 
   return (
-    <SettingsContextProvider>
-      <Navigator onNavigationStateChange={onRouteChange} />
-    </SettingsContextProvider>
+    <ThemeContextProvider>
+      <SettingsContextProvider>
+        <Navigator onNavigationStateChange={onRouteChange} />
+      </SettingsContextProvider>
+    </ThemeContextProvider>
   );
 }
 

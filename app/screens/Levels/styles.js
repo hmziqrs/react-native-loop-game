@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import { scaling } from 'rn-hgl';
 
 import { typography, colors } from 'configs';
@@ -8,9 +8,9 @@ import { getFont } from 'utils/fonts';
 
 const BUTTON_WIDTH = getMaxWidth() / 2 - scaling(4) - 4;
 
-const styles = StyleSheet.create({
-  container: {
-    padding: scaling(1),
+const styles = new DynamicStyleSheet({
+  screen: {
+    backgroundColor: new DynamicValue(colors.white, colors.darkBackground),
   },
   title: {
     ...getFont(700),

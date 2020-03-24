@@ -69,14 +69,9 @@ export default function useEngine(forceLevel, player) {
         url: `data:image/jpeg;base64,${base64}`,
         filename: `rn-loop-game-${new Date().getTime()}`,
       });
-
-      // await sleep(4000);
       player.play();
     } catch (e) {
-      console.log(e);
-
       player.play();
-      // e
     }
   }
 
@@ -125,7 +120,6 @@ export default function useEngine(forceLevel, player) {
     grid,
     level,
     theme,
-    // theme: levels[level].theme.dark,
     success,
     capture,
     setRotate,

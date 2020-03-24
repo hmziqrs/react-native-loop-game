@@ -81,9 +81,9 @@ function AboutDeveloperScreen({ navigation }) {
             ))}
           </View>
         </View>
-        <View style={styles.avatarBase}>
-          <Image source={avatarImage} style={styles.avatarImage} resizeMode="cover" />
-        </View>
+      </View>
+      <View style={styles.avatarBase}>
+        <Image source={avatarImage} style={styles.avatarImage} resizeMode="cover" />
       </View>
     </PageView>
   );

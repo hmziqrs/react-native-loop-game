@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import { elevation } from 'rn-hgl/styles';
 import { scaling } from 'rn-hgl/utils';
 import { platform } from 'rn-hgl';
@@ -6,7 +6,10 @@ import { platform } from 'rn-hgl';
 import { typography, colors } from 'configs';
 import { getFont } from 'utils/fonts';
 
-const styles = StyleSheet.create({
+const styles = new DynamicStyleSheet({
+  screen: {
+    backgroundColor: new DynamicValue(colors.white, colors.darkBackground),
+  },
   container: {
     padding: scaling(1),
   },
@@ -16,8 +19,8 @@ const styles = StyleSheet.create({
     fontSize: typography.heading1,
   },
   description: {
-    fontSize: typography.label1,
     color: colors.primary,
+    fontSize: typography.label1,
     marginHorizontal: scaling(2),
   },
   description2: {
@@ -42,12 +45,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: scaling(2),
     marginHorizontal: scaling(2),
-    backgroundColor: colors.white,
     borderColor: colors.primary.alpha(0.5),
     ...elevation(platform.isIOS ? 1.5 : 4),
+    backgroundColor: new DynamicValue(colors.white, colors.darkBackground),
   },
   buttonIcon: {
     fontSize: scaling(4),
+    color: new DynamicValue(colors.dark, colors.white),
   },
   buttonText: {
     ...getFont(600),

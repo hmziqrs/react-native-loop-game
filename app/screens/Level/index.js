@@ -1,9 +1,11 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import { View, StatusBar, Animated } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDarkMode } from 'react-native-dark-mode';
 import { TouchNative } from 'rn-hgl';
 
 import { SettingsContext } from 'contexts/Settings';
+import { ThemeContext } from 'contexts/Theme';
 
 import PageView from 'components/PageView';
 import Icon from 'components/Icon';
@@ -20,6 +22,7 @@ export default function LevelScreen({ navigation }) {
   const forceLevel = parseInt(params.level, 10) || 1;
   const { toggle, setToggle } = useToggle();
   const state = useContext(SettingsContext);
+  const { setDefaultStatusBar } = useContext(ThemeContext);
   const {
     level,
     size,
@@ -37,16 +40,21 @@ export default function LevelScreen({ navigation }) {
   useEffect(
     () => () => {
       state.getPlayer().pause();
+      setDefaultStatusBar();
     },
     [],
   );
+
+  useEffect(() => {
+    StatusBar.setBarStyle(success ? 'light-content' : 'dark-content', true);
+  });
 
   const bgStyle = { flex: 1, backgroundColor: animateColor('primary', 'primary') };
   return (
     <>
       <Animated.View ref={ref} style={bgStyle}>
         <PageView key={level} navigation={navigation} baseStyle={styles.transparent}>
-          <StatusBar animated barStyle={success ? 'light-content' : 'dark-content'} />
+          {/* <StatusBar animated barStyle={} /> */}
           <View style={[styles.gridContainer]}>
             <Animated.Text
               style={[styles.currentLevel, { color: animateColor('accent', 'accent') }]}

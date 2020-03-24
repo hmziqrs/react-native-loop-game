@@ -12,18 +12,27 @@ import { getFont } from 'utils/fonts';
 import { colors, typography } from 'configs';
 
 const sourceRender = Text.render;
-Text.render = function render(props, ref) {
-  return sourceRender.apply(this, [
-    {
-      ...props,
-      style: [
-        { ...getFont(), color: colors.dark.string(), fontSize: typography.label1 },
-        props.style,
-      ],
-    },
-    ref,
-  ]);
-};
+
+export function setText(isDark = false) {
+  Text.render = function render(props, ref) {
+    return sourceRender.apply(this, [
+      {
+        ...props,
+        style: [
+          {
+            ...getFont(),
+            color: isDark ? colors.white : colors.dark,
+            fontSize: typography.label1,
+          },
+          props.style,
+        ],
+      },
+      ref,
+    ]);
+  };
+}
+
+setText();
 
 enableScreens();
 analytics().setAnalyticsCollectionEnabled(true);

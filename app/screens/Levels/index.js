@@ -1,17 +1,19 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { TouchNative } from 'rn-hgl';
 
 import levels from 'engine/levels';
 
 import PageView from 'components/PageView';
 
-import styles from './styles';
+import rawStyles from './styles';
 
 function HomeScreen({ navigation }) {
+  const styles = useDynamicStyleSheet(rawStyles);
   return (
-    <PageView navigation={navigation}>
+    <PageView navigation={navigation} baseStyle={styles.screen}>
       <Text style={styles.title}>Levels</Text>
       <View style={styles.levelsHolder}>
         {Object.keys(levels).map((level) => (
