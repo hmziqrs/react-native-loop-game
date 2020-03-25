@@ -1,0 +1,30 @@
+on:
+  push:
+    tags:
+      - '*'
+
+name: Release Builds
+jobs:
+  linux:
+    name: Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - uses: actions/checkout@v2
+        with:
+          path: 'app'
+
+      - run: |
+          cd app
+          npm i
+          npm run release-android
+
+      - name: Publish Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'app/android/app/build/outputs/apk/release/app-release.apk'
+          token: ${{ secrets.TOKEN }}
+          allowUpdates: true
