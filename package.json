@@ -10,7 +10,7 @@
     "start": "npx react-native start",
     "setup-ios": "cd node_modules/react-native && scripts/ios-install-third-party.sh && cd third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh",
     "setup-pods": "cd ios && pod install",
-    "ios": "npx react-native run-ios --simulator=\"iPhone 8\"",
+    "ios": "npx react-native run-ios",
     "ios-link": "cd ios && pod install && cd .. && npm run ios",
     "android": "npx react-native run-android",
     "bundle": "cd android && ./gradlew bundleRelease",

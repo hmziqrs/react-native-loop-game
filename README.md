@@ -16,20 +16,38 @@
   <dd>Helps maintain a readable code, easy to fix and more room to add new features.</dd>
 
   <dt>Open Source</dt>
-  <dd>Any piece of code is free to use anywhere except UI Designs you've to ask permission from relevant designers. Designer's information can be found in app.</dd>
+  <dd>Any piece of code is free to use anywhere except music you've to give credits to the creator in order to use them. Information can be found in app.</dd>
 </dl>
 
 ## Requirements to run locally
 
 > Just in case if you ran into errors make sure you're using correct react-native & nodejs version.
 
-- Run `npm run setup` to install required global npm packages with correct versions
+- Run `npm run setup` to install required global npm packages with correct versions.
+- Run `npx jetifier` to convert native libraries to AndroidX.
+- Run `npm start` to start the bundling server.
+- Run `npm run android` to build debug app for android.
+- Run `npm run ios` to build debug app for iOS.
 
 ## Getting started with code
 
 > Please note that this project's code is not meant for beginners! If you're just getting started with React Native I recommend you to explore some ToDo and basic setState apps and get yourself familiar with react eco-system becuase in this project intermediate and advance implementations are use which will confuse you and won't help much in terms of learning.
 
 - `init.js` initialize default settings like styles, theme & API.
+- `index.js` initialize root components like `Themes`, `Settings` & `Navigator`.
+- `configs/index.js` holds app's & level's theme.
+- `contexts/Settings/index.js` is responsible for chaning/cache game's music track & volume.
+- `contexts/Theme/index.js` is responsible for chaning/cache app's dark/light mode.
+- `engine` is responsible for game's logic.
+- `utils/index.js` holds custom general functions.
+- `utils/ui.js` holds custom UI related functions.
+- `utils/fonts.js`
+  - One of the fruits of using react-native is framework doesn't register custom font's weight automatically.
+  - So in order to change font weight your to use complete font family name+prefix eg `Muli-Bold`.
+  - This file helps us get correct font family name according to font weight.
+  - Please also beware for iOS & android font family naming conflicts. <a href="https://medium.com/@mehran.khan/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4" target="_medium">READ MORE</a>
+
+> **Reason I didn't use redux is, App isn't heavily relied on shared state in between screen. Only shared data is theme mode & music controls which are implemented with context in few lines of code. So using redux seems like a overkill for this small scale project**
 
 
 ## Show support
