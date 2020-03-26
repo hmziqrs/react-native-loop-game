@@ -30,7 +30,12 @@ function SettingsScreen({ navigation }) {
   }, [volume]);
 
   return (
-    <PageView navigation={navigation} style={styles.container} baseStyle={styles.screen}>
+    <PageView
+      type="scroll"
+      navigation={navigation}
+      style={styles.container}
+      baseStyle={styles.screen}
+    >
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.heading}>Volume: {parseInt(volume * 100, 10)}</Text>
       <View>

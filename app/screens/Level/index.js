@@ -1,7 +1,6 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import { View, StatusBar, Animated } from 'react-native';
 import PropTypes from 'prop-types';
-import { useDarkMode } from 'react-native-dark-mode';
 import { TouchNative } from 'rn-hgl';
 
 import { SettingsContext } from 'contexts/Settings';

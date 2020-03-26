@@ -13,7 +13,7 @@ import rawStyles from './styles';
 function HomeScreen({ navigation }) {
   const styles = useDynamicStyleSheet(rawStyles);
   return (
-    <PageView navigation={navigation} baseStyle={styles.screen}>
+    <PageView type="scroll" navigation={navigation} baseStyle={styles.screen}>
       <Text style={styles.title}>Levels</Text>
       <View style={styles.levelsHolder}>
         {Object.keys(levels).map((level) => (

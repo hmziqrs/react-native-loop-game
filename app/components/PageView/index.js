@@ -40,7 +40,11 @@ function PageView({
 
   const child = (
     <>
-      <SafeAreaView {...baseProps} style={[styles.base].concat([baseStyle])}>
+      <SafeAreaView
+        {...baseProps}
+        style={[styles.base].concat([baseStyle])}
+        forceInset={{ top: type !== 'scroll' ? 'always' : 'never' }}
+      >
         {afterRender}
         {header ? <Header {...header} /> : null}
         <Comp

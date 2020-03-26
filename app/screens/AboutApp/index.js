@@ -13,7 +13,12 @@ import { links } from './data';
 function AboutAppScreen({ navigation }) {
   const styles = useDynamicStyleSheet(rawStyles);
   return (
-    <PageView navigation={navigation} style={styles.container} baseStyle={styles.screen}>
+    <PageView
+      type="scroll"
+      navigation={navigation}
+      style={styles.container}
+      baseStyle={styles.screen}
+    >
       <Text style={styles.title}>About App</Text>
       <Text style={styles.description}>React Native Loop is just a fun experimint of mine.</Text>
       <Text style={styles.description2}>

@@ -11,10 +11,6 @@ const AVATAR_TOP_OFFSET = RED_SECTION_HEIGHT - AVATAR_BORDER_WIDTH - AVATAR_SIZE
 const AVATAR_LEFT_OFFSET = dimensions.width / 2 - AVATAR_SIZE / 2;
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: colors.primary,
-  },
   page: {
     backgroundColor: colors.primary,
   },
