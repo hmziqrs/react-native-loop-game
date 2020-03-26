@@ -3,7 +3,7 @@ on:
     tags:
       - '*'
 
-name: Release Builds
+name: Release Build
 jobs:
   linux:
     name: Android
@@ -14,17 +14,15 @@ jobs:
           java-version: '12.x'
 
       - uses: actions/checkout@v2
-        with:
-          path: 'app'
 
-      - run: |
-          cd app
-          npm i
-          npm run release-android
+      - run: npm i
+      - run: npx jetifier
+      - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - run: npm run release-android
 
       - name: Publish Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'app/android/app/build/outputs/apk/release/app-release.apk'
+          artifacts: 'android/app/build/outputs/apk/release/app-release.apk'
           token: ${{ secrets.TOKEN }}
           allowUpdates: true
