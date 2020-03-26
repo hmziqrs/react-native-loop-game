@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDynamicStyleSheet, useDarkMode } from 'react-native-dark-mode';
 import * as Animatable from 'react-native-animatable';
@@ -12,6 +12,7 @@ import { colors } from 'configs';
 import { useDidMount } from 'utils';
 
 import Icon from 'components/Icon';
+import Text from 'components/Text';
 
 import rawStyles from './styles';
 

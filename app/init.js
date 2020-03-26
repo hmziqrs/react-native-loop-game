@@ -9,30 +9,25 @@ import 'react-native-gesture-handler';
 
 import { getFont } from 'utils/fonts';
 
-import { colors, typography } from 'configs';
+import { typography } from 'configs';
 
 const sourceRender = Text.render;
 
-export function setText(isDark = false) {
-  Text.render = function render(props, ref) {
-    return sourceRender.apply(this, [
-      {
-        ...props,
-        style: [
-          {
-            ...getFont(),
-            color: isDark ? colors.white : colors.dark,
-            fontSize: typography.label1,
-          },
-          props.style,
-        ],
-      },
-      ref,
-    ]);
-  };
-}
-
-setText();
+Text.render = function render(props, ref) {
+  return sourceRender.apply(this, [
+    {
+      ...props,
+      style: [
+        {
+          ...getFont(),
+          fontSize: typography.label1,
+        },
+        props.style,
+      ],
+    },
+    ref,
+  ]);
+};
 
 enableScreens();
 analytics().setAnalyticsCollectionEnabled(true);

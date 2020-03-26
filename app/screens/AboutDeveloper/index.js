@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Linking } from 'react-native';
+import { View, Image, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchNative } from 'rn-hgl';
 
@@ -7,8 +7,9 @@ import avatarImage from 'assets/hamza.jpg';
 
 import * as utils from 'utils';
 
-import PageView from 'components/PageView';
 import pageViewStyles from 'components/PageView/styles';
+import PageView from 'components/PageView';
+import Text from 'components/Text';
 import Icon from 'components/Icon';
 
 import * as data from './data';
@@ -75,6 +76,8 @@ function AboutDeveloperScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.avatarBase}>
+        <View style={styles.avatarBgDark}></View>
+        <View style={styles.avatarBgPrimary}></View>
         <Image source={avatarImage} style={styles.avatarImage} resizeMode="cover" />
       </View>
     </PageView>

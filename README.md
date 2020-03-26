@@ -27,7 +27,7 @@
 
 ## Getting started with code
 
-> Please note that this project's code is not meant for beginners! If you're just getting started with flutter I recommend you to explore some ToDo and basic setState apps and get yourself familiar with react eco-system becuase in this project intermediate and advance implementations are use which will confuse you and won't help much in terms of learning.
+> Please note that this project's code is not meant for beginners! If you're just getting started with React Native I recommend you to explore some ToDo and basic setState apps and get yourself familiar with react eco-system becuase in this project intermediate and advance implementations are use which will confuse you and won't help much in terms of learning.
 
 - `init.js` initialize default settings like styles, theme & API.
 
@@ -43,6 +43,15 @@
 - Give a recommendation on <a href="https://www.freelancer.com/u/hackerhgl" target="freelance">Freelancer</a>.
 
 ## Download
+
+<div id="downloads">
+  <a href="https://play.google.com/store/apps/details?id=com.onemdev.rnloop">
+    <img src="https://raw.githubusercontent.com/hackerhgl/react-native-loop-game/master/.github/assets/google-play.png" alt="Play Store badge" width="200" />
+  </a>
+  <a href="https://github.com/hackerhgl/react-native-loop-game/releases/latest/download/app-release.apk">
+    <img src="https://raw.githubusercontent.com/hackerhgl/react-native-loop-game/master/.github/assets/android.png" alt="Android badge" width="200" />
+  </a>
+</div>
 
 
 ## License

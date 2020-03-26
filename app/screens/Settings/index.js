@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import RadioButton from 'react-native-radio-button';
@@ -12,6 +12,7 @@ import { SettingsContext, MP3S } from 'contexts/Settings';
 import { ThemeContext, THEMES } from 'contexts/Theme';
 
 import PageView from 'components/PageView';
+import Text from 'components/Text';
 
 import rawStyles from './styles';
 import Player from './Player';

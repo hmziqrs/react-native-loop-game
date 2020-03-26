@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { useIsFocused } from 'react-navigation-hooks';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import { TouchNative } from 'rn-hgl';
 import { SettingsContext } from 'contexts/Settings';
 
 import PageView from 'components/PageView';
+import Text from 'components/Text';
 
 import rawStyles from './styles';
 

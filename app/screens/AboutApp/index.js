@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, Linking } from 'react-native';
+import { View, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { TouchNative } from 'rn-hgl';
 
 import PageView from 'components/PageView';
+import Text from 'components/Text';
 import Icon from 'components/Icon';
 
 import rawStyles from './styles';

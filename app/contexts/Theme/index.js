@@ -1,10 +1,8 @@
 import React, { createContext, useState } from 'react';
-import { StatusBar, Text } from 'react-native';
+import { StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useDarkMode, DarkModeProvider } from 'react-native-dark-mode';
-
-import { setText } from 'init';
 
 export const ThemeContext = createContext();
 
@@ -66,8 +64,6 @@ export default function ThemeContextProvider({ children }) {
   if (state.theme !== THEMES.default) {
     props.mode = state.theme;
   }
-
-  setText(isDark);
 
   return (
     <DarkModeProvider {...props}>

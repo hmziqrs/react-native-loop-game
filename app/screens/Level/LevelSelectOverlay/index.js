@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, Animated } from 'react-native';
+import { View, Animated } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchNative, scaling } from 'rn-hgl';
 
 import { initLayout } from 'utils/ui';
 
+import Text from 'components/Text';
 import Icon from 'components/Icon';
 
 import styles from './styles';
