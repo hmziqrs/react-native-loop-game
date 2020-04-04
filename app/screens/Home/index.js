@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from 'react';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { useIsFocused } from 'react-navigation-hooks';
-import PropTypes from 'prop-types';
+import DeviceInfo from 'react-native-device-info';
 import { TouchNative } from 'rn-hgl';
 
 import { SettingsContext } from 'contexts/Settings';
@@ -29,6 +30,7 @@ function HomeScreen({ navigation }) {
       state.player.pause();
     }
   }, [isFocused]);
+
   return (
     <PageView navigation={navigation} style={styles.container} baseStyle={styles.screen}>
       <Text style={styles.title}>Welcome</Text>
@@ -44,7 +46,7 @@ function HomeScreen({ navigation }) {
           </TouchNative>
         ))}
       </View>
-      <Text style={styles.version}>VERSION 1.0.0</Text>
+      <Text style={styles.version}>VERSION {DeviceInfo.getVersion()}</Text>
     </PageView>
   );
 }
