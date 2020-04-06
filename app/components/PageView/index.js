@@ -9,7 +9,7 @@ import { View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { SafeAreaView } from 'react-navigation';
-import { isIOS } from 'rn-hgl/platform';
+import { platform } from 'rn-hgl';
 
 import Header from 'components/Header';
 
@@ -43,7 +43,7 @@ function PageView({
       <SafeAreaView
         {...baseProps}
         style={[styles.base].concat([baseStyle])}
-        forceInset={{ top: type !== 'scroll' ? 'always' : 'never' }}
+        forceInset={{ top: type !== 'scroll' || platform.isIOS ? 'always' : 'never' }}
       >
         {afterRender}
         {header ? <Header {...header} /> : null}
@@ -57,7 +57,7 @@ function PageView({
         </Comp>
         {footer}
       </SafeAreaView>
-      {isIOS && !noKeyBoard ? <KeyboardSpacer /> : null}
+      {platform.isIOS && !noKeyBoard ? <KeyboardSpacer /> : null}
     </>
   );
 

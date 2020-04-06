@@ -40,6 +40,7 @@ local.properties
 
 # node.js
 #
+nohup.out
 node_modules/
 npm-debug.log
 yarn-error.log

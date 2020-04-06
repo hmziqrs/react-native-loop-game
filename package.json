@@ -26,7 +26,8 @@
     "eslint:fix": "eslint ./app --fix",
     "lint:staged": "lint-staged",
     "prettify": "prettier --config .prettierrc --write \"**/*.js\"",
-    "setup": "npm i react-native-asset@2.0.0 eslint@6.8.0 prettier@1.19.1 react-native-cli@2.0.1 lint-staged@10.0.8 -g"
+    "setup": "npm i react-native-asset@2.0.0 eslint@6.8.0 prettier@1.19.1 react-native-cli@2.0.1 lint-staged@10.0.8 detox-cli@10.0.7 -g",
+    "install-detox-libs-ios": "brew tap wix/brew && brew install applesimutils"
   },
   "lint-staged": {
     "*.js": [
@@ -90,6 +91,7 @@
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "babel-polyfill": "6.26.0",
     "babel-preset-react-native": "4.0.1",
+    "detox": "16.0.2",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-airbnb-base": "14.0.0",
@@ -102,6 +104,7 @@
     "eslint-plugin-react": "7.17.0",
     "eslint-plugin-react-native": "3.8.1",
     "eslint-plugin-redux-saga": "1.1.1",
+    "jest": "25.2.7",
     "jetifier": "1.6.5",
     "lint-staged": "10.0.8",
     "metro-react-native-babel-preset": "0.57.0",
@@ -115,5 +118,18 @@
   },
   "resolutions": {
     "metro-config": "0.57.0"
+  },
+  "detox": {
+    "configurations": {
+      "ios.debug": {
+        "binaryPath": "ios/build/Products/Debug-iphonesimulator/rnloop.app",
+        "build": "xcodebuild -workspace ios/rnloop.xcworkspace -scheme rnloop -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 8"
+        }
+      }
+    },
+    "test-runner": "jest"
   }
 }

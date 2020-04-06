@@ -33,7 +33,9 @@ function HomeScreen({ navigation }) {
 
   return (
     <PageView navigation={navigation} style={styles.container} baseStyle={styles.screen}>
-      <Text style={styles.title}>Welcome</Text>
+      <Text testID="welcome" style={styles.title}>
+        Welcome
+      </Text>
       <Text style={styles.description}>Explore loop game&apos;s clone build with react native</Text>
       <View style={styles.buttonsHolder}>
         {links.map((link) => (
