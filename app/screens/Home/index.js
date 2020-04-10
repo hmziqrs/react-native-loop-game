@@ -41,6 +41,7 @@ function HomeScreen({ navigation }) {
         {links.map((link) => (
           <TouchNative
             key={link.key}
+            testID={`${link.key}Btn`}
             style={styles.button}
             onPress={() => navigation.navigate(link.key)}
           >

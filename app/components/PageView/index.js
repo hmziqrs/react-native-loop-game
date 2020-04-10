@@ -9,7 +9,7 @@ import { View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { SafeAreaView } from 'react-navigation';
-import { platform } from 'rn-hgl';
+import { platform, TouchNative } from 'rn-hgl';
 
 import Header from 'components/Header';
 
@@ -48,6 +48,7 @@ function PageView({
         {afterRender}
         {header ? <Header {...header} /> : null}
         <Comp
+          testID="base"
           style={[styles.container, disableMaxContainer ? {} : styles.maxContainer].concat(style)}
           {...compProps}
           {...props}

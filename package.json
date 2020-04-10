@@ -10,7 +10,7 @@
     "start": "npx react-native start",
     "setup-ios": "cd node_modules/react-native && scripts/ios-install-third-party.sh && cd third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh",
     "setup-pods": "cd ios && pod install",
-    "ios": "npx react-native run-ios",
+    "ios": "npx react-native run-ios --simulator=\"iPhone 8\"",
     "ios-link": "cd ios && pod install && cd .. && npm run ios",
     "android": "npx react-native run-android",
     "appbundle": "cd android && ./gradlew clean && ./gradlew bundleRelease",
@@ -125,9 +125,7 @@
         "binaryPath": "ios/build/Products/Debug-iphonesimulator/rnloop.app",
         "build": "xcodebuild -workspace ios/rnloop.xcworkspace -scheme rnloop -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
         "type": "ios.simulator",
-        "device": {
-          "type": "iPhone 8"
-        }
+        "device": "iPhone 8"
       }
     },
     "test-runner": "jest"

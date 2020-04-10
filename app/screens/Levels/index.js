@@ -21,6 +21,7 @@ function HomeScreen({ navigation }) {
           <TouchNative
             key={level}
             style={styles.levelBase}
+            testID={`level-${level}`}
             onPress={() => navigation.navigate('level', { level })}
           >
             <Text style={styles.levelText}>Level {level}</Text>

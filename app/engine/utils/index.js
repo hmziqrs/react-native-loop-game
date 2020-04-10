@@ -10,7 +10,7 @@ export function data2Grid(data) {
         ...box,
         rotate,
         animation,
-        id: `${x}-${y}`,
+        id: `${y}-${x}`,
       };
     }),
   );

@@ -65,6 +65,7 @@ export default function LevelScreen({ navigation }) {
               <View key={y} style={styles.row}>
                 {column.map(({ id, type, animation }, x) => (
                   <Shapes
+                    id={id}
                     key={id}
                     size={size}
                     type={type}

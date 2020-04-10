@@ -5,7 +5,7 @@ import { TouchNative } from 'rn-hgl';
 
 import * as styles from './styles';
 
-export default function Shapes({ size, animation, type, setRotate, success, animateColor }) {
+export default function Shapes({ id, size, animation, type, setRotate, success, animateColor }) {
   styles.setData(animateColor, success, size);
   let child = null;
   const rotate = animation.interpolate({
@@ -45,7 +45,7 @@ export default function Shapes({ size, animation, type, setRotate, success, anim
     );
   }
   return (
-    <TouchNative noFeedback onPress={() => setRotate()}>
+    <TouchNative testID={`block-${id}`} noFeedback onPress={() => setRotate()}>
       <Animated.View style={styles.box(rotate, type === '1-point')}>{child}</Animated.View>
     </TouchNative>
   );
@@ -58,4 +58,5 @@ Shapes.propTypes = {
   success: PropTypes.bool.isRequired,
   size: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

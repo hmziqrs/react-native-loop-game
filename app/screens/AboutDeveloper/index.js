@@ -19,7 +19,7 @@ function AboutDeveloperScreen({ navigation }) {
   return (
     <PageView type="scroll" disableMaxContainer navigation={navigation} baseStyle={styles.page}>
       <View style={styles.header}>
-        <TouchNative style={styles.backButtonBase} onPress={() => navigation.pop()}>
+        <TouchNative testID="back" style={styles.backButtonBase} onPress={() => navigation.pop()}>
           <Icon name="chevron-left" style={styles.backButtonIcon} />
         </TouchNative>
       </View>

@@ -1,8 +1,15 @@
 const detox = require('detox');
 const adapter = require('detox/runners/jest/adapter');
 const specReporter = require('detox/runners/jest/specReporter');
-
+const path = require('path');
 const config = require('../package.json').detox;
+const utils = require('./utils');
+
+const dirs = ['screenshots', 'screenshots/android', 'screenshots/ios'];
+
+dirs.forEach((dir) => {
+  utils.mkDirSafe(path.resolve(dir));
+});
 
 // Set the default timeout
 jest.setTimeout(600000);
@@ -15,15 +22,15 @@ jasmine.getEnv().addReporter(specReporter);
 
 beforeAll(async () => {
   await detox.init(config);
-  await device.launchApp({
+  await detox.device.launchApp({
     newInstance: true,
     launchArgs: { detoxPrintBusyIdleResources: 'YES' },
   });
 }, 300000);
 
-beforeEach(async () => {
-  await adapter.beforeEach();
-});
+// beforeEach(async () => {
+//   await adapter.beforeEach();
+// });
 
 afterAll(async () => {
   await adapter.afterAll();

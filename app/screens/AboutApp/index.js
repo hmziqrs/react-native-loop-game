@@ -20,7 +20,9 @@ function AboutAppScreen({ navigation }) {
       style={styles.container}
       baseStyle={styles.screen}
     >
-      <Text style={styles.title}>About App</Text>
+      <TouchNative testID="title" noFeedback onLongPress={() => navigation.pop()}>
+        <Text style={styles.title}>About App</Text>
+      </TouchNative>
       <Text style={styles.description}>React Native Loop is just a fun experimint of mine.</Text>
       <Text style={styles.description2}>
         I crafted this app becuase I wanted to understand how does loop game calculate result &

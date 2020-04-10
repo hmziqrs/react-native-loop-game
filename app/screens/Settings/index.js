@@ -37,7 +37,9 @@ function SettingsScreen({ navigation }) {
       style={styles.container}
       baseStyle={styles.screen}
     >
-      <Text style={styles.title}>Settings</Text>
+      <TouchNative testID="title" noFeedback onLongPress={() => navigation.pop()}>
+        <Text style={styles.title}>Settings</Text>
+      </TouchNative>
       <Text style={styles.heading}>Volume: {parseInt(volume * 100, 10)}</Text>
       <View>
         <Slider
@@ -81,13 +83,20 @@ function SettingsScreen({ navigation }) {
           />
         );
       })}
-      <Text style={styles.heading}>Theme: {theme}</Text>
+      <Text style={styles.heading} testId="themeText">
+        Theme: {theme}
+      </Text>
       {Object.keys(THEMES).map((key) => (
-        <TouchNative key={key} style={styles.radioBase} onPress={() => setTheme(key)}>
+        <TouchNative
+          key={key}
+          testID={`${key}Theme`}
+          style={styles.radioBase}
+          onPress={() => setTheme(key)}
+        >
           <RadioButton
             animation="fadeIn"
-            isSelected={key === theme}
             size={scaling(3)}
+            isSelected={key === theme}
             innerColor={colors.primary.string()}
             outerColor={colors.primary.string()}
           />
