@@ -1,14 +1,6 @@
 import { Animated } from "react-native";
-import { BoxType, BoxData, GridBox } from "../types";
-
-const value2RotationMap: Record<BoxType, Record<string, number>> = {
-  null: { "0000": 0 },
-  line: { "1010": 0, "0101": 1 },
-  "1-point": { "1000": 0, "0100": 1, "0010": 2, "0001": 3 },
-  "2-point": { "1100": 0, "0110": 1, "0011": 2, "1001": 3 },
-  "3-point": { "1110": 0, "0111": 1, "1011": 2, "1101": 3 },
-  "4-point": { "1111": 0 },
-};
+import { BoxData, GridBox } from "./types";
+import { value2RotationMap } from "./constants";
 
 export function data2Grid(data: BoxData[][]): GridBox[][] {
   return data.map((column, y) =>
