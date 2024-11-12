@@ -15,7 +15,6 @@ interface PageViewProps {
     onRight?: () => void;
   };
   style?: ViewStyle;
-  baseStyle?: ViewStyle;
   disableMaxContainer?: boolean;
 }
 
@@ -24,30 +23,14 @@ export function PageView({
   type = "default",
   header,
   style,
-  baseStyle,
   disableMaxContainer = false,
 }: PageViewProps) {
-  const Content = type === "scroll" ? ScrollView : View;
-
   return (
-    <SafeAreaView
-      className={cn(
-        "flex-1 bg-white dark:bg-gray-900",
-        "max-w-[650px] mx-auto",
-      )}
-      style={baseStyle}
-    >
+    <SafeAreaView className="flex-1 bg-white dark:bg-black">
       {header && <Header {...header} />}
-
-      <Content
-        className={cn(
-          "flex-1",
-          !disableMaxContainer && "max-w-[650px] mx-auto",
-        )}
-        style={style}
-      >
+      <View className="flex-1 bg-zinc-900.50 dark:bg-zinc-900/50">
         {children}
-      </Content>
+      </View>
     </SafeAreaView>
   );
 }
