@@ -1,104 +1,121 @@
-import React, { useContext, useState } from "react";
-import { View, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { router } from "expo-router";
 import Slider from "@react-native-community/slider";
 import { TouchableOpacity } from "react-native";
 import { useColorScheme } from "nativewind";
-import { MaterialIcons } from "@expo/vector-icons";
-
-import { SettingsContext, MP3S } from "@/contexts/Settings";
-import { ThemeContext, THEMES } from "@/contexts/Theme";
-import Player from "./player";
+import { MP3S, MP3Type, useSettings } from "@/contexts/Settings";
+import { THEMES, useTheme } from "@/contexts/Theme";
+import { Player } from "./player";
 
 let forcePlay = false;
 
 export default function Settings() {
-  const state = useContext(SettingsContext);
-  const [volume, setVolume] = useState(state.player.volume);
-  const [activeTrack, setTrack] = useState(-1);
-  const { theme, setTheme } = useContext(ThemeContext);
+  const {
+    volume,
+    setVolume,
+    mp3: currentMp3,
+    playSound,
+    pauseSound,
+  } = useSettings();
+  const { theme, setTheme } = useTheme();
   const { colorScheme } = useColorScheme();
+  const [activeTrack, setActiveTrack] = useState(-1);
 
-  React.useEffect(() => {
-    state.player.volume = volume;
-  }, [volume]);
+  const handleVolumeStart = async () => {
+    forcePlay = true;
+    await playSound(currentMp3);
+  };
+
+  const handleVolumeComplete = async () => {
+    if (forcePlay) {
+      forcePlay = false;
+      await pauseSound();
+    }
+  };
 
   return (
     <ScrollView className="flex-1 bg-zinc-50 dark:bg-zinc-900">
-      <View className="p-3">
-        <TouchableOpacity testID="title" onLongPress={() => router.back()}>
-          <Text className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+      <View className="p-4">
+        {/* Header */}
+        <TouchableOpacity
+          testID="title"
+          onLongPress={() => router.back()}
+          className="mb-6"
+        >
+          <Text className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
             Settings
           </Text>
         </TouchableOpacity>
 
-        <Text className="mt-4 text-lg font-semibold text-primary">
-          Volume: {parseInt(String(volume * 100), 10)}
-        </Text>
-
-        <Slider
-          step={0.1}
-          minimumValue={0}
-          maximumValue={1}
-          className="mt-2"
-          value={volume}
-          onSlidingStart={() => {
-            if (!state.player.isPlaying) {
-              forcePlay = true;
-              state.player.play();
+        {/* Volume Section */}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-primary mb-2">
+            Volume: {Math.round(volume * 100)}%
+          </Text>
+          <Slider
+            step={0.01}
+            minimumValue={0}
+            maximumValue={1}
+            value={volume}
+            onSlidingStart={handleVolumeStart}
+            onSlidingComplete={handleVolumeComplete}
+            onValueChange={setVolume}
+            minimumTrackTintColor="#007AFF"
+            thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
+            maximumTrackTintColor={
+              colorScheme === "dark"
+                ? "rgba(255, 255, 255, 0.3)"
+                : "rgba(0, 0, 0, 0.3)"
             }
-          }}
-          onSlidingComplete={() => {
-            if (forcePlay) {
-              forcePlay = false;
-              state.player.pause();
-            }
-          }}
-          minimumTrackTintColor="#007AFF"
-          thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
-          maximumTrackTintColor={colorScheme === "dark" ? "#fff" : "#000"}
-          onValueChange={setVolume}
-        />
-
-        <Text className="mt-4 text-lg font-semibold text-primary">
-          MP3 Track: {state.mp3.replace(".mp3", "")}
-        </Text>
-
-        {Object.entries(MP3S).map(([key, mp3], index) => (
-          <Player
-            key={key}
-            mp3={mp3}
-            state={state}
-            isActive={index === activeTrack}
-            updateParent={() => {}}
-            toggle={() => setTrack(index === activeTrack ? -1 : index)}
+            className="h-8"
           />
-        ))}
+        </View>
 
-        <Text
-          className="mt-4 text-lg font-semibold text-primary"
-          testID="themeText"
-        >
-          Theme: {theme}
-        </Text>
+        {/* Sound Tracks Section */}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-primary mb-2">
+            Sound Track: {currentMp3.replace(".mp3", "")}
+          </Text>
+          {Object.entries(MP3S).map(([key, mp3], index) => (
+            <Player
+              key={key}
+              mp3={mp3}
+              isActive={index === activeTrack}
+              toggle={() => setActiveTrack(index === activeTrack ? -1 : index)}
+            />
+          ))}
+        </View>
 
-        {Object.keys(THEMES).map((key) => (
-          <TouchableOpacity
-            key={key}
-            testID={`${key}Theme`}
-            className="flex-row items-center py-1 mt-1.5"
-            onPress={() => setTheme(key)}
+        {/* Theme Section */}
+        <View>
+          <Text
+            className="text-lg font-semibold text-primary mb-2"
+            testID="themeText"
           >
-            <View className="w-3 h-3 rounded-full border border-primary items-center justify-center">
-              {key === theme && (
-                <View className="w-2 h-2 rounded-full bg-primary" />
-              )}
-            </View>
-            <Text className="ml-3 text-sm text-zinc-900 dark:text-zinc-100">
-              {key}
-            </Text>
-          </TouchableOpacity>
-        ))}
+            Theme: {theme}
+          </Text>
+          {Object.keys(THEMES).map((themeKey) => (
+            <TouchableOpacity
+              key={themeKey}
+              testID={`${themeKey}Theme`}
+              className="flex flex-row items-center py-3"
+              onPress={() => setTheme(themeKey as any)}
+            >
+              <View
+                className="w-5 h-5 rounded-full border-2 border-primary
+                flex items-center justify-center mr-3"
+              >
+                {themeKey === theme && (
+                  <View className="w-3 h-3 rounded-full bg-primary" />
+                )}
+              </View>
+              <Text className="text-base text-zinc-900 dark:text-zinc-100">
+                {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
     </ScrollView>
   );

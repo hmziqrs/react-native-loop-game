@@ -12,7 +12,7 @@ export const MP3S = {
   piano: "piano.mp3",
 } as const;
 
-type MP3Type = (typeof MP3S)[keyof typeof MP3S];
+export type MP3Type = (typeof MP3S)[keyof typeof MP3S];
 
 interface SettingsState {
   init: boolean;

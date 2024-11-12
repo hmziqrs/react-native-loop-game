@@ -1,166 +1,144 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
-import * as Animatable from "react-native-animatable";
 import Slider from "@react-native-community/slider";
-import moment from "moment";
 import { TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import { MaterialIcons } from "@expo/vector-icons";
+import { MP3Type, useSettings } from "@/contexts/Settings";
+import { useTheme } from "@/contexts/Theme";
 
 interface PlayerProps {
   isActive: boolean;
-  mp3: string;
+  mp3: MP3Type;
   toggle: () => void;
-  state: any; // Define proper type based on your state structure
-  updateParent: () => void;
 }
 
-interface PlayerStatus {
-  isPlaying: boolean;
-  progress: moment.Duration;
-}
-
-let intervalState: NodeJS.Timeout;
-
-export default function Player({
-  isActive,
-  mp3,
-  toggle,
-  state,
-  updateParent,
-}: PlayerProps) {
-  const [status, setStatus] = useState<PlayerStatus>({
-    isPlaying: false,
-    progress: moment.duration(0),
-  });
-  const [mount, setMount] = useState(true);
+export function Player({ isActive, mp3, toggle }: PlayerProps) {
+  const {
+    playSound,
+    pauseSound,
+    isPlaying,
+    mp3: currentMp3,
+    sound,
+    volume,
+  } = useSettings();
+  const [status, setStatus] = useState({ position: 0, duration: 0 });
   const { colorScheme } = useColorScheme();
 
-  const setStatusSafe = (v: Partial<PlayerStatus>) =>
-    setStatus((prev) => ({ ...prev, ...v }));
+  // Update position periodically when playing
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
 
-  const runProgressBar = (bool: boolean) => {
-    if (bool) {
-      intervalState = setInterval(() => {
-        setStatusSafe({ progress: moment.duration(state.player.currentTime) });
-      }, 200);
+    if (isPlaying && currentMp3 === mp3) {
+      interval = setInterval(async () => {
+        if (sound) {
+          const status = await sound.getStatusAsync();
+          if (status.isLoaded) {
+            setStatus({
+              position: status.positionMillis,
+              duration: status.durationMillis || 0,
+            });
+          }
+        }
+      }, 100);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isPlaying, currentMp3, mp3, sound]);
+
+  const handlePlayPause = async () => {
+    if (currentMp3 !== mp3) {
+      await playSound(mp3);
+    } else if (isPlaying) {
+      await pauseSound();
     } else {
-      clearInterval(intervalState);
+      await playSound(mp3);
     }
   };
 
-  useEffect(() => {
-    if (status.isPlaying) {
-      runProgressBar(true);
-    } else {
-      runProgressBar(false);
-    }
-    return () => clearInterval(intervalState);
-  }, [status.isPlaying]);
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (isActive) {
-      setMount(true);
-    } else {
-      timeout = setTimeout(() => setMount(false), 400);
-    }
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isActive]);
+  const formatTime = (milliseconds: number) => {
+    const seconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
 
   return (
-    <View className="border border-zinc-200 dark:border-zinc-700 rounded-md mt-3">
+    <View
+      className="border border-zinc-200 dark:border-zinc-700
+      rounded-lg overflow-hidden mb-2"
+    >
       <TouchableOpacity
         onPress={toggle}
-        className="p-2 px-3 flex-row items-center justify-between"
+        className="flex-row items-center justify-between p-4"
       >
-        <Animatable.Text
-          duration={400}
-          transition="color"
+        <Text
           className={`font-semibold ${
             isActive ? "text-primary" : "text-zinc-900 dark:text-zinc-100"
           }`}
         >
           {mp3.replace(".mp3", "")}
-        </Animatable.Text>
+        </Text>
         <MaterialIcons
           name="keyboard-arrow-down"
           size={24}
-          className={`${isActive ? "text-primary rotate-180" : "text-zinc-900 dark:text-zinc-100"}`}
+          className={`transform transition-all duration-300 ${
+            isActive
+              ? "rotate-180 text-primary"
+              : "text-zinc-900 dark:text-zinc-100"
+          }`}
         />
       </TouchableOpacity>
 
-      <Animatable.View
-        duration={400}
-        transition="height"
-        className={`h-[1px] bg-zinc-200 dark:bg-zinc-700 ${isActive ? "opacity-100" : "opacity-0"}`}
-      />
-
-      <Animatable.View
-        className="opacity-0 h-0"
-        duration={400}
-        animation={
-          isActive
-            ? {
-                0: { opacity: 0, height: 0 },
-                1: { opacity: 1, height: 64 },
-              }
-            : {
-                0: { opacity: 1, height: 64 },
-                1: { opacity: 0, height: 0 },
-              }
-        }
-      >
-        {mount && (
-          <View className="p-3 flex-row items-center">
+      {isActive && (
+        <View className="p-4 border-t border-zinc-200 dark:border-zinc-700">
+          <View className="flex-row items-center">
             <TouchableOpacity
-              className="w-7 h-7 items-center justify-center rounded-full mr-2"
-              onPress={() => {
-                if (state.mp3 !== mp3) {
-                  state.player.destroy();
-                  state.setPlayer(mp3, true, true);
-                  updateParent();
-                } else if (status.isPlaying) {
-                  state.player.pause();
-                } else {
-                  state.player.play();
-                }
-                setStatusSafe({ isPlaying: !status.isPlaying });
-              }}
+              onPress={handlePlayPause}
+              className="w-10 h-10 rounded-full bg-primary
+                items-center justify-center mr-3"
             >
               <MaterialIcons
-                name={
-                  status.isPlaying && state.mp3.indexOf(mp3) > -1
-                    ? "pause"
-                    : "play-arrow"
-                }
-                size={28}
-                className="text-zinc-900 dark:text-zinc-100"
+                name={isPlaying && currentMp3 === mp3 ? "pause" : "play-arrow"}
+                size={24}
+                color="white"
               />
             </TouchableOpacity>
 
-            <Slider
-              disabled={state.mp3.indexOf(mp3) < 0}
-              minimumValue={0.0}
-              maximumValue={state.player.duration}
-              value={status.progress.asMilliseconds()}
-              minimumTrackTintColor="#007AFF"
-              thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
-              maximumTrackTintColor={colorScheme === "dark" ? "#fff" : "#000"}
-              className="flex-1"
-              onSlidingStart={() => runProgressBar(false)}
-              onSlidingComplete={() => runProgressBar(true)}
-              onValueChange={(val) => state.player.seek(val)}
-            />
-
-            <Text className="w-10 text-right">
-              {status.progress.minutes()}:{status.progress.seconds()}
-            </Text>
+            <View className="flex-1">
+              <Slider
+                minimumValue={0}
+                maximumValue={status.duration}
+                value={status.position}
+                onValueChange={async (value) => {
+                  if (sound) {
+                    await sound.setPositionAsync(value);
+                  }
+                }}
+                minimumTrackTintColor="#007AFF"
+                thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
+                maximumTrackTintColor={
+                  colorScheme === "dark"
+                    ? "rgba(255, 255, 255, 0.3)"
+                    : "rgba(0, 0, 0, 0.3)"
+                }
+              />
+              <View className="flex-row justify-between mt-1">
+                <Text className="text-xs text-zinc-600 dark:text-zinc-400">
+                  {formatTime(status.position)}
+                </Text>
+                <Text className="text-xs text-zinc-600 dark:text-zinc-400">
+                  {formatTime(status.duration)}
+                </Text>
+              </View>
+            </View>
           </View>
-        )}
-      </Animatable.View>
+        </View>
+      )}
     </View>
   );
 }
