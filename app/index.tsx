@@ -6,7 +6,7 @@ import { useSettings } from "@/contexts/Settings";
 
 const links = [
   { key: "levels", label: "Explore Levels" },
-  { key: "about", label: "About App" },
+  { key: "about-app", label: "About App" },
   { key: "developer", label: "About Developer" },
   { key: "settings", label: "Settings" },
 ];
@@ -21,7 +21,7 @@ export default function HomeScreen() {
   }, [player]);
 
   return (
-    <PageView>
+    <PageView header={{ title: "Home" }}>
       <View className="p-4">
         <Text className="text-3xl font-bold mb-2">Welcome</Text>
         <Text className="text-gray-600 dark:text-gray-300 mb-6">

@@ -28,23 +28,28 @@ export function Header({
 
   return (
     <View
-      className={cn(
-        "z-10 px-3 flex-row items-center bg-white",
-        "pt-[calc(theme(spacing.3)+env(safe-area-inset-top))]",
-      )}
+      className="z-10 px-4 py-3 flex-row items-center
+      bg-zinc-100 dark:bg-zinc-800/50
+      pt-[calc(theme(spacing.3)+env(safe-area-inset-top))]"
       style={[baseStyle]}
     >
       {icon && (
         <TouchableOpacity
           onPress={onLeft}
-          className="w-7 h-7 items-center justify-center absolute ml-2 mt-2"
+          className="w-7 h-7 items-center justify-center absolute"
         >
-          <MaterialIcons name={icon as any} size={24} color={"#000"} />
+          <MaterialIcons
+            name={icon as any}
+            size={18}
+            className="dark:text-white"
+          />
         </TouchableOpacity>
       )}
 
+      {icon && <View className="w-2" />}
+
       {typeof title === "string" ? (
-        <Text className={cn("text-lg", icon ? "ml-8" : "")}>{title}</Text>
+        <Text className="text-base text-white">{title}</Text>
       ) : (
         children
       )}
