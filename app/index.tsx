@@ -21,7 +21,7 @@ export default function HomeScreen() {
   }, [player]);
 
   return (
-    <PageView>
+    <PageView header={{ title: "Home" }}>
       <View className="p-4">
         <Text className="text-3xl font-bold mb-2">Welcome</Text>
         <Text className="text-gray-600 dark:text-gray-300 mb-6">
