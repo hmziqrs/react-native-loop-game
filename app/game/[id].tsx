@@ -2,62 +2,56 @@ import React from "react";
 import { View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useGameEngine } from "@/hooks/useGameEngine";
-import { PageView } from "@/components/PageView";
 import { Grid } from "@/components/game/Grid";
 import { Controls } from "@/components/game/Controls";
-import { LevelManager } from "@/components/game/LevelManager";
+import { LevelInfo } from "@/components/game/LevelInfo";
+import { SuccessAnimation } from "@/components/game/SuccessAnimation";
+import { LevelSelectOverlay } from "@/components/game/LevelSelectOverlay";
 
 export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const levelNumber = parseInt(id, 10);
+  const level = parseInt(id, 10);
   const viewRef = React.useRef<View>(null);
+  const [showOverlay, setShowOverlay] = React.useState(false);
 
-  const { grid, size, theme, success, setRotate, resetLevel } =
-    useGameEngine(levelNumber);
+  const { grid, size, theme, success, setRotate, reset, nextLevel, prevLevel } =
+    useGameEngine(level);
 
   return (
-    <PageView
-      disableMaxContainer
-      baseStyle={{ backgroundColor: theme.light.primary.string() }}
+    <View
+      ref={viewRef}
+      className="flex-1"
+      style={{ backgroundColor: theme.light.primary.toString() }}
     >
-      <LevelManager level={levelNumber} success={success}>
-        <View ref={viewRef} className="flex-1">
-          <Text
-            className={cn(
-              "text-2xl font-bold text-center mt-4",
-              "text-accent dark:text-accent-light",
-            )}
-          >
-            #{levelNumber}
-          </Text>
+      <LevelInfo level={level} theme={theme} success={success} />
 
-          <Grid
-            grid={grid}
-            size={size}
-            onRotate={setRotate}
-            success={success}
-            theme={theme}
-          />
+      <Grid
+        grid={grid}
+        size={size}
+        theme={theme}
+        success={success}
+        onRotate={setRotate}
+      />
 
-          <Text
-            className={cn(
-              "text-lg font-semibold text-center mb-4",
-              "text-accent/70 dark:text-accent-light/70",
-            )}
-          >
-            React Native Loop
-          </Text>
-        </View>
+      <SuccessAnimation show={success} theme={theme} />
 
-        <Controls
-          success={success}
-          onCapture={() => {}}
-          onReset={resetLevel}
-          onNext={() => {}}
-          level={levelNumber}
-          viewRef={viewRef}
-        />
-      </LevelManager>
-    </PageView>
+      <Controls
+        success={success}
+        onCapture={() => {}}
+        onReset={reset}
+        onNext={nextLevel}
+        level={level}
+        viewRef={viewRef}
+      />
+
+      <LevelSelectOverlay
+        level={level}
+        theme={theme}
+        onNext={nextLevel}
+        onPrev={prevLevel}
+        isVisible={showOverlay}
+        onClose={() => setShowOverlay(false)}
+      />
+    </View>
   );
 }

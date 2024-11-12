@@ -1,17 +1,17 @@
 import React from "react";
 import { View } from "react-native";
-import { GridBox } from "../../types";
+import { GridBox, Theme } from "../../types";
 import { Shape } from "./Shape";
 
 interface GridProps {
   grid: GridBox[][];
   size: number;
-  onRotate: (x: number, y: number) => void;
+  theme: Theme;
   success: boolean;
-  theme: any; // Replace with proper theme type
+  onRotate: (x: number, y: number) => void;
 }
 
-export function Grid({ grid, size, onRotate, success, theme }: GridProps) {
+export function Grid({ grid, size, theme, success, onRotate }: GridProps) {
   return (
     <View className="flex-1 items-center justify-center">
       {grid.map((row, y) => (
@@ -22,7 +22,14 @@ export function Grid({ grid, size, onRotate, success, theme }: GridProps) {
               onPress={() => onRotate(x, y)}
               disabled={box.type === "null"}
             >
-              <Shape {...box} size={size} success={success} theme={theme} />
+              <Shape
+                type={box.type}
+                size={size}
+                rotate={box.rotate}
+                animation={box.animation}
+                success={success}
+                theme={theme}
+              />
             </Pressable>
           ))}
         </View>
