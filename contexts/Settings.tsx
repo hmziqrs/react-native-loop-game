@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface SettingsContextType {
+export interface SettingsContextType {
   mp3: string;
   player: Audio.Sound | null;
   setPlayer: (mp3: string, play?: boolean, cache?: boolean) => Promise<void>;

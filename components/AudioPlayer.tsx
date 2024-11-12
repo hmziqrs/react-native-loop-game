@@ -1,70 +1,87 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import Slider from "@react-native-community/slider";
-import { useSettings } from "@/contexts/Settings";
+import { View, Animated, Pressable } from "react-native";
+import { useAnimatedValue } from "@/hooks/useAnimatedValue";
+import { SettingsContextType } from "@/contexts/Settings";
 
 interface AudioPlayerProps {
-  title: string;
-  track: string;
+  mp3: string;
   isActive: boolean;
+  onToggle: () => void;
+  settings: SettingsContextType;
 }
 
-export function AudioPlayer({ title, track, isActive }: AudioPlayerProps) {
-  const { player, mp3, setMp3 } = useSettings();
+export function AudioPlayer({
+  mp3,
+  isActive,
+  onToggle,
+  settings,
+}: AudioPlayerProps) {
+  const animation = useAnimatedValue(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const [volume, setVolume] = React.useState(1);
 
   React.useEffect(() => {
-    if (player) {
-      player.setVolumeAsync(volume);
-    }
-  }, [volume, player]);
+    Animated.timing(animation, {
+      toValue: isActive ? 1 : 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [isActive]);
 
-  React.useEffect(() => {
-    if (mp3 === track) {
+  const togglePlay = async () => {
+    if (settings.mp3 !== mp3) {
+      await settings.setPlayer(mp3, true, true);
       setIsPlaying(true);
-    } else {
-      setIsPlaying(false);
-    }
-  }, [mp3, track]);
-
-  const handlePlay = async () => {
-    if (isPlaying) {
-      await player.stopAsync();
+    } else if (isPlaying) {
+      await settings.player?.pauseAsync();
       setIsPlaying(false);
     } else {
-      await player.unloadAsync();
-      await player.loadAsync({ uri: track });
-      await player.playAsync();
+      await settings.player?.playAsync();
       setIsPlaying(true);
-      setMp3(track);
     }
   };
 
   return (
-    <View className="flex-row items-center">
-      <Pressable onPress={handlePlay} className="flex-row items-center">
-        <MaterialIcons
-          name={isPlaying ? "pause" : "play-arrow"}
-          size={24}
-          color={isActive ? "#cc2f2c" : "#000000"}
-        />
-        <Text className="text-base text-gray-900 dark:text-white ml-2">
-          {title}
+    <Pressable
+      onPress={onToggle}
+      className="mb-2 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
+    >
+      <View className="p-4 flex-row items-center justify-between">
+        <Text className="text-gray-900 dark:text-white">
+          {mp3.replace(".mp3", "")}
         </Text>
-      </Pressable>
+        <Icon
+          name={isActive ? "chevron-up" : "chevron-down"}
+          size={24}
+          color="rgb(var(--color-primary))"
+        />
+      </View>
 
-      <Slider
-        value={volume}
-        onValueChange={setVolume}
-        style={{ width: 100, height: 40 }}
-        minimumValue={0}
-        maximumValue={1}
-        step={0.1}
-        minimumTrackTintColor="#cc2f2c"
-        maximumTrackTintColor="#000000"
-      />
-    </View>
+      <Animated.View
+        style={{
+          height: animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 80],
+          }),
+        }}
+      >
+        <View className="p-4 flex-row items-center">
+          <Pressable
+            onPress={togglePlay}
+            className="w-10 h-10 rounded-full bg-primary items-center justify-center"
+          >
+            <Icon name={isPlaying ? "pause" : "play"} size={24} color="white" />
+          </Pressable>
+
+          <View className="flex-1 mx-4">
+            <Progress
+              progress={
+                settings.mp3 === mp3 ? settings.player?.getStatusAsync() : 0
+              }
+              isPlaying={isPlaying}
+            />
+          </View>
+        </View>
+      </Animated.View>
+    </Pressable>
   );
 }
