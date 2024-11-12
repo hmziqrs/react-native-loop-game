@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, ViewStyle, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "../contexts/Theme";
-import { cn } from "../utils/styles";
+import { useTheme } from "@/contexts/Theme";
+import cn from "classnames";
 
 interface HeaderProps {
   title?: string | { id: string; values?: Record<string, string> };
@@ -24,7 +24,7 @@ export function Header({
   onRight = () => {},
   onLeft = () => {},
 }: HeaderProps) {
-  const { colors } = useTheme();
+  // const theme = useTheme();
 
   return (
     <View
@@ -39,7 +39,7 @@ export function Header({
           onPress={onLeft}
           className="w-7 h-7 items-center justify-center absolute ml-2 mt-2"
         >
-          <MaterialIcons name={icon} size={24} color={colors.black} />
+          <MaterialIcons name={icon as any} size={24} color={"#000"} />
         </TouchableOpacity>
       )}
 
@@ -56,7 +56,7 @@ export function Header({
           onPress={onRight}
           className="w-7 h-7 items-center justify-center"
         >
-          <MaterialIcons name={rightIcon} size={24} color={colors.black} />
+          <MaterialIcons name={rightIcon as any} size={24} color={"#000"} />
         </TouchableOpacity>
       )}
     </View>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { PageView } from "@/components/PageView";
 import { useSettings } from "@/contexts/Settings";

@@ -2,7 +2,7 @@ import React from "react";
 import { View, ScrollView, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "./Header";
-import { cn } from "../utils/styles";
+import cn from "classnames";
 
 interface PageViewProps {
   children: React.ReactNode;

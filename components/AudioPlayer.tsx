@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Animated, Pressable } from "react-native";
-import { useAnimatedValue } from "@/hooks/useAnimatedValue";
+import { View, Animated, Pressable, Text } from "react-native";
+// import { useAnimatedValue } from "@/hooks/useAnimatedValue";
 import { SettingsContextType } from "@/contexts/Settings";
 
 interface AudioPlayerProps {
@@ -16,7 +16,7 @@ export function AudioPlayer({
   onToggle,
   settings,
 }: AudioPlayerProps) {
-  const animation = useAnimatedValue(0);
+  const animation = new Animated.Value(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
 
   React.useEffect(() => {
@@ -40,6 +40,16 @@ export function AudioPlayer({
     }
   };
 
+  const renderIcon = (name: string, size: number, color: string) => {
+    // Implement your icon rendering logic here
+    return null;
+  };
+
+  const renderProgress = (progress: any, isPlaying: boolean) => {
+    // Implement your progress rendering logic here
+    return null;
+  };
+
   return (
     <Pressable
       onPress={onToggle}
@@ -49,11 +59,11 @@ export function AudioPlayer({
         <Text className="text-gray-900 dark:text-white">
           {mp3.replace(".mp3", "")}
         </Text>
-        <Icon
-          name={isActive ? "chevron-up" : "chevron-down"}
-          size={24}
-          color="rgb(var(--color-primary))"
-        />
+        {renderIcon(
+          isActive ? "chevron-up" : "chevron-down",
+          24,
+          "rgb(var(--color-primary))",
+        )}
       </View>
 
       <Animated.View
@@ -69,16 +79,14 @@ export function AudioPlayer({
             onPress={togglePlay}
             className="w-10 h-10 rounded-full bg-primary items-center justify-center"
           >
-            <Icon name={isPlaying ? "pause" : "play"} size={24} color="white" />
+            {renderIcon(isPlaying ? "pause" : "play", 24, "white")}
           </Pressable>
 
           <View className="flex-1 mx-4">
-            <Progress
-              progress={
-                settings.mp3 === mp3 ? settings.player?.getStatusAsync() : 0
-              }
-              isPlaying={isPlaying}
-            />
+            {renderProgress(
+              settings.mp3 === mp3 ? settings.player?.getStatusAsync() : 0,
+              isPlaying,
+            )}
           </View>
         </View>
       </Animated.View>

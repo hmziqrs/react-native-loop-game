@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, Text, Pressable } from "react-native";
 import { router } from "expo-router";
 import { PageView } from "@/components/PageView";
 
@@ -27,6 +27,8 @@ const links = [
 ];
 
 export default function AboutScreen() {
+  const cn = (...classNames: (string | undefined)[]) =>
+    classNames.filter(Boolean).join(" ");
   return (
     <PageView
       header={{
