@@ -3,7 +3,7 @@ import { View, Image, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchNative } from 'rn-hgl';
 
-import avatarImage from 'assets/hamza.jpg';
+import avatarImage from 'assets/goku.png';
 
 import * as utils from 'utils';
 

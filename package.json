@@ -39,7 +39,7 @@
   "dependencies": {
     "@babel/polyfill": "7.7.0",
     "@babel/runtime": "7.7.5",
-    "@react-native-community/async-storage": "1.8.1",
+    "@react-native-community/async-storage": "1.12.1",
     "@react-native-community/audio-toolkit": "2.0.2",
     "@react-native-community/slider": "2.0.8",
     "@react-native-firebase/analytics": "6.3.4",
