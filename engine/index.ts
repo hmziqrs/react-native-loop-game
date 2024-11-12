@@ -6,15 +6,8 @@ import share from "react-native-share";
 
 import { rotateBox, calculateSuccess, data2Grid } from "./utils";
 import * as UI from "./ui";
-import { Level, Theme } from "./types";
+import { GridBox, Level, Theme } from "./types";
 import { levels } from "./levels";
-
-// Types
-interface Box {
-  type: string;
-  rotate: number;
-  animation: Animated.Value;
-}
 
 interface Player {
   play: () => void;
@@ -27,7 +20,7 @@ interface EngineControls {
 }
 
 interface EngineReturn {
-  grid: Box[][];
+  grid: GridBox[][];
   level: number;
   theme: Theme;
   success: boolean;
@@ -44,7 +37,7 @@ export default function useEngine(
 ): EngineReturn {
   const [level, setLevel] = useState<number>(forceLevel);
   const { data, theme } = levels[level];
-  const [grid, setGrid] = useState<Box[][]>(data2Grid(data));
+  const [grid, setGrid] = useState<GridBox[][]>(data2Grid(data));
   const [success, setSuccess] = useState<boolean>(false);
   const [colorAnimation] = useState<Animated.Value>(new Animated.Value(0));
   const delay = 140;
@@ -113,17 +106,17 @@ export default function useEngine(
   }
 
   function animateColor(color: string): Animated.AnimatedInterpolation<string> {
-    const from = theme.light[color].rgb().string();
-    let to = theme.dark[color].rgb().string();
+    const from = (theme.light as any)[color as any].rgb().string();
+    let to = (theme.dark as any)[color as any].rgb().string();
 
     if (prevLevel !== level) {
-      to = levels[prevLevel].theme.dark[color].rgb().string();
+      to = (levels[prevLevel] as any).theme.dark[color as any].rgb().string();
     }
 
     return colorAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [from, to],
-      duration: 800,
+      // duration: 800,
     });
   }
 
