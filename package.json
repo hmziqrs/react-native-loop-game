@@ -16,8 +16,11 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.4",
+    "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-navigation/native": "7.0.0",
+    "color": "^4.2.3",
     "expo": "52.0.3",
+    "expo-av": "^14.0.7",
     "expo-constants": "17.0.2",
     "expo-font": "13.0.1",
     "expo-linking": "7.0.2",
@@ -26,6 +29,7 @@
     "expo-status-bar": "2.0.0",
     "expo-system-ui": "4.0.2",
     "expo-web-browser": "14.0.0",
+    "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.1",
@@ -37,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
+    "@types/color": "^4.2.0",
     "@types/jest": "^29.5.12",
     "@types/react": "18.3.12",
     "@types/react-test-renderer": "^18.0.7",
