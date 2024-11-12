@@ -1,22 +1,39 @@
-import React from "react";
-import { View, Text, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { router } from "expo-router";
 import Slider from "@react-native-community/slider";
+import { TouchableOpacity } from "react-native";
+import { useColorScheme } from "nativewind";
+import { MP3S, MP3Type, useSettings } from "@/contexts/Settings";
+import { THEMES, useTheme } from "@/contexts/Theme";
+import { Player } from "./player";
 import { PageView } from "@/components/PageView";
-import { useSettings } from "@/contexts/Settings";
-import { ThemeMode, useTheme } from "@/contexts/Theme";
-import { AudioPlayer } from "@/components/AudioPlayer";
 
-export default function SettingsScreen() {
-  const { player, mp3 } = useSettings();
-  const { theme, setTheme, isDark } = useTheme();
-  const [volume, setVolume] = React.useState(1);
+let forcePlay = false;
 
-  React.useEffect(() => {
-    if (player) {
-      player.setVolumeAsync(volume);
+export default function Settings() {
+  const {
+    volume,
+    setVolume,
+    mp3: currentMp3,
+    playSound,
+    pauseSound,
+  } = useSettings();
+  const { theme, setTheme } = useTheme();
+  const { colorScheme } = useColorScheme();
+  const [activeTrack, setActiveTrack] = useState(-1);
+
+  const handleVolumeStart = async () => {
+    forcePlay = true;
+    await playSound(currentMp3);
+  };
+
+  const handleVolumeComplete = async () => {
+    if (forcePlay) {
+      forcePlay = false;
+      await pauseSound();
     }
-  }, [volume, player]);
+  };
 
   return (
     <PageView
@@ -26,60 +43,80 @@ export default function SettingsScreen() {
         onLeft: () => router.back(),
       }}
     >
-      <View className="p-4">
-        <Text className="text-lg font-semibold text-primary mb-2">
-          Volume: {Math.round(volume * 100)}%
-        </Text>
-
-        <Slider
-          value={volume}
-          onValueChange={setVolume}
-          style={{ width: "100%", height: 40 }}
-          minimumValue={0}
-          maximumValue={1}
-          step={0.1}
-          minimumTrackTintColor="#cc2f2c"
-          maximumTrackTintColor={isDark ? "#ffffff" : "#000000"}
-        />
-
-        <Text className="text-lg font-semibold text-primary mt-6 mb-4">
-          Background Music
-        </Text>
-
-        <View className="space-y-4">
-          {Object.entries(MP3S).map(([key, track]) => (
-            <AudioPlayer
-              key={key}
-              title={key}
-              track={track}
-              isActive={track === mp3}
+      <ScrollView className="flex-1">
+        <View className="p-4">
+          {/* Volume Section */}
+          <View className="mb-6">
+            <Text className="text-lg font-semibold text-primary mb-2">
+              Volume: {Math.round(volume * 100)}%
+            </Text>
+            <Slider
+              step={0.01}
+              minimumValue={0}
+              maximumValue={1}
+              value={volume}
+              onSlidingStart={handleVolumeStart}
+              onSlidingComplete={handleVolumeComplete}
+              onValueChange={setVolume}
+              minimumTrackTintColor="#007AFF"
+              thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
+              maximumTrackTintColor={
+                colorScheme === "dark"
+                  ? "rgba(255, 255, 255, 0.3)"
+                  : "rgba(0, 0, 0, 0.3)"
+              }
+              className="h-8"
             />
-          ))}
-        </View>
+          </View>
 
-        <Text className="text-lg font-semibold text-primary mt-6 mb-4">
-          Theme
-        </Text>
+          {/* Sound Tracks Section */}
+          <View className="mb-6">
+            <Text className="text-lg font-semibold text-primary mb-2">
+              Sound Track: {currentMp3.replace(".mp3", "")}
+            </Text>
+            {Object.entries(MP3S).map(([key, mp3], index) => (
+              <Player
+                key={key}
+                mp3={mp3}
+                isActive={index === activeTrack}
+                toggle={() =>
+                  setActiveTrack(index === activeTrack ? -1 : index)
+                }
+              />
+            ))}
+          </View>
 
-        <View className="space-y-4">
-          {["default", "light", "dark"].map((themeOption) => (
-            <Pressable
-              key={themeOption}
-              onPress={() => setTheme(themeOption as ThemeMode)}
-              className={cn(
-                "flex-row items-center p-4 rounded-lg",
-                "bg-white dark:bg-gray-800",
-                "border-2",
-                theme === themeOption ? "border-primary" : "border-transparent",
-              )}
+          {/* Theme Section */}
+          <View>
+            <Text
+              className="text-lg font-semibold text-primary mb-2"
+              testID="themeText"
             >
-              <Text className="text-base text-gray-900 dark:text-white capitalize">
-                {themeOption}
-              </Text>
-            </Pressable>
-          ))}
+              Theme: {theme}
+            </Text>
+            {Object.keys(THEMES).map((themeKey) => (
+              <TouchableOpacity
+                key={themeKey}
+                testID={`${themeKey}Theme`}
+                className="flex flex-row items-center py-3"
+                onPress={() => setTheme(themeKey as any)}
+              >
+                <View
+                  className="w-5 h-5 rounded-full border-2 border-primary
+                flex items-center justify-center mr-3"
+                >
+                  {themeKey === theme && (
+                    <View className="w-3 h-3 rounded-full bg-primary" />
+                  )}
+                </View>
+                <Text className="text-base text-zinc-900 dark:text-zinc-100">
+                  {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </PageView>
   );
 }

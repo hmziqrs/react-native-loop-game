@@ -1,58 +1,87 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "nativewind";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import { StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Color from "color";
-import { Theme } from "../types";
+import { useColorScheme } from "nativewind";
+
+const THEME_STORAGE_KEY = "theme";
+
+export const THEMES = {
+  default: "default",
+  light: "light",
+  dark: "dark",
+} as const;
+
+type ThemeType = (typeof THEMES)[keyof typeof THEMES];
 
 interface ThemeContextType {
-  theme: ThemeMode;
+  theme: ThemeType;
   isDark: boolean;
-  setTheme: (theme: ThemeMode) => Promise<void>;
-  setDefaultStatusBar: () => void;
+  setTheme: (theme: ThemeType) => void;
 }
 
-export type ThemeMode = "default" | "light" | "dark";
+const ThemeContext = createContext<ThemeContextType | null>(null);
 
-const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
+  return context;
+};
 
-const THEME_KEY = "app_theme";
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setThemeState] = useState<ThemeType>(THEMES.default);
+  const { colorScheme, setColorScheme } = useColorScheme();
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeMode>("default");
-  const { colorScheme } = useColorScheme();
-  const systemDark = colorScheme === "dark";
-  const isDark = theme === "dark" || (theme === "default" && systemDark);
+  // Determine if dark mode is active
+  const isDark =
+    theme === THEMES.dark ||
+    (theme === THEMES.default && colorScheme === "dark");
 
-  const setDefaultStatusBar = () => {
-    // StatusBar from expo-status-bar handles this automatically
+  // Update status bar and NativeWind theme
+  const updateThemeEffects = () => {
+    StatusBar.setBarStyle(isDark ? "light-content" : "dark-content", true);
+    setColorScheme(isDark ? "dark" : "light");
   };
 
-  const setTheme = async (newTheme: ThemeMode) => {
+  // Set theme and save to storage
+  const setTheme = async (newTheme: ThemeType) => {
     try {
-      await AsyncStorage.setItem(THEME_KEY, newTheme);
+      await AsyncStorage.setItem(THEME_STORAGE_KEY, newTheme);
       setThemeState(newTheme);
-    } catch (e) {
-      console.error("Failed to save theme", e);
+    } catch (error) {
+      console.error("Failed to set theme:", error);
     }
   };
 
+  // Load saved theme on mount
   useEffect(() => {
-    AsyncStorage.getItem(THEME_KEY).then((savedTheme) => {
-      if (savedTheme) {
-        setThemeState(savedTheme as ThemeMode);
+    const loadSavedTheme = async () => {
+      try {
+        const savedTheme = (await AsyncStorage.getItem(
+          THEME_STORAGE_KEY,
+        )) as ThemeType;
+        if (savedTheme) setThemeState(savedTheme);
+      } catch (error) {
+        console.error("Failed to load saved theme:", error);
       }
-    });
+    };
+
+    loadSavedTheme();
   }, []);
 
+  // Update effects when theme changes
+  useEffect(() => {
+    updateThemeEffects();
+  }, [isDark]);
+
   return (
-    <ThemeContext.Provider
-      value={{ theme, isDark, setTheme, setDefaultStatusBar }}
-    >
-      <StatusBar style={isDark ? "light" : "dark"} />
+    <ThemeContext.Provider value={{ theme, isDark, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
-
-export const useTheme = () => useContext(ThemeContext);
