@@ -14,6 +14,12 @@ export const MP3S = {
 
 export type MP3Type = (typeof MP3S)[keyof typeof MP3S];
 
+const MP3_SOURCES: Record<MP3Type, any> = {
+  [MP3S.ambient]: require("../assets/audio/ambient.mp3"),
+  [MP3S.forest]: require("../assets/audio/forest.mp3"),
+  [MP3S.piano]: require("../assets/audio/piano.mp3"),
+};
+
 interface SettingsState {
   init: boolean;
   mp3: MP3Type;
@@ -65,11 +71,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
         staysActiveInBackground: false,
         shouldDuckAndroid: true,
       });
-
-      // Load new sound
       const { sound: newSound } = await Audio.Sound.createAsync(
         // Adjust the require path based on your asset location
-        require(`../assets/audio/${mp3}`),
+        MP3_SOURCES[mp3],
         {
           isLooping: true,
           volume: volume,
