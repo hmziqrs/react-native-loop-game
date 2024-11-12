@@ -6,7 +6,7 @@ import { useSettings } from "@/contexts/Settings";
 
 const links = [
   { key: "levels", label: "Explore Levels" },
-  { key: "about", label: "About App" },
+  { key: "about-app", label: "About App" },
   { key: "developer", label: "About Developer" },
   { key: "settings", label: "Settings" },
 ];
