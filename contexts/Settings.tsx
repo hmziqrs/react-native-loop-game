@@ -35,20 +35,20 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         await state.player.unloadAsync();
       }
 
-      const { sound } = await Audio.Sound.createAsync(
-        require(`../assets/sounds/${mp3}`),
-        { isLooping: true },
-      );
+      // const { sound } = await Audio.Sound.createAsync(
+      //   require(`../assets/sounds/${mp3}`),
+      //   { isLooping: true },
+      // );
 
-      if (play) {
-        await sound.playAsync();
-      }
+      // if (play) {
+      //   await sound.playAsync();
+      // }
 
-      if (cache) {
-        await AsyncStorage.setItem(STORAGE_KEYS.MP3, mp3);
-      }
+      // if (cache) {
+      //   await AsyncStorage.setItem(STORAGE_KEYS.MP3, mp3);
+      // }
 
-      setState({ mp3, player: sound });
+      // setState({ mp3, player: sound });
     } catch (error) {
       console.error("Error loading sound", error);
     }
@@ -64,7 +64,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     // Load cached MP3 preference
     AsyncStorage.getItem(STORAGE_KEYS.MP3).then((cached) => {
       if (cached && cached !== state.mp3) {
-        loadSound(cached);
+        // loadSound(cached);
       }
     });
 
