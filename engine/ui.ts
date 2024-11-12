@@ -1,4 +1,5 @@
-import { dimensions } from "rn-hgl";
+import { Dimensions } from "react-native";
+const dimensions = Dimensions.get("window");
 
 import * as constants from "./constants";
 
@@ -9,9 +10,9 @@ export function getWidth() {
 }
 
 export function getHeight() {
-  return dimensions.availHeight > constants.MAX_HEIGHT
+  return dimensions.height > constants.MAX_HEIGHT
     ? constants.MAX_HEIGHT
-    : dimensions.availHeight;
+    : dimensions.height;
 }
 
 export function getGrid() {

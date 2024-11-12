@@ -1,3 +1,5 @@
+import { BoxType } from "./types";
+
 export const MAX_WIDTH = 800;
 export const MAX_HEIGHT = 900;
 
@@ -28,7 +30,7 @@ export const TYPES = [
   },
 ];
 
-export const value2RotaionMap = {
+export const value2RotationMap: Record<BoxType, Record<string, number>> = {
   line: {
     "1010": 0,
     "0101": 1,
