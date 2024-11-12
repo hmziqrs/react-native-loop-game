@@ -1,5 +1,5 @@
 import { Animated } from "react-native";
-import { BoxType, BoxData, GridBox } from "../types";
+import { BoxType, BoxData, GridBox } from "./types";
 
 const value2RotationMap: Record<BoxType, Record<string, number>> = {
   null: { "0000": 0 },
