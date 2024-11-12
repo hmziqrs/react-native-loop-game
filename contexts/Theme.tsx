@@ -9,9 +9,7 @@ import { StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useColorScheme } from "nativewind";
 
-const STORAGE_KEYS = {
-  THEME: "theme",
-} as const;
+const THEME_STORAGE_KEY = "theme";
 
 export const THEMES = {
   default: "default",
@@ -21,91 +19,68 @@ export const THEMES = {
 
 type ThemeType = (typeof THEMES)[keyof typeof THEMES];
 
-interface ThemeState {
-  init: boolean;
+interface ThemeContextType {
   theme: ThemeType;
-}
-
-interface ThemeContextType extends ThemeState {
   isDark: boolean;
-  setTheme: (theme: ThemeType) => Promise<void>;
-  setDefaultStatusBar: () => void;
+  setTheme: (theme: ThemeType) => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | null>(null);
+const ThemeContext = createContext<ThemeContextType | null>(null);
 
-export function useTheme() {
+export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
   return context;
-}
+};
 
-interface ThemeProviderProps {
-  children: ReactNode;
-}
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setThemeState] = useState<ThemeType>(THEMES.default);
+  const { colorScheme, setColorScheme } = useColorScheme();
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [state, setState] = useState<ThemeState>({
-    init: false,
-    theme: THEMES.default,
-  });
-
-  const { colorScheme } = useColorScheme();
+  // Determine if dark mode is active
   const isDark =
-    state.theme === THEMES.dark ||
-    (state.theme === THEMES.default && colorScheme === "dark");
+    theme === THEMES.dark ||
+    (theme === THEMES.default && colorScheme === "dark");
 
-  const setDefaultStatusBar = () => {
+  // Update status bar and NativeWind theme
+  const updateThemeEffects = () => {
     StatusBar.setBarStyle(isDark ? "light-content" : "dark-content", true);
+    setColorScheme(isDark ? "dark" : "light");
   };
 
+  // Set theme and save to storage
+  const setTheme = async (newTheme: ThemeType) => {
+    try {
+      await AsyncStorage.setItem(THEME_STORAGE_KEY, newTheme);
+      setThemeState(newTheme);
+    } catch (error) {
+      console.error("Failed to set theme:", error);
+    }
+  };
+
+  // Load saved theme on mount
   useEffect(() => {
-    setDefaultStatusBar();
+    const loadSavedTheme = async () => {
+      try {
+        const savedTheme = (await AsyncStorage.getItem(
+          THEME_STORAGE_KEY,
+        )) as ThemeType;
+        if (savedTheme) setThemeState(savedTheme);
+      } catch (error) {
+        console.error("Failed to load saved theme:", error);
+      }
+    };
+
+    loadSavedTheme();
+  }, []);
+
+  // Update effects when theme changes
+  useEffect(() => {
+    updateThemeEffects();
   }, [isDark]);
 
-  const setTheme = async (theme: ThemeType) => {
-    if (theme === state.theme) return;
-
-    try {
-      setState((prev) => ({ ...prev, theme }));
-      await AsyncStorage.setItem(STORAGE_KEYS.THEME, theme);
-    } catch (e) {
-      console.error("Failed to set theme:", e);
-    }
-  };
-
-  const initApp = async () => {
-    try {
-      const cache = (await AsyncStorage.getItem(
-        STORAGE_KEYS.THEME,
-      )) as ThemeType | null;
-      if (cache && cache !== state.theme) {
-        setState({ init: true, theme: cache });
-      } else {
-        setState((prev) => ({ ...prev, init: true }));
-      }
-    } catch (e) {
-      console.error("Failed to initialize theme:", e);
-    }
-  };
-
-  useEffect(() => {
-    if (!state.init) {
-      initApp();
-    }
-  }, [state.init]);
-
   return (
-    <ThemeContext.Provider
-      value={{
-        ...state,
-        isDark,
-        setTheme,
-        setDefaultStatusBar,
-      }}
-    >
+    <ThemeContext.Provider value={{ theme, isDark, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
