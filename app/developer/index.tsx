@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text, Linking } from "react-native";
 import { router } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 import { PageView } from "@/components/PageView";
@@ -9,6 +9,31 @@ import * as data from "./data";
 import { Contact, Support } from "./data";
 
 export default function AboutDeveloperScreen() {
+  function open(contact: Contact) {
+    () => {
+      let url = "";
+      switch (contact.platform) {
+        case "linkedin":
+          url = `https://linkedin.com/in/${contact.username}`;
+          break;
+        case "github":
+          url = `https://github.com/${contact.username}`;
+          break;
+        case "x":
+          url = `https://x.com/${contact.username}`;
+          break;
+        case "gmail":
+          url = `mailto:${contact.username}`;
+          break;
+        case "telegram":
+          url = `https://t.me/${contact.username}`;
+          break;
+      }
+      console.log(url);
+      if (url) Linking.openURL(url);
+    };
+  }
+
   return (
     <PageView
       header={{
@@ -20,24 +45,15 @@ export default function AboutDeveloperScreen() {
       {/* Body */}
       <View className="flex-1 px-4">
         <View className="max-w-4xl mx-auto w-full">
-          <Image
-            source={require("@/assets/goku.png")}
-            className="rounded-full"
-            style={{ width: 160, height: 160 }}
-          />
+          <View className="mx-auto my-8">
+            <Image
+              source={require("@/assets/goku.png")}
+              className="rounded-full"
+              style={{ width: 160, height: 160 }}
+            />
+          </View>
           <Text className="text-2xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            Full stack web & app developer
-          </Text>
-
-          <Text className="text-base mb-6 text-zinc-700 dark:text-zinc-300">
-            Hi, I am full stack developer who has been developing end to end
-            smart solutions for more than three years. I am a committed
-            individual who is highly efficient and has excellent organisational
-            skills to develop applications...
-          </Text>
-
-          <Text className="text-xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            My skill set
+            Full stack engineer
           </Text>
 
           {/* Skills */}
@@ -45,7 +61,7 @@ export default function AboutDeveloperScreen() {
             {data.skills.map((skill) => (
               <Text
                 key={skill}
-                className="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-zinc-700 dark:text-zinc-300"
+                className="px-3.5 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full text-zinc-700 dark:text-zinc-300"
               >
                 {skill}
               </Text>
@@ -62,32 +78,11 @@ export default function AboutDeveloperScreen() {
               <TouchableOpacity
                 key={contact.icon}
                 className="flex-row items-center space-x-3 p-2"
-                onPress={() => {
-                  let url = "";
-                  switch (contact.platform) {
-                    case "linkedin":
-                      url = `https://linkedin.com/in/${contact.username}`;
-                      break;
-                    case "github":
-                      url = `https://github.com/${contact.username}`;
-                      break;
-                    case "x (twitter)":
-                      url = `https://twitter.com/${contact.username}`;
-                      break;
-                    case "gmail":
-                      url = `mailto:${contact.username}`;
-                      break;
-                    case "telegram":
-                      url = `https://t.me/${contact.username}`;
-                      break;
-                  }
-                  if (url) Linking.openURL(url);
-                }}
+                onPress={() => open(contact)}
               >
-                <MaterialCommunityIcons
-                  name={contact.icon as any} // Type assertion since MaterialCommunityIcons has its own icon types
+                <FontAwesome6
+                  name={contact.icon as any} // Type assertion since FontAwesome6 has its own icon types
                   size={24}
-                  color="currentColor"
                   className="text-zinc-900 dark:text-zinc-50"
                 />
                 <Text className="text-zinc-700 dark:text-zinc-300">

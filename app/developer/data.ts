@@ -33,14 +33,14 @@ export const contacts: Contact[] = [
     icon: "github",
   },
   {
-    platform: "x (twitter)",
+    platform: "x",
     username: "hmziqrs",
-    icon: "twitter",
+    icon: "x-twitter",
   },
   {
     platform: "gmail",
     username: "hmziqrs@gmail.com",
-    icon: "mail",
+    icon: "envelope",
   },
   {
     platform: "telegram",
