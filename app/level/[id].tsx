@@ -1,5 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import { View, StatusBar, Animated, type ViewStyle } from "react-native";
+import {
+  View,
+  StatusBar,
+  Animated,
+  type ViewStyle,
+  TouchableOpacity,
+} from "react-native";
 import { useGlobalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSettings } from "@/contexts/Settings";
@@ -42,12 +48,6 @@ export default function LevelScreen() {
   // Handle status bar
   useEffect(() => {
     StatusBar.setBarStyle(success ? "light-content" : "dark-content", true);
-  }, [success]);
-
-  useEffect(() => {
-    if (success) {
-      setToggle(true);
-    }
   }, [success]);
 
   const bgStyle: ViewStyle = {
@@ -100,7 +100,9 @@ export default function LevelScreen() {
           <View
             className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
           >
-            <View />
+            <TouchableOpacity style={{ flex: 1 }} onPress={controls.next}>
+              <View className="flex-1" />
+            </TouchableOpacity>
           </View>
 
           <Animated.Text

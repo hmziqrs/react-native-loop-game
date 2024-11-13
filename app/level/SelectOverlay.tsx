@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, Animated, Text, Pressable, Easing } from "react-native";
 import { router } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import useOverlayHook from "./overlay.hook";
 import { initLayout } from "@/engine/ui";
 import { Theme } from "@/engine/types";
 
