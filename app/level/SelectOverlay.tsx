@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { View, Animated, Text, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Animated, Text, Pressable, Easing } from "react-native";
 import { router } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import useHook from "./overlay.hook";
+import useOverlayHook from "./overlay.hook";
 import { initLayout } from "@/engine/ui";
 import { Theme } from "@/engine/types";
 
@@ -23,10 +23,29 @@ export default function LevelSelectOverlay({
   toggle,
   setToggle,
 }: LevelSelectOverlayProps) {
-  const { animation, mount, header, setHeader } = useHook(toggle);
-  const init = () => initLayout(600, "spring");
+  const [mount, setMount] = useState(toggle);
+  const [header, setHeader] = useState(false);
+  const [animation] = useState(new Animated.Value(0.0));
 
-  console.log("toggle", toggle);
+  console.log("Overlay Hook", toggle);
+
+  useEffect(() => {
+    if (toggle) {
+      setMount(true);
+    }
+    Animated.timing(animation, {
+      toValue: toggle ? 1.0 : 0.0,
+      duration: 400,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start((e) => {
+      if (e.finished && !toggle) {
+        setMount(false);
+      }
+    });
+  }, [toggle, animation]);
+
+  const init = () => initLayout(600, "spring");
 
   useEffect(() => {
     initLayout();
@@ -48,12 +67,17 @@ export default function LevelSelectOverlay({
     }, 200);
   }
 
+  console.log("LevelSelectOverlaymount", mount);
+
   if (!mount) {
     return <View />;
   }
 
   return (
-    <Pressable className="absolute inset-0" onPress={close}>
+    <View
+      className="absolute inset-0 bg-red-500 w-100 h-100 z-40"
+      // onPress={close}
+    >
       <Animated.View
         style={[
           {
@@ -132,6 +156,6 @@ export default function LevelSelectOverlay({
           </Pressable>
         </Animated.View>
       </Animated.View>
-    </Pressable>
+    </View>
   );
 }

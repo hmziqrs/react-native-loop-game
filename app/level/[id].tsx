@@ -1,11 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { View, StatusBar, Animated, type ViewStyle } from "react-native";
 import { useGlobalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
-import useToggle from "./toggle.hook";
 import Shapes from "./Shapes";
 import { Pressable } from "react-native-gesture-handler";
 import { PageView } from "@/components/PageView";
@@ -15,7 +14,7 @@ const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
 export default function LevelScreen() {
   const params = useGlobalSearchParams<{ id: string }>();
   const forceLevel = parseInt(params.id, 10) || 1;
-  const { toggle, setToggle } = useToggle();
+  const [toggle, setToggle] = useState(false);
   const { playAudio, pauseAudio } = useSettings();
   // const { theme } = useTheme();
   const {
@@ -94,7 +93,7 @@ export default function LevelScreen() {
           </View>
 
           <View
-            className={`absolute inset-0  ${success ? "visible" : "invisible"}`}
+            className={`absolute inset-0   ${success ? "visible" : "invisible"}`}
           >
             <View />
           </View>
