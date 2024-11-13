@@ -1,6 +1,8 @@
 import React from "react";
 import { Animated, TouchableOpacity } from "react-native";
 
+import * as styles from "./styles";
+
 interface ShapesProps {
   id: string;
   size: number;

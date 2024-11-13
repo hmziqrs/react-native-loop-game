@@ -1,18 +1,10 @@
 import React, { useEffect } from "react";
-import { View, Animated } from "react-native";
-import { TouchNative, scaling } from "rn-hgl";
+import { View, Animated, Text, Pressable } from "react-native";
 import { router } from "expo-router";
-import { initLayout } from "utils/ui";
-import { Text } from "components/Text";
-import { Icon } from "components/Icon";
-import useHook from "./hook";
-
-interface Theme {
-  light: {
-    primary: any; // Replace with proper color type from your theme
-    accent: any;
-  };
-}
+import { MaterialIcons } from "@expo/vector-icons";
+import useHook from "./overlay.hook";
+import { initLayout } from "@/engine/ui";
+import { Theme } from "@/engine/types";
 
 interface LevelSelectOverlayProps {
   next: () => void;
@@ -59,7 +51,7 @@ export default function LevelSelectOverlay({
   }
 
   return (
-    <TouchNative noFeedback className="absolute inset-0" onPress={close}>
+    <Pressable className="absolute inset-0" onPress={close}>
       <Animated.View
         style={[
           {
@@ -70,33 +62,28 @@ export default function LevelSelectOverlay({
         ]}
       >
         <Animated.View className="flex-row mt-10 px-2">
-          <TouchNative
+          <Pressable
             onPress={() => router.back()}
-            style={[header ? { left: 0 } : { left: scaling(-30) }]}
+            style={[header ? { left: 0 } : { left: -30 }]}
             className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30"
           >
-            <Icon
+            <MaterialIcons
               name="exit-to-app"
-              className="text-white text-xl top-[1px] left-[0.8px]"
+              className="text-white"
+              size={24}
             />
-          </TouchNative>
+          </Pressable>
           <View className="flex-1" />
           <View
-            style={[header ? { right: 0 } : { right: scaling(-30) }]}
+            style={[header ? { right: 0 } : { right: -30 }]}
             className="flex-row"
           >
-            <TouchNative className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
-              <Icon
-                name="instagram"
-                className="text-white text-xl top-[1px] left-[0.8px]"
-              />
-            </TouchNative>
-            <TouchNative className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
-              <Icon
-                name="facebook"
-                className="text-white text-xl top-[1px] left-[0.8px]"
-              />
-            </TouchNative>
+            <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
+              <MaterialIcons name="camera" className="text-white" size={24} />
+            </Pressable>
+            <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
+              <MaterialIcons name="share" className="text-white" size={24} />
+            </Pressable>
           </View>
         </Animated.View>
 
@@ -116,19 +103,19 @@ export default function LevelSelectOverlay({
               opacity: animation,
               top: animation.interpolate({
                 inputRange: [0, 1],
-                outputRange: [scaling(16), 0],
+                outputRange: [16, 0],
               }),
             },
           ]}
           className="flex-row justify-center pb-12"
         >
-          <TouchNative onPress={prev}>
-            <Icon
+          <Pressable onPress={prev}>
+            <MaterialIcons
               name="chevron-left"
               style={[{ color: theme.light.accent }]}
-              className="text-4xl"
+              size={32}
             />
-          </TouchNative>
+          </Pressable>
           <View className="justify-center px-16">
             <Text
               style={[{ color: theme.light.accent }]}
@@ -137,15 +124,15 @@ export default function LevelSelectOverlay({
               #{level}
             </Text>
           </View>
-          <TouchNative onPress={next}>
-            <Icon
+          <Pressable onPress={next}>
+            <MaterialIcons
               name="chevron-right"
               style={[{ color: theme.light.accent }]}
-              className="text-4xl"
+              size={32}
             />
-          </TouchNative>
+          </Pressable>
         </Animated.View>
       </Animated.View>
-    </TouchNative>
+    </Pressable>
   );
 }

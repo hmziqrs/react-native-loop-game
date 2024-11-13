@@ -10,7 +10,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
 import useToggle from "./toggle.hook";
-import { Shape } from "./Shapes";
+import Shapes from "./Shapes";
 
 interface AnimatedStyle {
   flex: number;
@@ -86,7 +86,7 @@ export default function LevelScreen() {
                       setRotate={() => {
                         if (
                           ["null"].indexOf(type) === -1 &&
-                          // Number.isInteger(animation.value)
+                          Number.isInteger(animation.value)
                         ) {
                           setRotate(x, y);
                         }
