@@ -8,6 +8,9 @@ import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
 import useToggle from "./toggle.hook";
 import Shapes from "./Shapes";
+import { Pressable } from "react-native-gesture-handler";
+
+const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
 
 export default function LevelScreen() {
   const params = useGlobalSearchParams<{ id: string }>();
@@ -47,6 +50,8 @@ export default function LevelScreen() {
     flex: 1,
     backgroundColor: animateColor("primary") as any,
   };
+
+  console.log("color bro", animateColor("accent"));
 
   return (
     <>
@@ -113,15 +118,12 @@ export default function LevelScreen() {
         />
       </Animated.View>
 
-      <Animated.View
-        style={{ backgroundColor: animateColor("primary") }}
-        className="absolute inset-x-0 bottom-0 pb-5"
-      >
-        <Animated.View
+      <Animated.View style={{ backgroundColor: animateColor("primary") }}>
+        <Pressable
           className="self-center p-3"
           // onPress={() => (success ? capture(ref) : setToggle(true))}
         >
-          <MaterialIcons
+          <AnimatedMaterialIcons
             name={success ? "camera" : "menu"}
             size={32}
             style={{
@@ -130,7 +132,7 @@ export default function LevelScreen() {
                 : theme.light.accent.alpha(0.4),
             }}
           />
-        </Animated.View>
+        </Pressable>
       </Animated.View>
     </>
   );
