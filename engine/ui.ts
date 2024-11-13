@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import { Dimensions, LayoutAnimation, LayoutAnimationType } from "react-native";
 const dimensions = Dimensions.get("window");
 
 import * as constants from "./constants";
@@ -22,3 +22,31 @@ export function getGrid() {
     boxSize,
   };
 }
+
+export const initLayout = (
+  duration: number = 200,
+  type: LayoutAnimationType = "linear",
+) => {
+  if (type === "spring") {
+    return LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+  }
+
+  return LayoutAnimation.configureNext({
+    duration,
+    create: {
+      duration,
+      type: LayoutAnimation.Types[type],
+      property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+      duration,
+      type: LayoutAnimation.Types[type],
+      property: LayoutAnimation.Properties.opacity,
+    },
+    delete: {
+      duration,
+      type: LayoutAnimation.Types[type],
+      property: LayoutAnimation.Properties.opacity,
+    },
+  });
+};

@@ -30,7 +30,7 @@ interface SettingsContextType extends SettingsState {
   isPlaying: boolean;
   volume: number;
   setVolume: (volume: number) => Promise<void>;
-  playSound: (mp3: MP3Type) => Promise<void>;
+  playSound: (mp3?: MP3Type) => Promise<void>;
   pauseSound: () => Promise<void>;
   resumeSound: () => Promise<void>;
 }
@@ -92,10 +92,10 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     }
   };
 
-  const playSound = async (mp3: MP3Type) => {
+  const playSound = async (mp3?: MP3Type) => {
     try {
       const currentSound =
-        sound && state.mp3 === mp3 ? sound : await loadSound(mp3);
+        !mp3 || (sound && state.mp3 === mp3) ? sound : await loadSound(mp3);
       if (currentSound) {
         await currentSound.playAsync();
         setIsPlaying(true);

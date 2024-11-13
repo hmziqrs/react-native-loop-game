@@ -15,7 +15,7 @@ export default function LevelsScreen() {
     >
       <View className="flex-row flex-wrap justify-center p-4">
         {Object.keys(levels).map((level) => (
-          <Link key={level} href={`/game/${level}`} asChild>
+          <Link key={level} href={`/level/${level}`} asChild>
             <Pressable
               className="w-[calc(50%-16px)]
                 m-2 p-4 rounded-lg border border-primary/50"
