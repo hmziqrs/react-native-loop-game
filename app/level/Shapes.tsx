@@ -27,8 +27,6 @@ export default function Shapes({
   styles.setData(animateColor, success, size);
   let child: React.ReactNode = null;
 
-  console.log("animation", (animation as any)._value);
-
   const rotate = animation.interpolate({
     inputRange: [0, 4],
     outputRange: ["0deg", "360deg"],

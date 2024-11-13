@@ -51,9 +51,6 @@ export default function LevelScreen() {
     backgroundColor: animateColor("primary") as any,
   };
 
-  console.log("color bro", animateColor("accent"));
-  console.log("tehe bro", theme.light.accent.alpha(0.4).toString());
-
   return (
     <>
       <Animated.View ref={ref} style={bgStyle}>
@@ -83,7 +80,6 @@ export default function LevelScreen() {
                     animation={animation}
                     animateColor={animateColor}
                     setRotate={() => {
-                      console.log("ROATATE");
                       if (
                         ["null"].indexOf(type) === -1 &&
                         Number.isInteger((animation as any)._value)
