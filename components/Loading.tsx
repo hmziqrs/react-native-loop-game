@@ -15,7 +15,7 @@ export function Loading({ size = 40, color = "#1565C0" }: LoadingProps) {
       Animated.timing(rotation, {
         toValue: 1,
         duration: 1000,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
     ).start();
   }, []);

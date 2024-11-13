@@ -1,9 +1,16 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useRef,
+} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Audio } from "expo-av";
 
 const STORAGE_KEYS = {
   MP3: "default_mp3",
+  VOLUME: "volume_level",
 } as const;
 
 export const MP3S = {
@@ -21,19 +28,28 @@ const MP3_SOURCES: Record<MP3Type, any> = {
 };
 
 interface SettingsState {
-  init: boolean;
-  mp3: MP3Type;
-}
-
-interface SettingsContextType extends SettingsState {
-  sound: Audio.Sound | null;
+  initialized: boolean;
+  currentTrack: MP3Type;
   isPlaying: boolean;
   volume: number;
-  setVolume: (volume: number) => Promise<void>;
-  playSound: (mp3?: MP3Type) => Promise<void>;
-  pauseSound: () => Promise<void>;
-  resumeSound: () => Promise<void>;
+  error: string | null;
 }
+
+interface SettingsContextType extends Omit<SettingsState, "error"> {
+  changeAudio: (track: MP3Type) => Promise<void>;
+  playAudio: () => Promise<void>;
+  pauseAudio: () => Promise<void>;
+  resumeAudio: () => Promise<void>;
+  setVolume: (volume: number) => Promise<void>;
+}
+
+const defaultState: SettingsState = {
+  initialized: false,
+  currentTrack: MP3S.piano,
+  isPlaying: false,
+  volume: 1.0,
+  error: null,
+};
 
 export const SettingsContext = createContext<SettingsContextType | null>(null);
 
@@ -45,144 +61,213 @@ export function useSettings() {
   return context;
 }
 
-interface SettingsProviderProps {
-  children: ReactNode;
-}
+export function SettingsProvider({ children }: { children: ReactNode }) {
+  const [state, setState] = useState<SettingsState>(defaultState);
+  const ins = useRef<Audio.SoundObject | null>(); // Create Sound instance in ref
 
-export function SettingsProvider({ children }: SettingsProviderProps) {
-  const [state, setState] = useState<SettingsState>({
-    init: false,
-    mp3: MP3S.piano,
-  });
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolumeState] = useState(1.0);
+  const updateState = (updates: Partial<SettingsState>) => {
+    setState((prev) => ({ ...prev, ...updates }));
+  };
 
-  const loadSound = async (mp3: MP3Type) => {
+  const setupAudioMode = async () => {
     try {
-      // Unload previous sound if exists
-      if (sound) {
-        await sound.unloadAsync();
-      }
-
-      // Configure audio mode
       await Audio.setAudioModeAsync({
         playsInSilentModeIOS: true,
-        staysActiveInBackground: false,
+        staysActiveInBackground: true,
         shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false,
       });
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        // Adjust the require path based on your asset location
-        MP3_SOURCES[mp3],
+    } catch (error) {
+      console.error("Error setting audio mode:", error);
+      updateState({ error: "Failed to setup audio mode" });
+    }
+  };
+
+  const loadAudio = async (track: MP3Type): Promise<boolean> => {
+    try {
+      if (state.initialized && state.currentTrack === track) return true;
+      // Unload current audio if loaded
+      if (ins.current?.status.isLoaded) {
+        await ins.current?.sound?.unloadAsync();
+      }
+
+      ins.current = await Audio.Sound.createAsync(
+        MP3_SOURCES[track],
         {
           isLooping: true,
-          volume: volume,
+          volume: state.volume,
           shouldPlay: false,
+          progressUpdateIntervalMillis: 100,
         },
+        onPlaybackStatusUpdate,
+        true, // downloadFirst
       );
 
-      setSound(newSound);
-      setState((prev) => ({ ...prev, mp3 }));
-      await AsyncStorage.setItem(STORAGE_KEYS.MP3, mp3);
+      // Set up status update callback
+      // ins.current!.sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
 
-      return newSound;
+      await AsyncStorage.setItem(STORAGE_KEYS.MP3, track);
+      updateState({ currentTrack: track, error: null });
+
+      return true;
     } catch (error) {
-      console.error("Error loading sound:", error);
-      return null;
+      console.error("Error loading audio:", error);
+      updateState({ error: "Failed to load audio" });
+      return false;
     }
   };
 
-  const playSound = async (mp3?: MP3Type) => {
+  // useless it was causing rerenders
+  const onPlaybackStatusUpdate = (status: any) => {
+    // console.log("UEE");
+    // if (status.isLoaded) {
+    //   // updateState({
+    //   //   isPlaying: status.isPlaying,
+    //   //   error: null,
+    //   // });
+    // } else if (status.error) {
+    //   // updateState({
+    //   //   error: `Playback error: ${status.error}`,
+    //   // });
+    // }
+  };
+
+  const changeAudio = async (track: MP3Type) => {
     try {
-      const currentSound =
-        !mp3 || (sound && state.mp3 === mp3) ? sound : await loadSound(mp3);
-      if (currentSound) {
-        await currentSound.playAsync();
-        setIsPlaying(true);
+      // Don't reload if it's the same track
+      if (track === state.currentTrack) {
+        const status = await ins.current?.sound.getStatusAsync();
+        if (status?.isLoaded) return;
+      }
+
+      const wasPlaying = state.isPlaying;
+
+      // Pause current playback if playing
+      if (state.isPlaying) {
+        await pauseAudio();
+      }
+
+      // Load and play new track if previous was playing
+      const loaded = await loadAudio(track);
+      if (loaded && wasPlaying) {
+        await ins.current!.sound.playAsync();
       }
     } catch (error) {
-      console.error("Error playing sound:", error);
+      console.error("Error changing audio:", error);
+      updateState({ error: "Failed to change audio" });
     }
   };
 
-  const pauseSound = async () => {
+  const playAudio = async () => {
     try {
-      if (sound) {
-        await sound.pauseAsync();
-        setIsPlaying(false);
+      const status = await ins.current?.sound.getStatusAsync();
+      if (!status?.isLoaded) {
+        const loaded = await loadAudio(state.currentTrack);
+        if (!loaded) return;
       }
+
+      await ins.current!.sound.playAsync();
+      updateState({ isPlaying: true, error: null });
     } catch (error) {
-      console.error("Error pausing sound:", error);
+      console.error("Error playing audio:", error);
+      updateState({ error: "Failed to play audio" });
     }
   };
 
-  const resumeSound = async () => {
+  const pauseAudio = async () => {
     try {
-      if (sound) {
-        await sound.playAsync();
-        setIsPlaying(true);
+      if (ins.current?.status.isLoaded) {
+        await ins.current!.sound.pauseAsync();
+        updateState({ isPlaying: false, error: null });
       }
     } catch (error) {
-      console.error("Error resuming sound:", error);
+      console.error("Error pausing audio:", error);
+      updateState({ error: "Failed to pause audio" });
+    }
+  };
+
+  const resumeAudio = async () => {
+    try {
+      if (ins.current?.status.isLoaded) {
+        await ins.current!.sound.playAsync();
+        updateState({ isPlaying: true, error: null });
+      }
+    } catch (error) {
+      console.error("Error resuming audio:", error);
+      updateState({ error: "Failed to resume audio" });
     }
   };
 
   const setVolume = async (newVolume: number) => {
     try {
-      if (sound) {
-        await sound.setVolumeAsync(newVolume);
+      if (ins.current?.status.isLoaded) {
+        await ins.current!.sound.setVolumeAsync(newVolume);
+        await AsyncStorage.setItem(STORAGE_KEYS.VOLUME, newVolume.toString());
+        updateState({ volume: newVolume, error: null });
       }
-      setVolumeState(newVolume);
     } catch (error) {
       console.error("Error setting volume:", error);
+      updateState({ error: "Failed to set volume" });
     }
   };
 
-  const initApp = async () => {
+  const initializeAudio = async () => {
     try {
-      const cache = (await AsyncStorage.getItem(
-        STORAGE_KEYS.MP3,
-      )) as MP3Type | null;
-      if (cache && cache !== state.mp3) {
-        await loadSound(cache);
-      } else {
-        await loadSound(state.mp3);
+      await setupAudioMode();
+
+      // Load cached settings
+      const [cachedTrack, cachedVolume] = await Promise.all([
+        AsyncStorage.getItem(STORAGE_KEYS.MP3),
+        AsyncStorage.getItem(STORAGE_KEYS.VOLUME),
+      ]);
+
+      // Update state with cached values
+      if (cachedVolume) {
+        updateState({ volume: parseFloat(cachedVolume) });
       }
-      setState((prev) => ({ ...prev, init: true }));
+
+      // Load the cached track or default
+      const trackToLoad = (cachedTrack as MP3Type) || state.currentTrack;
+      await loadAudio(trackToLoad);
+
+      updateState({ initialized: true });
     } catch (error) {
-      console.error("Error initializing app:", error);
-      setState((prev) => ({ ...prev, init: true }));
+      console.error("Error initializing audio:", error);
+      updateState({
+        initialized: true,
+        error: "Failed to initialize audio",
+      });
     }
   };
 
+  // Initialize on mount
   React.useEffect(() => {
-    if (!state.init) {
-      initApp();
+    if (!state.initialized) {
+      initializeAudio();
     }
-  }, [state.init]);
+  }, [state.initialized]);
 
-  // Cleanup effect
+  // Cleanup on unmount
   React.useEffect(() => {
     return () => {
-      if (sound) {
-        sound.unloadAsync();
-      }
+      ins.current?.sound.unloadAsync();
     };
-  }, [sound]);
+  }, []);
+
+  const contextValue: SettingsContextType = {
+    initialized: state.initialized,
+    currentTrack: state.currentTrack,
+    isPlaying: state.isPlaying,
+    volume: state.volume,
+    changeAudio,
+    playAudio,
+    pauseAudio,
+    resumeAudio,
+    setVolume,
+  };
 
   return (
-    <SettingsContext.Provider
-      value={{
-        ...state,
-        sound,
-        isPlaying,
-        volume,
-        setVolume,
-        playSound,
-        pauseSound,
-        resumeSound,
-      }}
-    >
+    <SettingsContext.Provider value={contextValue}>
       {children}
     </SettingsContext.Provider>
   );

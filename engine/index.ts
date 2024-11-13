@@ -48,7 +48,7 @@ export default function useEngine(forceLevel: number): EngineReturn {
     let toValue = newBox.rotate;
 
     if (newBox.type === "line") {
-      toValue = (newBox.animation as any) + 1;
+      toValue = (newBox.animation as any)._value + 1;
     }
     if (toValue === 0) {
       toValue = 4;

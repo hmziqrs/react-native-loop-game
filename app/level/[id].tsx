@@ -1,26 +1,34 @@
-import React, { useRef, useEffect } from "react";
-import { View, StatusBar, Animated, type ViewStyle } from "react-native";
-import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
+import React, { useRef, useEffect, useState } from "react";
+import {
+  View,
+  StatusBar,
+  Animated,
+  type ViewStyle,
+  TouchableOpacity,
+} from "react-native";
+import { useGlobalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "@/contexts/Theme";
 import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
-import useToggle from "./toggle.hook";
 import Shapes from "./Shapes";
+import { Pressable } from "react-native-gesture-handler";
+import { PageView } from "@/components/PageView";
+
+const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
 
 export default function LevelScreen() {
   const params = useGlobalSearchParams<{ id: string }>();
   const forceLevel = parseInt(params.id, 10) || 1;
-  const { toggle, setToggle } = useToggle();
-  const { playSound, pauseSound } = useSettings();
+  const [toggle, setToggle] = useState(false);
+  const { playAudio, pauseAudio } = useSettings();
   // const { theme } = useTheme();
   const {
     theme,
     level,
     size,
     grid,
-    // capture not used, removing from destructure
+    capture,
     success,
     controls,
     setRotate,
@@ -31,10 +39,9 @@ export default function LevelScreen() {
 
   // Handle sound state
   useEffect(() => {
-    playSound();
+    playAudio();
     return () => {
-      pauseSound();
-      // setDefaultStatusBar();
+      pauseAudio();
     };
   }, []);
 
@@ -49,14 +56,18 @@ export default function LevelScreen() {
   };
 
   return (
-    <>
+    <PageView>
       <Animated.View ref={ref} style={bgStyle}>
         <View className="flex-1">
           <StatusBar animated />
           <View className="flex-1 items-center justify-center">
             <Animated.Text
-              style={{ color: animateColor("accent") }}
-              className="text-xl text-center absolute top-12"
+              style={{
+                color: animateColor("accent"),
+                fontWeight: "600",
+                position: "absolute",
+                top: 20,
+              }}
             >
               #{level}
             </Animated.Text>
@@ -73,7 +84,6 @@ export default function LevelScreen() {
                     animation={animation}
                     animateColor={animateColor}
                     setRotate={() => {
-                      console.log("ROATATE");
                       if (
                         ["null"].indexOf(type) === -1 &&
                         Number.isInteger((animation as any)._value)
@@ -87,21 +97,23 @@ export default function LevelScreen() {
             ))}
           </View>
 
-          <Animated.View
-            // onPress={controls.next}
+          <View
             className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
           >
-            <View />
-          </Animated.View>
-
-          <View className="absolute inset-x-0 bottom-6">
-            <Animated.Text
-              style={{ color: animateColor("accent") }}
-              className="text-xl font-semibold text-center"
-            >
-              React Native Loop
-            </Animated.Text>
+            <TouchableOpacity style={{ flex: 1 }} onPress={controls.next}>
+              <View className="flex-1" />
+            </TouchableOpacity>
           </View>
+
+          <Animated.Text
+            style={{
+              color: animateColor("accent"),
+              textAlign: "center",
+              fontWeight: "600",
+            }}
+          >
+            React Native Loop
+          </Animated.Text>
         </View>
 
         <LevelSelectOverlay
@@ -113,25 +125,22 @@ export default function LevelScreen() {
         />
       </Animated.View>
 
-      <Animated.View
-        style={{ backgroundColor: animateColor("primary") }}
-        className="absolute inset-x-0 bottom-0 pb-5"
-      >
-        <Animated.View
+      <Animated.View style={{ backgroundColor: animateColor("primary") }}>
+        <Pressable
           className="self-center p-3"
-          // onPress={() => (success ? capture(ref) : setToggle(true))}
+          onPress={() => (success ? capture(ref) : setToggle(!toggle))}
         >
-          <MaterialIcons
+          <AnimatedMaterialIcons
             name={success ? "camera" : "menu"}
             size={32}
             style={{
               color: success
                 ? (animateColor("accent") as any)
-                : theme.light.accent.alpha(0.4),
+                : theme.light.accent.alpha(0.99).toString(),
             }}
           />
-        </Animated.View>
+        </Pressable>
       </Animated.View>
-    </>
+    </PageView>
   );
 }
