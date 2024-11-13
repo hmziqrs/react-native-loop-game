@@ -12,6 +12,8 @@ import level10 from "./level-10";
 import level11 from "./level-11";
 import level12 from "./level-12";
 import level13 from "./level-13";
+import level14 from "./level-14";
+import level15 from "./level-15";
 
 export const levels: Record<number, Level> = {
   1: level1,
@@ -27,4 +29,6 @@ export const levels: Record<number, Level> = {
   11: level11,
   12: level12,
   13: level13,
+  14: level14,
+  15: level15,
 };
