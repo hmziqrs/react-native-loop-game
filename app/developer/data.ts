@@ -1,10 +1,10 @@
-interface Contact {
+export interface Contact {
   icon: string;
   username: string;
   platform: string;
 }
 
-interface Support {
+export interface Support {
   link: string;
   text: string;
 }

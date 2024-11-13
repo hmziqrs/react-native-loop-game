@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Image, Text, Linking } from "react-native";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
-// import * as utils from "@/utils";
 import { PageView } from "@/components/PageView";
 import * as data from "./data";
+import { Contact, Support } from "./data";
 
 export default function AboutDeveloperScreen() {
   return (
@@ -20,6 +20,11 @@ export default function AboutDeveloperScreen() {
       {/* Body */}
       <View className="flex-1 px-4">
         <View className="max-w-4xl mx-auto w-full">
+          <Image
+            source={require("@/assets/goku.png")}
+            className="rounded-full"
+            style={{ width: 160, height: 160 }}
+          />
           <Text className="text-2xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             Full stack web & app developer
           </Text>
@@ -57,15 +62,32 @@ export default function AboutDeveloperScreen() {
               <TouchableOpacity
                 key={contact.icon}
                 className="flex-row items-center space-x-3 p-2"
-                // // onPress={() =>
-                // //   Linking.openURL(
-                // //     // utils.socialLink(contact.username, contact.platform),
-                // //   )
-                // }
+                onPress={() => {
+                  let url = "";
+                  switch (contact.platform) {
+                    case "linkedin":
+                      url = `https://linkedin.com/in/${contact.username}`;
+                      break;
+                    case "github":
+                      url = `https://github.com/${contact.username}`;
+                      break;
+                    case "x (twitter)":
+                      url = `https://twitter.com/${contact.username}`;
+                      break;
+                    case "gmail":
+                      url = `mailto:${contact.username}`;
+                      break;
+                    case "telegram":
+                      url = `https://t.me/${contact.username}`;
+                      break;
+                  }
+                  if (url) Linking.openURL(url);
+                }}
               >
                 <MaterialCommunityIcons
-                  name={contact.icon}
+                  name={contact.icon as any} // Type assertion since MaterialCommunityIcons has its own icon types
                   size={24}
+                  color="currentColor"
                   className="text-zinc-900 dark:text-zinc-50"
                 />
                 <Text className="text-zinc-700 dark:text-zinc-300">
@@ -98,19 +120,6 @@ export default function AboutDeveloperScreen() {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
-      </View>
-
-      {/* Avatar */}
-      <View className="absolute top-20 right-4">
-        <View className="absolute -top-2 -right-2 w-24 h-24 bg-zinc-900 dark:bg-zinc-700 rounded-full" />
-        <View className="absolute -bottom-2 -left-2 w-24 h-24 bg-blue-500 rounded-full">
-          <Image
-            // assets/goju.png
-            source={require("../../assets/goku.png")}
-            className="w-10 h-10 rounded-full"
-            resizeMode="cover"
-          />
         </View>
       </View>
     </PageView>
