@@ -2,15 +2,16 @@ import React from "react";
 import { Animated, TouchableOpacity } from "react-native";
 
 import * as styles from "./styles";
+import { BoxType } from "@/engine/types";
 
 interface ShapesProps {
   id: string;
   size: number;
   animation: Animated.Value;
-  type: "line" | "1-point" | "2-point" | "3-point" | "4-point";
+  type: BoxType;
   setRotate: () => void;
   success: boolean;
-  animateColor: (type: string) => string;
+  animateColor: (color: string) => Animated.AnimatedInterpolation<string>;
 }
 
 export default function Shapes({

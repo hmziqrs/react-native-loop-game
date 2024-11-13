@@ -3,7 +3,7 @@ import { View, StatusBar, Animated, type ViewStyle } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@/contexts/Theme";
-import { usePlayer } from "@/contexts/player";
+import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
 import useToggle from "./toggle.hook";
@@ -17,9 +17,10 @@ export default function LevelScreen() {
   const { level: levelParam } = useLocalSearchParams<LayoutProps>();
   const forceLevel = parseInt(levelParam, 10) || 1;
   const { toggle, setToggle } = useToggle();
-  const { player } = usePlayer();
-  const { setDefaultStatusBar, theme } = useTheme();
+  const { playSound, pauseSound } = useSettings();
+  // const { theme } = useTheme();
   const {
+    theme,
     level,
     size,
     grid,
@@ -28,16 +29,16 @@ export default function LevelScreen() {
     controls,
     setRotate,
     animateColor,
-  } = useEngine(forceLevel, player);
+  } = useEngine(forceLevel);
 
   const ref = useRef<View>(null);
 
-  // Handle player state
+  // Handle sound state
   useEffect(() => {
-    player.play();
+    playSound();
     return () => {
-      player.pause();
-      setDefaultStatusBar();
+      pauseSound();
+      // setDefaultStatusBar();
     };
   }, []);
 
@@ -48,7 +49,7 @@ export default function LevelScreen() {
 
   const bgStyle: ViewStyle = {
     flex: 1,
-    backgroundColor: animateColor("primary", "primary"),
+    backgroundColor: animateColor("primary") as any,
   };
 
   return (
@@ -58,7 +59,7 @@ export default function LevelScreen() {
           <StatusBar animated />
           <View className="flex-1 items-center justify-center">
             <Animated.Text
-              style={{ color: animateColor("accent", "accent") }}
+              style={{ color: animateColor("accent") }}
               className="text-xl text-center absolute top-12"
             >
               #{level}
@@ -128,7 +129,7 @@ export default function LevelScreen() {
             size={32}
             style={{
               color: success
-                ? animateColor("accent", "accent")
+                ? animateColor("accent")
                 : theme.light.accent.alpha(0.4),
             }}
           />

@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native";
+import { Animated, ViewStyle } from "react-native";
 
 interface ArcOffsets {
   [key: number]: {
@@ -14,14 +14,14 @@ const arcOffsets: ArcOffsets = {
   4: { y: -1, x: -1 },
 };
 
-let color: (type: string) => string = () => "";
+let color: (type: string) => Animated.AnimatedInterpolation<string>;
 let success = false;
 let size = 0;
 
 const stroke = 6;
 
 export function setData(
-  animateColor: (type: string) => string,
+  animateColor: (type: string) => Animated.AnimatedInterpolation<string>,
   bool: boolean,
   dimensions: number,
 ): void {
@@ -31,7 +31,7 @@ export function setData(
 }
 
 export function box(
-  rotate: Animated.AnimatedInterpolation,
+  rotate: Animated.AnimatedInterpolation<string>,
   center = false,
 ): ViewStyle {
   return {
@@ -54,7 +54,7 @@ export function arcBase(type: number = 1): ViewStyle {
   const radius = size + stroke;
 
   return {
-    borderColor: color("accent"),
+    borderColor: color("accent") as any,
     backgroundColor: "transparent",
     width: radius,
     height: radius,
@@ -72,7 +72,7 @@ export function arcBase(type: number = 1): ViewStyle {
 
 export function line(): ViewStyle {
   return {
-    backgroundColor: color("accent"),
+    backgroundColor: color("accent") as any,
     top: 0,
     left: (size - stroke) / 2,
     height: size,
@@ -95,7 +95,7 @@ export function miniCircleBase(): ViewStyle {
     justifyContent: "center",
     borderWidth: stroke,
     borderRadius: 100,
-    borderColor: color("accent"),
+    borderColor: color("accent") as any,
     backgroundColor: "transparent",
     width: radius + stroke,
     height: radius + stroke,
