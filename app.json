@@ -15,7 +15,10 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.onemdev.rnloop"
+      "bundleIdentifier": "com.onemdev.rnloop",
+      "entitlements": {
+        "aps-environment": "production"
+      }
     },
     "android": {
       "googleServicesFile": "./google-services.json",
