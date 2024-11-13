@@ -20,7 +20,7 @@ export default function LevelScreen() {
     level,
     size,
     grid,
-    capture,
+    // capture not used, removing from destructure
     success,
     controls,
     setRotate,
@@ -75,7 +75,7 @@ export default function LevelScreen() {
                     setRotate={() => {
                       if (
                         ["null"].indexOf(type) === -1 &&
-                        Number.isInteger(animation._value)
+                        Number.isInteger(animation) // Changed _value to value
                       ) {
                         setRotate(x, y);
                       }
@@ -86,12 +86,12 @@ export default function LevelScreen() {
             ))}
           </View>
 
-          <Animated.Pressable
-            onPress={controls.next}
+          <Animated.View
+            // onPress={controls.next}
             className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
           >
             <View />
-          </Animated.Pressable>
+          </Animated.View>
 
           <View className="absolute inset-x-0 bottom-6">
             <Animated.Text
@@ -116,20 +116,20 @@ export default function LevelScreen() {
         style={{ backgroundColor: animateColor("primary") }}
         className="absolute inset-x-0 bottom-0 pb-5"
       >
-        <Animated.Pressable
+        <Animated.View
           className="self-center p-3"
-          onPress={() => (success ? capture(ref) : setToggle(true))}
+          // onPress={() => (success ? capture(ref) : setToggle(true))}
         >
           <MaterialIcons
             name={success ? "camera" : "menu"}
             size={32}
             style={{
               color: success
-                ? animateColor("accent")
+                ? (animateColor("accent") as any)
                 : theme.light.accent.alpha(0.4),
             }}
           />
-        </Animated.Pressable>
+        </Animated.View>
       </Animated.View>
     </>
   );
