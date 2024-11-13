@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect } from "react";
 import { View, StatusBar, Animated, type ViewStyle } from "react-native";
 import { useGlobalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -16,7 +16,7 @@ export default function LevelScreen() {
   const params = useGlobalSearchParams<{ id: string }>();
   const forceLevel = parseInt(params.id, 10) || 1;
   const { toggle, setToggle } = useToggle();
-  const { playSound, pauseSound } = useSettings();
+  const { playAudio, pauseAudio } = useSettings();
   // const { theme } = useTheme();
   const {
     theme,
@@ -34,10 +34,9 @@ export default function LevelScreen() {
 
   // Handle sound state
   useEffect(() => {
-    console.log("YES");
-    playSound();
+    playAudio();
     return () => {
-      pauseSound();
+      pauseAudio();
       // setDefaultStatusBar();
     };
   }, []);
