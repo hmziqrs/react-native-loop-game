@@ -9,6 +9,7 @@ import LevelSelectOverlay from "./SelectOverlay";
 import useToggle from "./toggle.hook";
 import Shapes from "./Shapes";
 import { Pressable } from "react-native-gesture-handler";
+import { PageView } from "@/components/PageView";
 
 const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
 
@@ -52,7 +53,7 @@ export default function LevelScreen() {
   };
 
   return (
-    <>
+    <PageView>
       <Animated.View ref={ref} style={bgStyle}>
         <View className="flex-1">
           <StatusBar animated />
@@ -135,6 +136,6 @@ export default function LevelScreen() {
           />
         </Pressable>
       </Animated.View>
-    </>
+    </PageView>
   );
 }
