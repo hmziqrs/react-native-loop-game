@@ -33,6 +33,7 @@ interface SettingsState {
   isPlaying: boolean;
   volume: number;
   error: string | null;
+  audio: Audio.Sound | null,
 }
 
 interface SettingsContextType extends Omit<SettingsState, "error"> {
@@ -49,6 +50,7 @@ const defaultState: SettingsState = {
   isPlaying: false,
   volume: 1.0,
   error: null,
+  audio: null,
 };
 
 export const SettingsContext = createContext<SettingsContextType | null>(null);
@@ -137,8 +139,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       // Don't reload if it's the same track
       if (track === state.currentTrack) {
         const status = await ins.current?.sound.getStatusAsync();
-        if (status?.isLoaded) return;
-      }
+        if (!status?.isLoaded) return;
+      } 
 
       const wasPlaying = state.isPlaying;
 
@@ -146,6 +148,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       if (state.isPlaying) {
         await pauseAudio();
       }
+
 
       // Load and play new track if previous was playing
       const loaded = await loadAudio(track);
@@ -264,6 +267,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     pauseAudio,
     resumeAudio,
     setVolume,
+    audio: ins.current?.sound ?? null,
   };
 
   return (

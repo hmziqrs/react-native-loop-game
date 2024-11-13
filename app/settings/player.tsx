@@ -15,11 +15,12 @@ interface PlayerProps {
 
 export function Player({ isActive, mp3, toggle }: PlayerProps) {
   const {
-    playSound,
-    pauseSound,
+    playAudio,
+    pauseAudio,
     isPlaying,
-    mp3: currentMp3,
-    sound,
+    currentTrack,
+    changeAudio,
+    audio,
     volume,
   } = useSettings();
   const [status, setStatus] = useState({ position: 0, duration: 0 });
@@ -29,10 +30,10 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (isPlaying && currentMp3 === mp3) {
+    if (isPlaying && currentTrack === mp3) {
       interval = setInterval(async () => {
-        if (sound) {
-          const status = await sound.getStatusAsync();
+        if (audio) {
+          const status = await audio.getStatusAsync();
           if (status.isLoaded) {
             setStatus({
               position: status.positionMillis,
@@ -48,15 +49,16 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
         clearInterval(interval);
       }
     };
-  }, [isPlaying, currentMp3, mp3, sound]);
+  }, [isPlaying, currentTrack, mp3]);
 
   const handlePlayPause = async () => {
-    if (currentMp3 !== mp3) {
-      await playSound(mp3);
+    if (currentTrack !== mp3) {
+      await changeAudio(mp3);
+      await playAudio();
     } else if (isPlaying) {
-      await pauseSound();
+      await pauseAudio();
     } else {
-      await playSound(mp3);
+      await playAudio();
     }
   };
 
@@ -103,7 +105,7 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
                 items-center justify-center mr-3"
             >
               <MaterialIcons
-                name={isPlaying && currentMp3 === mp3 ? "pause" : "play-arrow"}
+                name={isPlaying && currentTrack === mp3 ? "pause" : "play-arrow"}
                 size={24}
                 color="white"
               />
@@ -115,8 +117,8 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
                 maximumValue={status.duration}
                 value={status.position}
                 onValueChange={async (value) => {
-                  if (sound) {
-                    await sound.setPositionAsync(value);
+                  if (audio) {
+                    await audio.setPositionAsync(value);
                   }
                 }}
                 minimumTrackTintColor="#007AFF"

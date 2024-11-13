@@ -15,9 +15,9 @@ export default function Settings() {
   const {
     volume,
     setVolume,
-    mp3: currentMp3,
-    playSound,
-    pauseSound,
+    currentTrack,
+    playAudio,
+    pauseAudio,
   } = useSettings();
   const { theme, setTheme } = useTheme();
   const { colorScheme } = useColorScheme();
@@ -25,13 +25,13 @@ export default function Settings() {
 
   const handleVolumeStart = async () => {
     forcePlay = true;
-    await playSound(currentMp3);
+    await playAudio();
   };
 
   const handleVolumeComplete = async () => {
     if (forcePlay) {
       forcePlay = false;
-      await pauseSound();
+      await pauseAudio();
     }
   };
 
@@ -72,7 +72,7 @@ export default function Settings() {
           {/* Sound Tracks Section */}
           <View className="mb-6">
             <Text className="text-lg font-semibold text-primary mb-2">
-              Sound Track: {currentMp3.replace(".mp3", "")}
+              Sound Track: {currentTrack.replace(".mp3", "")}
             </Text>
             {Object.entries(MP3S).map(([key, mp3], index) => (
               <Player
