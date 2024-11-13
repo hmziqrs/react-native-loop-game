@@ -1,8 +1,9 @@
 import React from "react";
-import { Animated, TouchableOpacity } from "react-native";
+import { Animated } from "react-native";
 
 import * as styles from "./styles";
 import { BoxType } from "@/engine/types";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface ShapesProps {
   id: string;
@@ -25,6 +26,8 @@ export default function Shapes({
 }: ShapesProps) {
   styles.setData(animateColor, success, size);
   let child: React.ReactNode = null;
+
+  console.log("animation", (animation as any)._value);
 
   const rotate = animation.interpolate({
     inputRange: [0, 4],

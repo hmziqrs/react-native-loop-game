@@ -73,9 +73,10 @@ export default function LevelScreen() {
                     animation={animation}
                     animateColor={animateColor}
                     setRotate={() => {
+                      console.log("ROATATE");
                       if (
                         ["null"].indexOf(type) === -1 &&
-                        Number.isInteger(animation) // Changed _value to value
+                        Number.isInteger((animation as any)._value)
                       ) {
                         setRotate(x, y);
                       }
