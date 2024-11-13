@@ -23,7 +23,7 @@
     "classnames": "^2.5.1",
     "color": "^4.2.3",
     "expo": "52.0.3",
-    "expo-av": "^14.0.7",
+    "expo-av": "^15.0.1",
     "expo-constants": "17.0.2",
     "expo-font": "13.0.1",
     "expo-linking": "7.0.2",

@@ -63,7 +63,7 @@ export function useSettings() {
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SettingsState>(defaultState);
-  const soundInstance = useRef(new Audio.Sound()); // Create Sound instance in ref
+  const ins = useRef<Audio.SoundObject | null>(); // Create Sound instance in ref
 
   const updateState = (updates: Partial<SettingsState>) => {
     setState((prev) => ({ ...prev, ...updates }));
@@ -85,14 +85,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const loadAudio = async (track: MP3Type): Promise<boolean> => {
     try {
+      if (state.initialized && state.currentTrack === track) return true;
       // Unload current audio if loaded
-      const status = await soundInstance.current.getStatusAsync();
-      if (status.isLoaded) {
-        await soundInstance.current.unloadAsync();
+      if (ins.current?.status.isLoaded) {
+        await ins.current?.sound?.unloadAsync();
       }
 
-      // Load new audio
-      await soundInstance.current.loadAsync(
+      ins.current = await Audio.Sound.createAsync(
         MP3_SOURCES[track],
         {
           isLooping: true,
@@ -100,11 +99,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           shouldPlay: false,
           progressUpdateIntervalMillis: 100,
         },
+        onPlaybackStatusUpdate,
         true, // downloadFirst
       );
 
       // Set up status update callback
-      soundInstance.current.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
+      // ins.current!.sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
 
       await AsyncStorage.setItem(STORAGE_KEYS.MP3, track);
       updateState({ currentTrack: track, error: null });
@@ -134,8 +134,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     try {
       // Don't reload if it's the same track
       if (track === state.currentTrack) {
-        const status = await soundInstance.current.getStatusAsync();
-        if (status.isLoaded) return;
+        const status = await ins.current?.sound.getStatusAsync();
+        if (status?.isLoaded) return;
       }
 
       const wasPlaying = state.isPlaying;
@@ -148,7 +148,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       // Load and play new track if previous was playing
       const loaded = await loadAudio(track);
       if (loaded && wasPlaying) {
-        await soundInstance.current.playAsync();
+        await ins.current!.sound.playAsync();
       }
     } catch (error) {
       console.error("Error changing audio:", error);
@@ -158,13 +158,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const playAudio = async () => {
     try {
-      const status = await soundInstance.current.getStatusAsync();
-      if (!status.isLoaded) {
+      const status = await ins.current?.sound.getStatusAsync();
+      if (!status?.isLoaded) {
         const loaded = await loadAudio(state.currentTrack);
         if (!loaded) return;
       }
 
-      await soundInstance.current.playAsync();
+      await ins.current!.sound.playAsync();
       updateState({ isPlaying: true, error: null });
     } catch (error) {
       console.error("Error playing audio:", error);
@@ -174,9 +174,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const pauseAudio = async () => {
     try {
-      const status = await soundInstance.current.getStatusAsync();
-      if (status.isLoaded) {
-        await soundInstance.current.pauseAsync();
+      if (ins.current?.status.isLoaded) {
+        await ins.current!.sound.pauseAsync();
         updateState({ isPlaying: false, error: null });
       }
     } catch (error) {
@@ -187,9 +186,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const resumeAudio = async () => {
     try {
-      const status = await soundInstance.current.getStatusAsync();
-      if (status.isLoaded) {
-        await soundInstance.current.playAsync();
+      if (ins.current?.status.isLoaded) {
+        await ins.current!.sound.playAsync();
         updateState({ isPlaying: true, error: null });
       }
     } catch (error) {
@@ -200,9 +198,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const setVolume = async (newVolume: number) => {
     try {
-      const status = await soundInstance.current.getStatusAsync();
-      if (status.isLoaded) {
-        await soundInstance.current.setVolumeAsync(newVolume);
+      if (ins.current?.status.isLoaded) {
+        await ins.current!.sound.setVolumeAsync(newVolume);
         await AsyncStorage.setItem(STORAGE_KEYS.VOLUME, newVolume.toString());
         updateState({ volume: newVolume, error: null });
       }
@@ -251,7 +248,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   // Cleanup on unmount
   React.useEffect(() => {
     return () => {
-      soundInstance.current.unloadAsync();
+      ins.current?.sound.unloadAsync();
     };
   }, []);
 
