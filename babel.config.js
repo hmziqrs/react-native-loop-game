@@ -1,14 +1,9 @@
-module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
-    ['@babel/plugin-transform-runtime'],
-    [
-      'module-resolver',
-      {
-        root: ['./app'],
-        extensions: ['.js'],
-      },
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
     ],
-  ],
-  sourceMaps: true,
+  };
 };

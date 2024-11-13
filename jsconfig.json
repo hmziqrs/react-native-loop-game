@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "target": "ES6",
-    "moduleResolution": "node",
-    "baseUrl": "./app/"
-  },
-  "exclude": ["node_modules"]
-}
