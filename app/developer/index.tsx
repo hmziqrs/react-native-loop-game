@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Image, Text, Linking } from "react-native";
+import { View, Image, Text } from "react-native";
 import { router } from "expo-router";
+import * as Linking from "expo-linking";
+
 import { FontAwesome6 } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
@@ -10,28 +12,26 @@ import { Contact, Support } from "./data";
 
 export default function AboutDeveloperScreen() {
   function open(contact: Contact) {
-    () => {
-      let url = "";
-      switch (contact.platform) {
-        case "linkedin":
-          url = `https://linkedin.com/in/${contact.username}`;
-          break;
-        case "github":
-          url = `https://github.com/${contact.username}`;
-          break;
-        case "x":
-          url = `https://x.com/${contact.username}`;
-          break;
-        case "gmail":
-          url = `mailto:${contact.username}`;
-          break;
-        case "telegram":
-          url = `https://t.me/${contact.username}`;
-          break;
-      }
-      console.log(url);
-      if (url) Linking.openURL(url);
-    };
+    let url = "";
+    switch (contact.platform) {
+      case "linkedin":
+        url = `https://linkedin.com/in/${contact.username}`;
+        break;
+      case "github":
+        url = `https://github.com/${contact.username}`;
+        break;
+      case "x":
+        url = `https://x.com/${contact.username}`;
+        break;
+      case "gmail":
+        url = `mailto:${contact.username}`;
+        break;
+      case "telegram":
+        url = `https://t.me/${contact.username}`;
+        break;
+    }
+    console.log(url);
+    if (url) Linking.openURL(url);
   }
 
   return (
