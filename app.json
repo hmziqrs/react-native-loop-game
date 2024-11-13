@@ -34,10 +34,8 @@
       "expo-router",
       "expo-av",
 
-      "@react-native-firebase/analytics",
       "@react-native-firebase/app",
       "@react-native-firebase/crashlytics",
-      "@react-native-firebase/in-app-messaging",
       "@react-native-firebase/messaging",
       "@react-native-firebase/perf",
       [
