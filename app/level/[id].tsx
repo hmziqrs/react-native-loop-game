@@ -52,6 +52,7 @@ export default function LevelScreen() {
   };
 
   console.log("color bro", animateColor("accent"));
+  console.log("tehe bro", theme.light.accent.alpha(0.4).toString());
 
   return (
     <>
@@ -99,14 +100,15 @@ export default function LevelScreen() {
             <View />
           </Animated.View>
 
-          <View className="absolute inset-x-0 bottom-6">
-            <Animated.Text
-              style={{ color: animateColor("accent") }}
-              className="text-xl font-semibold text-center"
-            >
-              React Native Loop
-            </Animated.Text>
-          </View>
+          <Animated.Text
+            style={{
+              color: animateColor("accent"),
+              textAlign: "center",
+              fontWeight: "600",
+            }}
+          >
+            React Native Loop
+          </Animated.Text>
         </View>
 
         <LevelSelectOverlay
@@ -129,7 +131,7 @@ export default function LevelScreen() {
             style={{
               color: success
                 ? (animateColor("accent") as any)
-                : theme.light.accent.alpha(0.4),
+                : theme.light.accent.alpha(0.99).toString(),
             }}
           />
         </Pressable>
