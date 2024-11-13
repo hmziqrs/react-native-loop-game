@@ -61,8 +61,12 @@ export default function LevelScreen() {
           <StatusBar animated />
           <View className="flex-1 items-center justify-center">
             <Animated.Text
-              style={{ color: animateColor("accent") }}
-              className="text-xl text-center absolute top-12"
+              style={{
+                color: animateColor("accent"),
+                fontWeight: "600",
+                position: "absolute",
+                top: 20,
+              }}
             >
               #{level}
             </Animated.Text>
