@@ -1,8 +1,7 @@
 import Color from "color";
 import { Theme } from "../types";
 
-
-export const themes: Record<string, Theme> = {
+export const themes = {
   pink: {
     light: {
       primary: Color.rgb(232, 208, 208),
