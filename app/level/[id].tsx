@@ -97,12 +97,11 @@ export default function LevelScreen() {
             ))}
           </View>
 
-          <Animated.View
-            // onPress={controls.next}
-            className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
+          <View
+            className={`absolute inset-0 bg-red-900 ${success ? "visible" : "invisible"}`}
           >
             <View />
-          </Animated.View>
+          </View>
 
           <Animated.Text
             style={{

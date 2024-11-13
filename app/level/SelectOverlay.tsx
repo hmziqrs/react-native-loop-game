@@ -57,7 +57,7 @@ export default function LevelSelectOverlay({
           {
             flex: 1,
             opacity: animation,
-            backgroundColor: theme.light.primary.alpha(0.7),
+            backgroundColor: theme.light.primary.alpha(0.7).toString(),
           },
         ]}
       >
