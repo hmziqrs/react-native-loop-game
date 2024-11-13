@@ -25,7 +25,7 @@ interface ThemeContextType {
   setTheme: (theme: ThemeType) => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | null>(null);
+export const ThemeContext = createContext<ThemeContextType | null>(null);
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);

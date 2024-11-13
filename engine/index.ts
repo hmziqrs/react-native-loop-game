@@ -33,7 +33,7 @@ interface EngineReturn {
 
 export default function useEngine(
   forceLevel: number,
-  player: Player,
+  // player: Player,
 ): EngineReturn {
   const [level, setLevel] = useState<number>(forceLevel);
   const { data, theme } = levels[level];
