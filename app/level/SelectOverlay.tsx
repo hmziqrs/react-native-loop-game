@@ -74,10 +74,7 @@ export default function LevelSelectOverlay({
   }
 
   return (
-    <View
-      className="absolute inset-0 bg-red-500 w-100 h-100 z-40"
-      // onPress={close}
-    >
+    <View className="absolute inset-0 w-100 h-100 z-40">
       <Animated.View
         style={[
           {
@@ -87,7 +84,7 @@ export default function LevelSelectOverlay({
           },
         ]}
       >
-        <Animated.View className="flex-row mt-10 px-2">
+        <View className="flex-row mt-10 px-2">
           <Pressable
             onPress={() => router.back()}
             style={[header ? { left: 0 } : { left: -30 }]}
@@ -111,7 +108,7 @@ export default function LevelSelectOverlay({
               <MaterialIcons name="share" className="text-white" size={24} />
             </Pressable>
           </View>
-        </Animated.View>
+        </View>
 
         <View className="flex-1 items-center justify-center">
           <Animated.Text style={[{ color: theme.light.accent.toString() }]}>
@@ -122,6 +119,9 @@ export default function LevelSelectOverlay({
         <Animated.View
           style={[
             {
+              flexDirection: "row",
+              paddingVertical: 16,
+              justifyContent: "space-between",
               backgroundColor: theme.light.primary.toString(),
               opacity: animation,
               top: animation.interpolate({
@@ -130,7 +130,6 @@ export default function LevelSelectOverlay({
               }),
             },
           ]}
-          className="flex-row justify-center pb-12"
         >
           <Pressable onPress={prev}>
             <MaterialIcons

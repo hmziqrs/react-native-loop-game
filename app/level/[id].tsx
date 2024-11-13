@@ -22,7 +22,7 @@ export default function LevelScreen() {
     level,
     size,
     grid,
-    // capture not used, removing from destructure
+    capture,
     success,
     controls,
     setRotate,
@@ -98,7 +98,7 @@ export default function LevelScreen() {
           </View>
 
           <View
-            className={`absolute inset-0   ${success ? "visible" : "invisible"}`}
+            className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
           >
             <View />
           </View>
@@ -126,7 +126,7 @@ export default function LevelScreen() {
       <Animated.View style={{ backgroundColor: animateColor("primary") }}>
         <Pressable
           className="self-center p-3"
-          // onPress={() => (success ? capture(ref) : setToggle(true))}
+          onPress={() => (success ? capture(ref) : setToggle(!toggle))}
         >
           <AnimatedMaterialIcons
             name={success ? "camera" : "menu"}
