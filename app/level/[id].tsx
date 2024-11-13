@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { View, StatusBar, Animated, type ViewStyle } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@/contexts/Theme";
 import { useSettings } from "@/contexts/Settings";
@@ -9,13 +9,9 @@ import LevelSelectOverlay from "./SelectOverlay";
 import useToggle from "./toggle.hook";
 import Shapes from "./Shapes";
 
-interface LayoutProps {
-  level: string;
-}
-
 export default function LevelScreen() {
-  const { level: levelParam } = useLocalSearchParams<LayoutProps>();
-  const forceLevel = parseInt(levelParam, 10) || 1;
+  const params = useGlobalSearchParams<{ id: string }>();
+  const forceLevel = parseInt(params.id, 10) || 1;
   const { toggle, setToggle } = useToggle();
   const { playSound, pauseSound } = useSettings();
   // const { theme } = useTheme();
