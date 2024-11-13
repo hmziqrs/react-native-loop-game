@@ -1,8 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { View, StatusBar, Animated, type ViewStyle } from "react-native";
-import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
+import { useGlobalSearchParams } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "@/contexts/Theme";
 import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
@@ -35,6 +34,7 @@ export default function LevelScreen() {
 
   // Handle sound state
   useEffect(() => {
+    console.log("YES");
     playSound();
     return () => {
       pauseSound();
