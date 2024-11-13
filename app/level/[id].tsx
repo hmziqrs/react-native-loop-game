@@ -98,7 +98,7 @@ export default function LevelScreen() {
           </View>
 
           <View
-            className={`absolute inset-0 bg-red-900 ${success ? "visible" : "invisible"}`}
+            className={`absolute inset-0  ${success ? "visible" : "invisible"}`}
           >
             <View />
           </View>

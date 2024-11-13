@@ -88,10 +88,7 @@ export default function LevelSelectOverlay({
         </Animated.View>
 
         <View className="flex-1 items-center justify-center">
-          <Animated.Text
-            style={[{ color: theme.light.accent }]}
-            className="font-bold text-2xl"
-          >
+          <Animated.Text style={[{ color: theme.light.accent.toString() }]}>
             React Native Loop
           </Animated.Text>
         </View>
@@ -99,7 +96,7 @@ export default function LevelSelectOverlay({
         <Animated.View
           style={[
             {
-              backgroundColor: theme.light.primary,
+              backgroundColor: theme.light.primary.toString(),
               opacity: animation,
               top: animation.interpolate({
                 inputRange: [0, 1],
@@ -112,13 +109,13 @@ export default function LevelSelectOverlay({
           <Pressable onPress={prev}>
             <MaterialIcons
               name="chevron-left"
-              style={[{ color: theme.light.accent }]}
+              style={[{ color: theme.light.accent.toString() }]}
               size={32}
             />
           </Pressable>
           <View className="justify-center px-16">
             <Text
-              style={[{ color: theme.light.accent }]}
+              style={[{ color: theme.light.accent.toString() }]}
               className="font-semibold text-base"
             >
               #{level}
@@ -127,7 +124,7 @@ export default function LevelSelectOverlay({
           <Pressable onPress={next}>
             <MaterialIcons
               name="chevron-right"
-              style={[{ color: theme.light.accent }]}
+              style={[{ color: theme.light.accent.toString() }]}
               size={32}
             />
           </Pressable>
