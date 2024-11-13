@@ -15,6 +15,7 @@ import "../global.css";
 import { View } from "react-native";
 import { SettingsProvider } from "@/contexts/Settings";
 import { ThemeProvider } from "@/contexts/Theme";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,16 +37,18 @@ export default function RootLayout() {
   }
 
   return (
-    <NavigationThemeProvider
-      value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <SettingsProvider>
-        <ThemeProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </ThemeProvider>
-      </SettingsProvider>
-    </NavigationThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationThemeProvider
+        value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      >
+        <SettingsProvider>
+          <ThemeProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </ThemeProvider>
+        </SettingsProvider>
+      </NavigationThemeProvider>
+    </GestureHandlerRootView>
   );
 }
