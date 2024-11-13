@@ -36,13 +36,18 @@ export default function LevelScreen() {
     playAudio();
     return () => {
       pauseAudio();
-      // setDefaultStatusBar();
     };
   }, []);
 
   // Handle status bar
   useEffect(() => {
     StatusBar.setBarStyle(success ? "light-content" : "dark-content", true);
+  }, [success]);
+
+  useEffect(() => {
+    if (success) {
+      setToggle(true);
+    }
   }, [success]);
 
   const bgStyle: ViewStyle = {
