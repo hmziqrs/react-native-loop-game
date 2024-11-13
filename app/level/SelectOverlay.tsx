@@ -85,29 +85,47 @@ export default function LevelSelectOverlay({
         ]}
       >
         <View className="flex-row mt-10 px-2">
-          <Pressable
-            onPress={() => router.back()}
-            style={[header ? { left: 0 } : { left: -30 }]}
-            className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30"
+          <Animated.View
+            style={{
+              right: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [24, 0],
+              }),
+            }}
           >
-            <MaterialIcons
-              name="exit-to-app"
-              className="text-white"
-              size={24}
-            />
-          </Pressable>
+            <Pressable
+              onPress={() => router.back()}
+              style={[header ? { left: 0 } : { left: -30 }]}
+              className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30"
+            >
+              <MaterialIcons
+                name="exit-to-app"
+                className="text-white"
+                size={24}
+              />
+            </Pressable>
+          </Animated.View>
           <View className="flex-1" />
-          <View
-            style={[header ? { right: 0 } : { right: -30 }]}
-            className="flex-row"
+          <Animated.View
+            style={{
+              left: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [50, 0],
+              }),
+            }}
           >
-            <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
-              <MaterialIcons name="camera" className="text-white" size={24} />
-            </Pressable>
-            <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
-              <MaterialIcons name="share" className="text-white" size={24} />
-            </Pressable>
-          </View>
+            <View
+              style={[header ? { right: 0 } : { right: -30 }]}
+              className="flex-row"
+            >
+              <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
+                <MaterialIcons name="camera" className="text-white" size={24} />
+              </Pressable>
+              <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
+                <MaterialIcons name="share" className="text-white" size={24} />
+              </Pressable>
+            </View>
+          </Animated.View>
         </View>
 
         <View className="flex-1 items-center justify-center">
