@@ -1,55 +1,26 @@
-import { useState, useEffect, useMemo } from "react";
-import { Animated, View, Easing, Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { initLayout } from "@/engine/ui";
-import React from "react";
+import React, { useEffect } from "react";
+import { View, Animated } from "react-native";
+import { TouchNative, scaling } from "rn-hgl";
+import { router } from "expo-router";
+import { initLayout } from "utils/ui";
+import { Text } from "components/Text";
+import { Icon } from "components/Icon";
+import useHook from "./hook";
 
-export interface LevelSelectOverlayProps {
-  navigation: any; // Consider using proper type from @react-navigation/native
-  setToggle: (value: boolean) => void;
-  theme: {
-    light: {
-      primary: any;
-      accent: string;
-    };
+interface Theme {
+  light: {
+    primary: any; // Replace with proper color type from your theme
+    accent: any;
   };
-  level: number;
-  toggle: boolean;
-  next: () => void;
-  prev: () => void;
 }
 
-export function useLevelSelectOverlay(toggle: boolean) {
-  const [mount, setMount] = useState(toggle);
-  const [header, setHeader] = useState(false);
-  const [animation] = useState(new Animated.Value(0.0));
-
-  useEffect(() => {
-    if (toggle) {
-      setMount(true);
-    }
-    Animated.timing(animation, {
-      toValue: toggle ? 1.0 : 0.0,
-      duration: 400,
-      easing: Easing.ease,
-      useNativeDriver: true,
-    }).start((e) => {
-      if (e.finished && !toggle) {
-        setMount(false);
-      }
-    });
-  }, [toggle, animation]);
-
-  return useMemo(
-    () => ({
-      mount,
-      header,
-      animation,
-      setHeader,
-    }),
-    [mount, header, animation],
-  );
+interface LevelSelectOverlayProps {
+  next: () => void;
+  prev: () => void;
+  theme: Theme;
+  level: number;
+  toggle: boolean;
+  setToggle: (value: boolean) => void;
 }
 
 export default function LevelSelectOverlay({
@@ -59,16 +30,12 @@ export default function LevelSelectOverlay({
   level,
   toggle,
   setToggle,
-  navigation,
 }: LevelSelectOverlayProps) {
-  const { animation, mount, header, setHeader } = useLevelSelectOverlay(toggle);
-
-  const init = () => {
-    initLayout(600, "spring");
-  };
+  const { animation, mount, header, setHeader } = useHook(toggle);
+  const init = () => initLayout(600, "spring");
 
   useEffect(() => {
-    init();
+    initLayout();
     let timeout: NodeJS.Timeout;
     if (toggle) {
       timeout = setTimeout(() => {
@@ -79,90 +46,106 @@ export default function LevelSelectOverlay({
     return () => clearTimeout(timeout);
   }, [toggle]);
 
-  const close = () => {
+  function close() {
     init();
     setHeader(false);
     setTimeout(() => {
       setToggle(false);
     }, 200);
-  };
+  }
 
-  if (!mount) return null;
+  if (!mount) {
+    return <View />;
+  }
 
   return (
-    <TouchableOpacity
-      className="absolute inset-0"
-      onPress={close}
-      activeOpacity={1}
-    >
+    <TouchNative noFeedback className="absolute inset-0" onPress={close}>
       <Animated.View
-        className="flex-1 bg-zinc-900/70"
-        style={{ opacity: animation }}
+        style={[
+          {
+            flex: 1,
+            opacity: animation,
+            backgroundColor: theme.light.primary.alpha(0.7),
+          },
+        ]}
       >
-        <Animated.View className="flex-row mt-safe px-2">
-          <TouchableOpacity
-            onPress={() => navigation.pop()}
-            className={`w-9 h-9 items-center justify-center m-2 rounded-full bg-zinc-900/30
-              ${header ? "left-0" : "-left-30"}`}
+        <Animated.View className="flex-row mt-10 px-2">
+          <TouchNative
+            onPress={() => router.back()}
+            style={[header ? { left: 0 } : { left: scaling(-30) }]}
+            className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30"
           >
-            <Ionicons name="exit" size={20} className="text-white" />
-          </TouchableOpacity>
-
+            <Icon
+              name="exit-to-app"
+              className="text-white text-xl top-[1px] left-[0.8px]"
+            />
+          </TouchNative>
           <View className="flex-1" />
-
-          <View className={`flex-row ${header ? "right-0" : "-right-30"}`}>
-            <TouchableOpacity className="w-9 h-9 items-center justify-center m-2 rounded-full bg-zinc-900/30">
-              <Ionicons
-                name="logo-instagram"
-                size={20}
-                className="text-white"
+          <View
+            style={[header ? { right: 0 } : { right: scaling(-30) }]}
+            className="flex-row"
+          >
+            <TouchNative className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
+              <Icon
+                name="instagram"
+                className="text-white text-xl top-[1px] left-[0.8px]"
               />
-            </TouchableOpacity>
-            <TouchableOpacity className="w-9 h-9 items-center justify-center m-2 rounded-full bg-zinc-900/30">
-              <Ionicons name="logo-facebook" size={20} className="text-white" />
-            </TouchableOpacity>
+            </TouchNative>
+            <TouchNative className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
+              <Icon
+                name="facebook"
+                className="text-white text-xl top-[1px] left-[0.8px]"
+              />
+            </TouchNative>
           </View>
         </Animated.View>
 
         <View className="flex-1 items-center justify-center">
-          <Animated.Text className="font-bold text-2xl text-zinc-100">
+          <Animated.Text
+            style={[{ color: theme.light.accent }]}
+            className="font-bold text-2xl"
+          >
             React Native Loop
           </Animated.Text>
         </View>
 
         <Animated.View
-          className="flex-row justify-center pb-12 bg-zinc-900"
-          style={{
-            opacity: animation,
-            transform: [
-              {
-                translateY: animation.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [16, 0],
-                }),
-              },
-            ],
-          }}
+          style={[
+            {
+              backgroundColor: theme.light.primary,
+              opacity: animation,
+              top: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [scaling(16), 0],
+              }),
+            },
+          ]}
+          className="flex-row justify-center pb-12"
         >
-          <TouchableOpacity onPress={prev} className="p-2">
-            <Ionicons name="chevron-back" size={40} className="text-zinc-100" />
-          </TouchableOpacity>
-
+          <TouchNative onPress={prev}>
+            <Icon
+              name="chevron-left"
+              style={[{ color: theme.light.accent }]}
+              className="text-4xl"
+            />
+          </TouchNative>
           <View className="justify-center px-16">
-            <Text className="font-semibold text-lg text-zinc-100">
+            <Text
+              style={[{ color: theme.light.accent }]}
+              className="font-semibold text-base"
+            >
               #{level}
             </Text>
           </View>
-
-          <TouchableOpacity onPress={next} className="p-2">
-            <Ionicons
-              name="chevron-forward"
-              size={40}
-              className="text-zinc-100"
+          <TouchNative onPress={next}>
+            <Icon
+              name="chevron-right"
+              style={[{ color: theme.light.accent }]}
+              className="text-4xl"
             />
-          </TouchableOpacity>
+          </TouchNative>
         </Animated.View>
       </Animated.View>
-    </TouchableOpacity>
+    </TouchNative>
   );
 }

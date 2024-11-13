@@ -1,19 +1,17 @@
 import React from "react";
-import { Animated } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { BoxType } from "@/engine/types";
+import { Animated, TouchableOpacity } from "react-native";
 
-export interface ShapeProps {
+interface ShapesProps {
   id: string;
   size: number;
   animation: Animated.Value;
-  type: BoxType;
+  type: "line" | "1-point" | "2-point" | "3-point" | "4-point";
   setRotate: () => void;
   success: boolean;
-  animateColor: (type: "accent") => string;
+  animateColor: (type: string) => string;
 }
 
-export const Shape: React.FC<ShapeProps> = ({
+export default function Shapes({
   id,
   size,
   animation,
@@ -21,127 +19,53 @@ export const Shape: React.FC<ShapeProps> = ({
   setRotate,
   success,
   animateColor,
-}) => {
-  const stroke = 6;
+}: ShapesProps) {
+  styles.setData(animateColor, success, size);
+  let child: React.ReactNode = null;
 
   const rotate = animation.interpolate({
     inputRange: [0, 4],
     outputRange: ["0deg", "360deg"],
   });
 
-  const getArcStyle = (rotation = 1) => {
-    const arcOffsets = {
-      1: { y: -1, x: 1 },
-      2: { y: 1, x: 1 },
-      3: { y: 1, x: -1 },
-      4: { y: -1, x: -1 },
-    };
+  function renderArc(rotation?: number) {
+    return <Animated.View style={styles.arcBase(rotation)} />;
+  }
 
-    const origin = -stroke / 2;
-    const offset = size / 2;
-    const radius = size + stroke;
-
-    return {
-      borderColor: animateColor("accent"),
-      width: radius,
-      height: radius,
-      borderWidth: stroke,
-      borderRadius: size,
-      top: origin,
-      left: origin,
-      position: "absolute",
-      marginTop: offset * arcOffsets[rotation as keyof typeof arcOffsets].y,
-      marginLeft: offset * arcOffsets[rotation as keyof typeof arcOffsets].x,
-    };
-  };
-
-  const renderArc = (rotation?: number) => (
-    <Animated.View style={getArcStyle(rotation) as any} />
-  );
-
-  const renderShape = () => {
-    switch (type) {
-      case "line":
-        return (
-          <Animated.View
-            style={{
-              backgroundColor: animateColor("accent"),
-              top: 0,
-              left: (size - stroke) / 2,
-              height: size,
-              width: stroke,
-            }}
-          />
-        );
-
-      case "1-point":
-        return (
-          <>
-            <Animated.View
-              className="items-center justify-center bg-transparent"
-              style={{
-                borderWidth: stroke,
-                borderRadius: 100,
-                borderColor: animateColor("accent"),
-                width: size / 2 + stroke,
-                height: size / 2 + stroke,
-              }}
-            />
-            <Animated.View
-              style={{
-                backgroundColor: animateColor("accent"),
-                position: "absolute",
-                top: 0,
-                left: (size - stroke) / 2,
-                height: size * 0.21,
-                width: stroke,
-              }}
-            />
-          </>
-        );
-
-      case "2-point":
-        return renderArc();
-
-      case "3-point":
-        return (
-          <>
-            {renderArc(2)}
-            {renderArc()}
-          </>
-        );
-
-      case "4-point":
-        return (
-          <>
-            {renderArc()}
-            {renderArc(2)}
-            {renderArc(3)}
-            {renderArc(4)}
-          </>
-        );
-
-      default:
-        return null;
-    }
-  };
+  if (type === "line") {
+    child = <Animated.View style={styles.line()} />;
+  } else if (type === "1-point") {
+    child = (
+      <>
+        <Animated.View style={styles.miniCircleBase()} />
+        <Animated.View style={styles.miniLineBase()} />
+      </>
+    );
+  } else if (type === "2-point") {
+    child = renderArc();
+  } else if (type === "3-point") {
+    child = (
+      <>
+        {renderArc(2)}
+        {renderArc()}
+      </>
+    );
+  } else if (type === "4-point") {
+    child = (
+      <>
+        {renderArc()}
+        {renderArc(2)}
+        {renderArc(3)}
+        {renderArc(4)}
+      </>
+    );
+  }
 
   return (
-    <TouchableOpacity
-      testID={`block-${id}`}
-      onPress={setRotate}
-      className="active:opacity-100"
-    >
-      <Animated.View
-        className={`overflow-hidden ${type === "1-point" ? "items-center justify-center" : ""}`}
-        style={{
-          width: size,
-          height: size,
-          transform: [{ rotate }],
-        }}
-      >
-        {renderShape()}
+    <TouchableOpacity testID={`block-${id}`} onPress={setRotate}>
+      <Animated.View style={styles.box(rotate, type === "1-point")}>
+        {child}
       </Animated.View>
     </TouchableOpacity>
   );
-};
+}
