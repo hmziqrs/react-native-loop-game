@@ -26,6 +26,8 @@ export default function LevelSelectOverlay({
   const { animation, mount, header, setHeader } = useHook(toggle);
   const init = () => initLayout(600, "spring");
 
+  console.log("toggle", toggle);
+
   useEffect(() => {
     initLayout();
     let timeout: NodeJS.Timeout;

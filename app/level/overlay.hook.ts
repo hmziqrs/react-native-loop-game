@@ -14,7 +14,7 @@ export default function useHook(toggle: boolean) {
       toValue: toggle ? 1.0 : 0.0,
       duration: 400,
       easing: Easing.ease,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start((e) => {
       if (e.finished && !toggle) {
         setMount(false);

@@ -117,17 +117,19 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // useless it was causing rerenders
   const onPlaybackStatusUpdate = (status: any) => {
-    if (status.isLoaded) {
-      updateState({
-        isPlaying: status.isPlaying,
-        error: null,
-      });
-    } else if (status.error) {
-      updateState({
-        error: `Playback error: ${status.error}`,
-      });
-    }
+    // console.log("UEE");
+    // if (status.isLoaded) {
+    //   // updateState({
+    //   //   isPlaying: status.isPlaying,
+    //   //   error: null,
+    //   // });
+    // } else if (status.error) {
+    //   // updateState({
+    //   //   error: `Playback error: ${status.error}`,
+    //   // });
+    // }
   };
 
   const changeAudio = async (track: MP3Type) => {
