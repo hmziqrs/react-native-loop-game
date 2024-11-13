@@ -1,6 +1,6 @@
 import { Animated, Easing, ViewStyle } from "react-native";
 import { useState, useEffect, useMemo } from "react";
-import { captureRef } from "react-native-view-shot";
+// import { captureRef } from "react-native-view-shot";
 import performance from "@react-native-firebase/perf";
 import share from "react-native-share";
 
@@ -8,6 +8,7 @@ import { rotateBox, calculateSuccess, data2Grid } from "./utils";
 import * as UI from "./ui";
 import { GridBox, Level, Theme } from "./types";
 import { levels } from "./levels";
+import { useSettings } from "@/contexts/Settings";
 
 interface Player {
   play: () => void;
@@ -31,10 +32,7 @@ interface EngineReturn {
   controls: EngineControls;
 }
 
-export default function useEngine(
-  forceLevel: number,
-  // player: Player,
-): EngineReturn {
+export default function useEngine(forceLevel: number): EngineReturn {
   const [level, setLevel] = useState<number>(forceLevel);
   const { data, theme } = levels[level];
   const [grid, setGrid] = useState<GridBox[][]>(data2Grid(data));
@@ -50,7 +48,7 @@ export default function useEngine(
     let toValue = newBox.rotate;
 
     if (newBox.type === "line") {
-      toValue = (newBox.animation as Animated.Value)._value + 1;
+      toValue = (newBox.animation as any) + 1;
     }
     if (toValue === 0) {
       toValue = 4;
@@ -79,20 +77,20 @@ export default function useEngine(
     try {
       const trace = await performance().startTrace("capture_screenshot");
 
-      const base64 = await captureRef(ref.current, {
-        format: "jpg",
-        quality: 1.0,
-        result: "base64",
-      });
+      // const base64 = await captureRef(ref.current, {
+      //   format: "jpg",
+      //   quality: 1.0,
+      //   result: "base64",
+      // });
 
-      await trace.stop();
-      await share.open({
-        url: `data:image/jpeg;base64,${base64}`,
-        filename: `rn-loop-game-${new Date().getTime()}`,
-      });
-      player.play();
+      // await trace.stop();
+      // await share.open({
+      //   url: `data:image/jpeg;base64,${base64}`,
+      //   filename: `rn-loop-game-${new Date().getTime()}`,
+      // });
+      // settings
     } catch (e) {
-      player.play();
+      // player.play();
     }
   }
 
