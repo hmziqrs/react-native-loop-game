@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -6,12 +6,14 @@ import {
   Linking,
   ScrollView,
   GestureResponderEvent,
+  NativeScrollEvent,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { links } from "./data";
+import { Link, links } from "./data";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { PageView } from "@/components/PageView";
 import { router } from "expo-router";
+import { AboutAppAnalytics } from "./analytics";
 
 type RootStackParamList = {
   AboutApp: undefined;
@@ -24,8 +26,39 @@ type AboutAppScreenProps = NativeStackScreenProps<
 >;
 
 function AboutAppScreen() {
-  const handleLongPress = (event: GestureResponderEvent) => {
-    // navigation.goBack();
+  const screenStartTime = useRef(Date.now());
+  const lastScrollDepth = useRef(0);
+  // Track screen view and exit
+  useEffect(() => {
+    AboutAppAnalytics.trackScreenView();
+
+    return () => {
+      const duration = (Date.now() - screenStartTime.current) / 1000; // Convert to seconds
+      AboutAppAnalytics.trackScreenExit(duration);
+    };
+  }, []);
+
+  // Handle link clicks with analytics
+  const handleLinkClick = async (link: Link) => {
+    try {
+      AboutAppAnalytics.trackLinkClick(link);
+      await Linking.openURL(link.url);
+    } catch (error) {
+      AboutAppAnalytics.trackLinkError(link, error.message);
+    }
+  };
+
+  // Track scroll depth
+  const handleScroll = (event: NativeScrollEvent) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event;
+    const scrollDepth =
+      (contentOffset.y + layoutMeasurement.height) / contentSize.height;
+
+    // Only track if scroll depth has changed by more than 10%
+    if (Math.abs(scrollDepth - lastScrollDepth.current) > 0.1) {
+      lastScrollDepth.current = scrollDepth;
+      AboutAppAnalytics.trackScrollDepth(scrollDepth);
+    }
   };
 
   return (
@@ -36,9 +69,12 @@ function AboutAppScreen() {
         onLeft: () => router.back(),
       }}
     >
-      <ScrollView className="flex-1 p-4">
+      <ScrollView
+        className="flex-1 p-4"
+        onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}
+        scrollEventThrottle={16}
+      >
         {/* Title */}
-        {/* Description */}
         <Text className="text-lg text-primary">
           React Native Loop is an experiment.
         </Text>
@@ -46,28 +82,18 @@ function AboutAppScreen() {
         <Text className="text-base text-zinc-700 dark:text-zinc-300 mt-2">
           I build this app because I wanted to understand how the Loop game
           calculates results and figure out a way to implement the game
-          interface in the React Native ecosystem with animations and themes. So
-          I implemented a few levels with clean code, good architecture, and no
-          Redux.
+          interface in the React Native ecosystem with animations and themes.
         </Text>
 
-        {/* Notes */}
-        <Text className="text-base text-zinc-700 dark:text-zinc-300 mt-4">
-          Original app and GitHub code's links are shared below.
-        </Text>
-
-        <Text className="text-base text-zinc-700 dark:text-zinc-300 mt-2">
-          All music is downloaded from orangefreesounds.com. Link is shared
-          below.
-        </Text>
+        {/* Links */}
         <View className="mt-6">
           {links.map((link) => (
             <TouchableOpacity
               key={link.icon}
-              className="flex-row items-center justify-center
-            gap-3 py-3 px-4 mt-4 border border-zinc-300
-            dark:border-zinc-700 rounded-md bg-zinc-50 dark:bg-zinc-800 "
-              onPress={() => Linking.openURL(link.url)}
+              className="flex-row items-center justify-center gap-3 py-3 px-4 mt-4
+                border border-zinc-300 dark:border-zinc-700 rounded-md
+                bg-zinc-50 dark:bg-zinc-800"
+              onPress={() => handleLinkClick(link)}
             >
               <FontAwesome6
                 name={link.icon as any}
