@@ -5,7 +5,6 @@ import {
   SafeAreaView,
 } from "react-native-safe-area-context";
 import { Header } from "./Header";
-import cn from "classnames";
 
 interface PageViewProps {
   children: React.ReactNode;
@@ -33,7 +32,7 @@ export function PageView({
   return (
     <View className="flex-1 bg-white dark:bg-black">
       <View className="flex-1 bg-zinc-50 dark:bg-zinc-900/50">
-        <SafeAreaView edges={{ top: false }} {...safe} className="flex-1">
+        <SafeAreaView edges={["bottom"]} {...safe} className="flex-1">
           {header && <Header {...header} />}
           {children}
         </SafeAreaView>

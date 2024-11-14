@@ -39,7 +39,7 @@ export default function AboutDeveloperScreen() {
       header={{
         title: "About developer",
         onLeft: router.back,
-        icon: "arrow-back",
+        icon: "arrow-left",
       }}
     >
       {/* Body */}

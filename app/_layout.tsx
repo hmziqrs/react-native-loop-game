@@ -15,9 +15,19 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { SettingsProvider } from "@/contexts/Settings";
 import { ThemeProvider } from "@/contexts/Theme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { cssInterop } from "nativewind";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+cssInterop(FontAwesome6, {
+  className: {
+    target: "style",
+    nativeStyleToProp: { height: true, width: true, color: true },
+  },
+});
+
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
     <PageView
       header={{
         title: "Privacy Policy",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >

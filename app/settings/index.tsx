@@ -39,7 +39,7 @@ export default function Settings() {
     <PageView
       header={{
         title: "Settings",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >

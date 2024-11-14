@@ -32,7 +32,7 @@ function AboutAppScreen() {
     <PageView
       header={{
         title: "About App",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >

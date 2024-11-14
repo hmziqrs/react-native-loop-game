@@ -9,7 +9,7 @@ export default function LevelsScreen() {
     <PageView
       header={{
         title: "Levels",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >
