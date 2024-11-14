@@ -142,13 +142,22 @@ export default function LevelSelectOverlay({
             },
           ]}
         >
-          <TouchableOpacity onPress={prev}>
-            <FontAwesome6
-              name="chevron-left"
-              className="text-2xl px-4"
-              style={[{ color: theme.light.accent.toString() }]}
-            />
-          </TouchableOpacity>
+          <Animated.View
+            style={{
+              right: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [50, 0],
+              }),
+            }}
+          >
+            <TouchableOpacity onPress={prev}>
+              <FontAwesome6
+                name="chevron-left"
+                className="text-2xl px-4"
+                style={[{ color: theme.light.accent.toString() }]}
+              />
+            </TouchableOpacity>
+          </Animated.View>
           <View className="justify-center px-16">
             <Text
               style={[{ color: theme.light.accent.toString() }]}
@@ -157,13 +166,22 @@ export default function LevelSelectOverlay({
               #{level}
             </Text>
           </View>
-          <TouchableOpacity onPress={next}>
-            <FontAwesome6
-              name="chevron-right"
-              className="text-2xl px-4"
-              style={[{ color: theme.light.accent.toString() }]}
-            />
-          </TouchableOpacity>
+          <Animated.View
+            style={{
+              left: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [50, 0],
+              }),
+            }}
+          >
+            <TouchableOpacity onPress={next}>
+              <FontAwesome6
+                name="chevron-right"
+                className="text-2xl px-4"
+                style={[{ color: theme.light.accent.toString() }]}
+              />
+            </TouchableOpacity>
+          </Animated.View>
         </Animated.View>
       </Animated.View>
     </View>
