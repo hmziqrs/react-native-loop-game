@@ -21,7 +21,7 @@ export const links: Link[] = [
     url: "https://apps.apple.com/us/app/infinity-loop-endless-zen/id977028266",
   },
   {
-    icon: "web",
+    icon: "globe",
     label: "Orange Free Sounds",
     url: "http://www.orangefreesounds.com/",
   },

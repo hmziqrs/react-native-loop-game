@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { links } from "./data";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { PageView } from "@/components/PageView";
 import { router } from "expo-router";
 
@@ -69,10 +69,9 @@ function AboutAppScreen() {
             dark:border-zinc-700 rounded-md bg-zinc-50 dark:bg-zinc-800 shadow"
               onPress={() => Linking.openURL(link.url)}
             >
-              <MaterialCommunityIcons
+              <FontAwesome6
                 name={link.icon as any}
-                size={24}
-                className="text-black dark:text-white"
+                className="text-black dark:text-white text-lg"
               />
               <Text className="text-lg font-medium text-zinc-800 dark:text-zinc-100">
                 {link.label}
