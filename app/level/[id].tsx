@@ -5,9 +5,11 @@ import {
   Animated,
   type ViewStyle,
   TouchableOpacity,
+  SafeAreaView,
+  TouchableHighlight,
 } from "react-native";
 import { useGlobalSearchParams } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
@@ -15,7 +17,7 @@ import Shapes from "./Shapes";
 import { Pressable } from "react-native-gesture-handler";
 import { PageView } from "@/components/PageView";
 
-const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
+const AnimatedFontAwesome6 = Animated.createAnimatedComponent(FontAwesome6);
 
 export default function LevelScreen() {
   const params = useGlobalSearchParams<{ id: string }>();
@@ -56,8 +58,8 @@ export default function LevelScreen() {
   };
 
   return (
-    <PageView>
-      <Animated.View ref={ref} style={bgStyle}>
+    <Animated.View ref={ref} style={bgStyle}>
+      <SafeAreaView className="flex-1">
         <View className="flex-1">
           <View className="flex-1 items-center justify-center">
             <Animated.Text
@@ -122,15 +124,13 @@ export default function LevelScreen() {
           setToggle={setToggle}
           {...controls}
         />
-      </Animated.View>
 
-      <Animated.View style={{ backgroundColor: animateColor("primary") }}>
-        <Pressable
-          className="self-center p-3"
+        <TouchableOpacity
+          className="self-center p-4"
           onPress={() => (success ? capture(ref) : setToggle(!toggle))}
         >
-          <AnimatedMaterialIcons
-            name={success ? "camera" : "menu"}
+          <AnimatedFontAwesome6
+            name={success ? "camera" : "bars"}
             size={32}
             style={{
               color: success
@@ -138,8 +138,8 @@ export default function LevelScreen() {
                 : theme.light.accent.alpha(0.99).toString(),
             }}
           />
-        </Pressable>
-      </Animated.View>
-    </PageView>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </Animated.View>
   );
 }
