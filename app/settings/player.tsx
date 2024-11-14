@@ -6,6 +6,7 @@ import { useColorScheme } from "nativewind";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MP3Type, useSettings } from "@/contexts/Settings";
 import { useTheme } from "@/contexts/Theme";
+import { SettingsAnalytics } from "./analytics";
 
 interface PlayerProps {
   isActive: boolean;
@@ -52,13 +53,35 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
   }, [isPlaying, currentTrack, mp3]);
 
   const handlePlayPause = async () => {
-    if (currentTrack !== mp3) {
-      await changeAudio(mp3);
-      await playAudio();
-    } else if (isPlaying) {
-      await pauseAudio();
-    } else {
-      await playAudio();
+    try {
+      if (currentTrack !== mp3) {
+        SettingsAnalytics.trackSoundTrackChange(currentTrack, mp3);
+        await changeAudio(mp3);
+        SettingsAnalytics.trackAudioPlayerInteraction("play", mp3);
+        await playAudio();
+      } else if (isPlaying) {
+        SettingsAnalytics.trackAudioPlayerInteraction("pause", mp3);
+        await pauseAudio();
+      } else {
+        SettingsAnalytics.trackAudioPlayerInteraction("play", mp3);
+        await playAudio();
+      }
+    } catch (error) {
+      SettingsAnalytics.trackSettingsError(
+        "audio_playback",
+        (error as any).message ?? "Unknown error in audio playback",
+      );
+    }
+  };
+
+  const handleSeek = async (value: number) => {
+    try {
+      if (audio) {
+        SettingsAnalytics.trackAudioPlayerInteraction("seek", mp3, value);
+        await audio.setPositionAsync(value);
+      }
+    } catch (error) {
+      SettingsAnalytics.trackSettingsError("audio_seek", error.message);
     }
   };
 
@@ -105,7 +128,9 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
                 items-center justify-center mr-3"
             >
               <MaterialIcons
-                name={isPlaying && currentTrack === mp3 ? "pause" : "play-arrow"}
+                name={
+                  isPlaying && currentTrack === mp3 ? "pause" : "play-arrow"
+                }
                 size={24}
                 color="white"
               />
@@ -116,11 +141,7 @@ export function Player({ isActive, mp3, toggle }: PlayerProps) {
                 minimumValue={0}
                 maximumValue={status.duration}
                 value={status.position}
-                onValueChange={async (value) => {
-                  if (audio) {
-                    await audio.setPositionAsync(value);
-                  }
-                }}
+                onValueChange={handleSeek}
                 minimumTrackTintColor="#007AFF"
                 thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
                 maximumTrackTintColor={

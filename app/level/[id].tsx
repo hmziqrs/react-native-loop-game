@@ -5,23 +5,24 @@ import {
   Animated,
   type ViewStyle,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import { useGlobalSearchParams } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
 import Shapes from "./Shapes";
-import { Pressable } from "react-native-gesture-handler";
-import { PageView } from "@/components/PageView";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
+const AnimatedFontAwesome6 = Animated.createAnimatedComponent(FontAwesome6);
 
 export default function LevelScreen() {
   const params = useGlobalSearchParams<{ id: string }>();
   const forceLevel = parseInt(params.id, 10) || 1;
   const [toggle, setToggle] = useState(false);
   const { playAudio, pauseAudio } = useSettings();
+  const safeTop = useSafeAreaInsets().top;
   // const { theme } = useTheme();
   const {
     theme,
@@ -56,17 +57,16 @@ export default function LevelScreen() {
   };
 
   return (
-    <PageView>
-      <Animated.View ref={ref} style={bgStyle}>
+    <Animated.View ref={ref} collapsable={false} style={bgStyle}>
+      <SafeAreaView className="flex-1">
         <View className="flex-1">
-          <StatusBar animated />
           <View className="flex-1 items-center justify-center">
             <Animated.Text
               style={{
-                color: animateColor("accent"),
-                fontWeight: "600",
-                position: "absolute",
-                top: 20,
+                color: animateColor('accent'),
+                fontWeight: '600',
+                position: 'absolute',
+                top: 20 + safeTop,
               }}
             >
               #{level}
@@ -85,7 +85,7 @@ export default function LevelScreen() {
                     animateColor={animateColor}
                     setRotate={() => {
                       if (
-                        ["null"].indexOf(type) === -1 &&
+                        ['null'].indexOf(type) === -1 &&
                         Number.isInteger((animation as any)._value)
                       ) {
                         setRotate(x, y);
@@ -98,7 +98,9 @@ export default function LevelScreen() {
           </View>
 
           <View
-            className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
+            className={`absolute inset-0 ${
+              success ? 'visible w-full h-full' : 'invisible'
+            }`}
           >
             <TouchableOpacity style={{ flex: 1 }} onPress={controls.next}>
               <View className="flex-1" />
@@ -107,9 +109,9 @@ export default function LevelScreen() {
 
           <Animated.Text
             style={{
-              color: animateColor("accent"),
-              textAlign: "center",
-              fontWeight: "600",
+              color: animateColor('accent'),
+              textAlign: 'center',
+              fontWeight: '600',
             }}
           >
             React Native Loop
@@ -123,24 +125,22 @@ export default function LevelScreen() {
           setToggle={setToggle}
           {...controls}
         />
-      </Animated.View>
 
-      <Animated.View style={{ backgroundColor: animateColor("primary") }}>
-        <Pressable
-          className="self-center p-3"
+        <TouchableOpacity
+          className="self-center p-4"
           onPress={() => (success ? capture(ref) : setToggle(!toggle))}
         >
-          <AnimatedMaterialIcons
-            name={success ? "camera" : "menu"}
+          <AnimatedFontAwesome6
+            name={success ? 'camera' : 'bars'}
             size={32}
             style={{
               color: success
-                ? (animateColor("accent") as any)
+                ? (animateColor('accent') as any)
                 : theme.light.accent.alpha(0.99).toString(),
             }}
           />
-        </Pressable>
-      </Animated.View>
-    </PageView>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </Animated.View>
   );
 }

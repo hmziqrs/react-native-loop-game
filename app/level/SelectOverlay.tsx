@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Animated, Text, Pressable, Easing } from "react-native";
+import { View, Animated, Text, Easing, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { initLayout } from "@/engine/ui";
 import { Theme } from "@/engine/types";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface LevelSelectOverlayProps {
   next: () => void;
@@ -25,8 +26,6 @@ export default function LevelSelectOverlay({
   const [mount, setMount] = useState(toggle);
   const [header, setHeader] = useState(false);
   const [animation] = useState(new Animated.Value(0.0));
-
-  console.log("Overlay Hook", toggle);
 
   useEffect(() => {
     if (toggle) {
@@ -58,22 +57,23 @@ export default function LevelSelectOverlay({
     return () => clearTimeout(timeout);
   }, [toggle]);
 
-  function close() {
-    init();
-    setHeader(false);
-    setTimeout(() => {
-      setToggle(false);
-    }, 200);
-  }
-
-  console.log("LevelSelectOverlaymount", mount);
+  // function close() {
+  //   init();
+  //   setHeader(false);
+  //   setTimeout(() => {
+  //     setToggle(false);
+  //   }, 300);
+  // }
 
   if (!mount) {
     return <View />;
   }
 
   return (
-    <View className="absolute inset-0 w-100 h-100 z-40">
+    <SafeAreaView
+      edges={["bottom"]}
+      className={`absolute top-0 bottom-16 w-full`}
+    >
       <Animated.View
         style={[
           {
@@ -92,17 +92,12 @@ export default function LevelSelectOverlay({
               }),
             }}
           >
-            <Pressable
+            <TouchableOpacity
               onPress={() => router.back()}
-              style={[header ? { left: 0 } : { left: -30 }]}
-              className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30"
+              className="w-14 h-14 items-center justify-center m-2 rounded-full bg-black/30"
             >
-              <MaterialIcons
-                name="exit-to-app"
-                className="text-white"
-                size={24}
-              />
-            </Pressable>
+              <FontAwesome6 name="arrow-left" className="text-white text-2xl" />
+            </TouchableOpacity>
           </Animated.View>
           <View className="flex-1" />
           <Animated.View
@@ -117,18 +112,21 @@ export default function LevelSelectOverlay({
               style={[header ? { right: 0 } : { right: -30 }]}
               className="flex-row"
             >
-              <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
-                <MaterialIcons name="camera" className="text-white" size={24} />
-              </Pressable>
-              <Pressable className="w-9 h-9 items-center justify-center m-2 rounded-full bg-black/30">
-                <MaterialIcons name="share" className="text-white" size={24} />
-              </Pressable>
+              <TouchableOpacity className="w-14 h-14 items-center justify-center m-2 rounded-full bg-black/30">
+                <FontAwesome6 name="camera" className="text-white text-2xl" />
+              </TouchableOpacity>
+              <TouchableOpacity className="w-14 h-14 items-center justify-center m-2 rounded-full bg-black/30">
+                <FontAwesome6 name="share" className="text-white text-2xl" />
+              </TouchableOpacity>
             </View>
           </Animated.View>
         </View>
 
         <View className="flex-1 items-center justify-center">
-          <Animated.Text style={[{ color: theme.light.accent.toString() }]}>
+          <Animated.Text
+            className="text-2xl font-semibold"
+            style={[{ color: theme.light.accent.toString() }]}
+          >
             React Native Loop
           </Animated.Text>
         </View>
@@ -148,30 +146,48 @@ export default function LevelSelectOverlay({
             },
           ]}
         >
-          <Pressable onPress={prev}>
-            <MaterialIcons
-              name="chevron-left"
-              style={[{ color: theme.light.accent.toString() }]}
-              size={32}
-            />
-          </Pressable>
+          <Animated.View
+            style={{
+              right: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [50, 0],
+              }),
+            }}
+          >
+            <TouchableOpacity onPress={prev}>
+              <FontAwesome6
+                name="chevron-left"
+                className="text-2xl px-4"
+                style={[{ color: theme.light.accent.toString() }]}
+              />
+            </TouchableOpacity>
+          </Animated.View>
           <View className="justify-center px-16">
             <Text
               style={[{ color: theme.light.accent.toString() }]}
-              className="font-semibold text-base"
+              className="font-semibold text-2xl"
             >
               #{level}
             </Text>
           </View>
-          <Pressable onPress={next}>
-            <MaterialIcons
-              name="chevron-right"
-              style={[{ color: theme.light.accent.toString() }]}
-              size={32}
-            />
-          </Pressable>
+          <Animated.View
+            style={{
+              left: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [50, 0],
+              }),
+            }}
+          >
+            <TouchableOpacity onPress={next}>
+              <FontAwesome6
+                name="chevron-right"
+                className="text-2xl px-4"
+                style={[{ color: theme.light.accent.toString() }]}
+              />
+            </TouchableOpacity>
+          </Animated.View>
         </Animated.View>
       </Animated.View>
-    </View>
+    </SafeAreaView>
   );
 }

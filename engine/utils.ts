@@ -5,7 +5,7 @@ import { value2RotationMap } from "./constants";
 export function data2Grid(data: BoxData[][]): GridBox[][] {
   return data.map((column, y) =>
     column.map((box, x) => {
-      const rotate = value2RotationMap[box.type][box.values.join("")] || 1;
+      const rotate = value2RotationMap[box.type][box.values.join("")];
       return {
         ...box,
         rotate,

@@ -8,7 +8,7 @@ export const links: Link[] = [
   {
     label: "Github",
     icon: "github",
-    url: "https://github.com/hackerhgl/react-native-loop-clone",
+    url: "https://github.com/hmziqrs/react-native-loop-clone",
   },
   {
     icon: "google-play",
@@ -21,7 +21,7 @@ export const links: Link[] = [
     url: "https://apps.apple.com/us/app/infinity-loop-endless-zen/id977028266",
   },
   {
-    icon: "web",
+    icon: "globe",
     label: "Orange Free Sounds",
     url: "http://www.orangefreesounds.com/",
   },

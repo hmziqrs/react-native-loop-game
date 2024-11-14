@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Link, router } from "expo-router";
 import { PageView } from "@/components/PageView";
 import { levels } from "@/engine/levels";
@@ -9,21 +9,18 @@ export default function LevelsScreen() {
     <PageView
       header={{
         title: "Levels",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >
-      <View className="flex-row flex-wrap justify-center p-4">
+      <View className="flex-row flex-wrap justify-center p-4 gap-4">
         {Object.keys(levels).map((level) => (
           <Link key={level} href={`/level/${level}`} asChild>
-            <Pressable
-              className="w-[calc(50%-16px)]
-                m-2 p-4 rounded-lg border border-primary/50"
-            >
+            <TouchableOpacity className="px-12 py-3 rounded-lg border border-primary/50">
               <Text className="text-center text-lg font-semibold text-primary">
                 Level {level}
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </Link>
         ))}
       </View>

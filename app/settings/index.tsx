@@ -8,38 +8,47 @@ import { MP3S, MP3Type, useSettings } from "@/contexts/Settings";
 import { THEMES, useTheme } from "@/contexts/Theme";
 import { Player } from "./player";
 import { PageView } from "@/components/PageView";
-
-let forcePlay = false;
+import { SettingsAnalytics } from "./analytics";
+import { useScreenTracking } from "@/hooks/useScreenTracking";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function Settings() {
-  const {
-    volume,
-    setVolume,
-    currentTrack,
-    playAudio,
-    pauseAudio,
-  } = useSettings();
+  const { volume, setVolume, currentTrack, playAudio, pauseAudio } =
+    useSettings();
   const { theme, setTheme } = useTheme();
   const { colorScheme } = useColorScheme();
   const [activeTrack, setActiveTrack] = useState(-1);
 
-  const handleVolumeStart = async () => {
-    forcePlay = true;
-    await playAudio();
+  // Use screen tracking hook
+  useScreenTracking({
+    trackScreenView: SettingsAnalytics.trackScreenView,
+    trackScreenExit: SettingsAnalytics.trackScreenExit,
+  });
+
+  // Use scroll tracking hook
+  const { handleScroll } = useScrollTracking({
+    trackScrollDepth: (depth) => {
+      // If you want to track scroll depth in settings, add it to analytics.ts first
+    },
+  });
+
+  // Handle volume changes
+  const handleVolumeChange = (newVolume: number) => {
+    SettingsAnalytics.trackVolumeChange(volume, newVolume);
+    setVolume(newVolume);
   };
 
-  const handleVolumeComplete = async () => {
-    if (forcePlay) {
-      forcePlay = false;
-      await pauseAudio();
-    }
+  // Handle theme changes
+  const handleThemeChange = (newTheme: string) => {
+    SettingsAnalytics.trackThemeChange(theme, newTheme);
+    setTheme(newTheme as any);
   };
 
   return (
     <PageView
       header={{
         title: "Settings",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >
@@ -55,9 +64,7 @@ export default function Settings() {
               minimumValue={0}
               maximumValue={1}
               value={volume}
-              onSlidingStart={handleVolumeStart}
-              onSlidingComplete={handleVolumeComplete}
-              onValueChange={setVolume}
+              onValueChange={handleVolumeChange}
               minimumTrackTintColor="#007AFF"
               thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
               maximumTrackTintColor={
@@ -99,7 +106,7 @@ export default function Settings() {
                 key={themeKey}
                 testID={`${themeKey}Theme`}
                 className="flex flex-row items-center py-3"
-                onPress={() => setTheme(themeKey as any)}
+                onPress={() => handleThemeChange(themeKey)}
               >
                 <View
                   className="w-5 h-5 rounded-full border-2 border-primary

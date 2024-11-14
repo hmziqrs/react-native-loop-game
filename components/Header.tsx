@@ -1,9 +1,8 @@
 import React from "react";
 import { View, Text, ViewStyle, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "@/contexts/Theme";
-import cn from "classnames";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface HeaderProps {
   title?: string | { id: string; values?: Record<string, string> };
@@ -27,43 +26,45 @@ export function Header({
   // const theme = useTheme();
 
   return (
-    <View
-      className="z-10 px-4 py-3 flex-row items-center
-      bg-zinc-100 dark:bg-zinc-800/50
-      pt-[calc(theme(spacing.3)+env(safe-area-inset-top))]"
+    <SafeAreaView
+      className="bg-zinc-100/90 dark:bg-zinc-800/50"
+      edges={["top"]}
       style={[baseStyle]}
     >
-      {icon && (
-        <TouchableOpacity
-          onPress={onLeft}
-          className="w-7 h-7 items-center justify-center absolute"
-        >
-          <MaterialIcons
-            name={icon as any}
-            size={18}
-            className="dark:text-white"
-          />
-        </TouchableOpacity>
-      )}
+      <View
+        className="
+        max-w-4xl mx-auto p-4 w-full
+        z-10 px-4 py-4 gap-4 flex-row items-center"
+      >
+        {icon && (
+          <TouchableOpacity
+            onPress={onLeft}
+            className="w-7 h-7 items-center justify-center absolute"
+          >
+            <FontAwesome6
+              name={icon as any}
+              className="dark:text-white text-black text-lg"
+            />
+          </TouchableOpacity>
+        )}
 
-      {icon && <View className="w-2" />}
+        {typeof title === "string" ? (
+          <Text className="text-black dark:text-white text-xl">{title}</Text>
+        ) : (
+          children
+        )}
 
-      {typeof title === "string" ? (
-        <Text className="text-base text-white">{title}</Text>
-      ) : (
-        children
-      )}
+        <View className="flex-1" />
 
-      <View className="flex-1" />
-
-      {rightIcon && (
-        <TouchableOpacity
-          onPress={onRight}
-          className="w-7 h-7 items-center justify-center"
-        >
-          <MaterialIcons name={rightIcon as any} size={24} color={"#000"} />
-        </TouchableOpacity>
-      )}
-    </View>
+        {rightIcon && (
+          <TouchableOpacity
+            onPress={onRight}
+            className="w-7 h-7 items-center justify-center"
+          >
+            <FontAwesome6 name={rightIcon as any} size={24} color={"#000"} />
+          </TouchableOpacity>
+        )}
+      </View>
+    </SafeAreaView>
   );
 }

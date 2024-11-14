@@ -1,44 +1,44 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Linking,
-  ScrollView,
-  GestureResponderEvent,
-} from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { links } from "./data";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { PageView } from "@/components/PageView";
 import { router } from "expo-router";
-
-type RootStackParamList = {
-  AboutApp: undefined;
-  // Add other screens here if needed
-};
-
-type AboutAppScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "AboutApp"
->;
+import { links } from "./data";
+import { AboutAppAnalytics } from "./analytics";
+import { useScreenTracking } from "@/hooks/useScreenTracking";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
+import { useLinkTracking } from "@/hooks/useLinkTracking";
 
 function AboutAppScreen() {
-  const handleLongPress = (event: GestureResponderEvent) => {
-    // navigation.goBack();
-  };
+  // Use existing hooks with the AboutAppAnalytics implementation
+  useScreenTracking({
+    trackScreenView: AboutAppAnalytics.trackScreenView,
+    trackScreenExit: AboutAppAnalytics.trackScreenExit,
+  });
+
+  const { handleScroll } = useScrollTracking({
+    trackScrollDepth: AboutAppAnalytics.trackScrollDepth,
+  });
+
+  const { handleLinkClick } = useLinkTracking({
+    trackLinkClick: AboutAppAnalytics.trackLinkClick,
+    trackLinkError: AboutAppAnalytics.trackLinkError,
+  });
 
   return (
     <PageView
       header={{
         title: "About App",
-        icon: "arrow-back",
+        icon: "arrow-left",
         onLeft: () => router.back(),
       }}
     >
-      <ScrollView className="flex-1 max-w-[600px] mx-auto p-4">
+      <ScrollView
+        className="flex-1 p-4"
+        onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}
+        scrollEventThrottle={16}
+      >
         {/* Title */}
-        {/* Description */}
         <Text className="text-lg text-primary">
           React Native Loop is an experiment.
         </Text>
@@ -46,33 +46,22 @@ function AboutAppScreen() {
         <Text className="text-base text-zinc-700 dark:text-zinc-300 mt-2">
           I build this app because I wanted to understand how the Loop game
           calculates results and figure out a way to implement the game
-          interface in the React Native ecosystem with animations and themes. So
-          I implemented a few levels with clean code, good architecture, and no
-          Redux.
+          interface in the React Native ecosystem with animations and themes.
         </Text>
 
-        {/* Notes */}
-        <Text className="text-base text-zinc-700 dark:text-zinc-300 mt-4">
-          Original app and GitHub code's links are shared below.
-        </Text>
-
-        <Text className="text-base text-zinc-700 dark:text-zinc-300 mt-2">
-          All music is downloaded from orangefreesounds.com. Link is shared
-          below.
-        </Text>
+        {/* Links */}
         <View className="mt-6">
           {links.map((link) => (
             <TouchableOpacity
               key={link.icon}
-              className="flex-row items-center justify-center
-            gap-3 py-3 px-4 mt-4 border border-zinc-300
-            dark:border-zinc-700 rounded-md bg-zinc-50 dark:bg-zinc-800 shadow"
-              onPress={() => Linking.openURL(link.url)}
+              className="flex-row items-center justify-center gap-3 py-3 px-4 mt-4
+                border border-zinc-300 dark:border-zinc-700 rounded-md
+                bg-zinc-50 dark:bg-zinc-800"
+              onPress={() => handleLinkClick(link)}
             >
-              <MaterialCommunityIcons
+              <FontAwesome6
                 name={link.icon as any}
-                size={24}
-                className="text-black dark:text-white"
+                className="text-black dark:text-white text-lg"
               />
               <Text className="text-lg font-medium text-zinc-800 dark:text-zinc-100">
                 {link.label}
