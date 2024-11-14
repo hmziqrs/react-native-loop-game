@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@/contexts/Theme";
 import cn from "classnames";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface HeaderProps {
   title?: string | { id: string; values?: Record<string, string> };
@@ -27,10 +28,10 @@ export function Header({
   // const theme = useTheme();
 
   return (
-    <View
-      className="z-10 px-4 py-3 flex-row items-center
-      bg-zinc-100 dark:bg-zinc-800/50
-      pt-[calc(theme(spacing.3)+env(safe-area-inset-top))]"
+    <SafeAreaView
+      edges={["top"]}
+      className="z-10 px-4 py-3 gap-3 flex-row items-center
+      bg-zinc-200/20 dark:bg-zinc-800/50"
       style={[baseStyle]}
     >
       {icon && (
@@ -46,10 +47,8 @@ export function Header({
         </TouchableOpacity>
       )}
 
-      {icon && <View className="w-2" />}
-
       {typeof title === "string" ? (
-        <Text className="text-base text-white">{title}</Text>
+        <Text className="text-black dark:text-white text-xl">{title}</Text>
       ) : (
         children
       )}
@@ -64,6 +63,6 @@ export function Header({
           <MaterialIcons name={rightIcon as any} size={24} color={"#000"} />
         </TouchableOpacity>
       )}
-    </View>
+    </SafeAreaView>
   );
 }

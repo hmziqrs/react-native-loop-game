@@ -1,6 +1,9 @@
 import React from "react";
 import { View, ScrollView, ViewStyle } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  NativeSafeAreaViewProps,
+  SafeAreaView,
+} from "react-native-safe-area-context";
 import { Header } from "./Header";
 import cn from "classnames";
 
@@ -16,6 +19,7 @@ interface PageViewProps {
   };
   style?: ViewStyle;
   disableMaxContainer?: boolean;
+  safe?: NativeSafeAreaViewProps;
 }
 
 export function PageView({
@@ -24,13 +28,16 @@ export function PageView({
   header,
   style,
   disableMaxContainer = false,
+  safe = {},
 }: PageViewProps) {
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-black">
-      {header && <Header {...header} />}
-      <View className="flex-1 bg-zinc-900.50 dark:bg-zinc-900/50">
-        {children}
+    <View className="flex-1 bg-white dark:bg-black">
+      <View className="flex-1 bg-zinc-50 dark:bg-zinc-900/50">
+        <SafeAreaView edges={{ top: false }} {...safe} className="flex-1">
+          {header && <Header {...header} />}
+          {children}
+        </SafeAreaView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

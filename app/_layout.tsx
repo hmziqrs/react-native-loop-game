@@ -10,9 +10,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import "../global.css";
-import { View } from "react-native";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import { SettingsProvider } from "@/contexts/Settings";
 import { ThemeProvider } from "@/contexts/Theme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
