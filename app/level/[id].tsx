@@ -124,7 +124,7 @@ export default function LevelScreen() {
 
         <TouchableOpacity
           className="self-center p-4"
-          onPress={() => (success ? capture(ref) : setToggle(!toggle))}
+          onPress={() => (!success ? capture(ref) : setToggle(!toggle))}
         >
           <AnimatedFontAwesome6
             name={success ? "camera" : "bars"}
