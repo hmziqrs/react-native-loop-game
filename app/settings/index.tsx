@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { router } from "expo-router";
 import Slider from "@react-native-community/slider";
@@ -8,31 +8,32 @@ import { MP3S, MP3Type, useSettings } from "@/contexts/Settings";
 import { THEMES, useTheme } from "@/contexts/Theme";
 import { Player } from "./player";
 import { PageView } from "@/components/PageView";
+import { SettingsAnalytics } from "./analytics";
 
 let forcePlay = false;
 
 export default function Settings() {
-  const {
-    volume,
-    setVolume,
-    currentTrack,
-    playAudio,
-    pauseAudio,
-  } = useSettings();
+  const { volume, setVolume, currentTrack, playAudio, pauseAudio } =
+    useSettings();
   const { theme, setTheme } = useTheme();
   const { colorScheme } = useColorScheme();
   const [activeTrack, setActiveTrack] = useState(-1);
 
-  const handleVolumeStart = async () => {
-    forcePlay = true;
-    await playAudio();
+  // Track screen view
+  useEffect(() => {
+    SettingsAnalytics.trackScreenView();
+  }, []);
+
+  // Handle volume changes
+  const handleVolumeChange = (newVolume: number) => {
+    SettingsAnalytics.trackVolumeChange(volume, newVolume);
+    setVolume(newVolume);
   };
 
-  const handleVolumeComplete = async () => {
-    if (forcePlay) {
-      forcePlay = false;
-      await pauseAudio();
-    }
+  // Handle theme changes
+  const handleThemeChange = (newTheme: string) => {
+    SettingsAnalytics.trackThemeChange(theme, newTheme);
+    setTheme(newTheme as any);
   };
 
   return (
