@@ -8,6 +8,13 @@ export const SettingsAnalytics = {
     });
   },
 
+  trackScreenExit: (duration: number) => {
+    analytics.logEvent("settings_screen_exit", {
+      duration_seconds: Math.round(duration),
+      timestamp: Date.now(),
+    });
+  },
+
   // Volume changes
   trackVolumeChange: (oldVolume: number, newVolume: number) => {
     analytics.logEvent("volume_change", {
