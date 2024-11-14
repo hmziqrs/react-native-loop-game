@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Animated, Text, Easing, TouchableOpacity } from 'react-native';
-import { router } from 'expo-router';
-import { FontAwesome6 } from '@expo/vector-icons';
-import { initLayout } from '@/engine/ui';
-import { Theme } from '@/engine/types';
+import { View, Animated, Text, Easing, TouchableOpacity } from "react-native";
+import { router } from "expo-router";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { initLayout } from "@/engine/ui";
+import { Theme } from "@/engine/types";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 interface LevelSelectOverlayProps {
   next: () => void;
@@ -25,6 +29,7 @@ export default function LevelSelectOverlay({
   const [mount, setMount] = useState(toggle);
   const [header, setHeader] = useState(false);
   const [animation] = useState(new Animated.Value(0.0));
+  const safeBottom = useSafeAreaInsets().bottom;
 
   useEffect(() => {
     if (toggle) {
@@ -42,7 +47,7 @@ export default function LevelSelectOverlay({
     });
   }, [toggle, animation]);
 
-  const init = () => initLayout(600, 'spring');
+  const init = () => initLayout(600, "spring");
 
   useEffect(() => {
     initLayout();
@@ -69,7 +74,10 @@ export default function LevelSelectOverlay({
   }
 
   return (
-    <View className="absolute top-0 bottom-16 w-full">
+    <SafeAreaView
+      edges={["bottom"]}
+      className={`absolute top-0 bottom-16 w-full`}
+    >
       <Animated.View
         style={[
           {
@@ -130,9 +138,9 @@ export default function LevelSelectOverlay({
         <Animated.View
           style={[
             {
-              flexDirection: 'row',
+              flexDirection: "row",
               paddingVertical: 16,
-              justifyContent: 'space-between',
+              justifyContent: "space-between",
               backgroundColor: theme.light.primary.toString(),
               opacity: animation,
               top: animation.interpolate({
@@ -184,6 +192,6 @@ export default function LevelSelectOverlay({
           </Animated.View>
         </Animated.View>
       </Animated.View>
-    </View>
+    </SafeAreaView>
   );
 }

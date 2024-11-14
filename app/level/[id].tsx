@@ -57,7 +57,7 @@ export default function LevelScreen() {
   };
 
   return (
-    <Animated.View ref={ref} style={bgStyle}>
+    <Animated.View ref={ref} collapsable={false} style={bgStyle}>
       <SafeAreaView className="flex-1">
         <View className="flex-1">
           <View className="flex-1 items-center justify-center">

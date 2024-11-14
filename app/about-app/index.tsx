@@ -66,7 +66,7 @@ function AboutAppScreen() {
               key={link.icon}
               className="flex-row items-center justify-center
             gap-3 py-3 px-4 mt-4 border border-zinc-300
-            dark:border-zinc-700 rounded-md bg-zinc-50 dark:bg-zinc-800 shadow"
+            dark:border-zinc-700 rounded-md bg-zinc-50 dark:bg-zinc-800 "
               onPress={() => Linking.openURL(link.url)}
             >
               <FontAwesome6

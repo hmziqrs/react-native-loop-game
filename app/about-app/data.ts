@@ -8,7 +8,7 @@ export const links: Link[] = [
   {
     label: "Github",
     icon: "github",
-    url: "https://github.com/hackerhgl/react-native-loop-clone",
+    url: "https://github.com/hmziqrs/react-native-loop-clone",
   },
   {
     icon: "google-play",
