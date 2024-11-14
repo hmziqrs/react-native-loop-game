@@ -26,8 +26,6 @@ export default function LevelSelectOverlay({
   const [header, setHeader] = useState(false);
   const [animation] = useState(new Animated.Value(0.0));
 
-  console.log("Overlay Hook", toggle);
-
   useEffect(() => {
     if (toggle) {
       setMount(true);
@@ -44,7 +42,7 @@ export default function LevelSelectOverlay({
     });
   }, [toggle, animation]);
 
-  const init = () => initLayout(600, "spring");
+  const init = () => initLayout(600, 'spring');
 
   useEffect(() => {
     initLayout();
@@ -71,7 +69,7 @@ export default function LevelSelectOverlay({
   }
 
   return (
-    <View className="absolute 100 inset-0 w-full h-full z-40">
+    <View className="absolute top-0 bottom-16 w-full">
       <Animated.View
         style={[
           {
@@ -134,9 +132,9 @@ export default function LevelSelectOverlay({
         <Animated.View
           style={[
             {
-              flexDirection: "row",
+              flexDirection: 'row',
               paddingVertical: 16,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
               backgroundColor: theme.light.primary.toString(),
               opacity: animation,
               top: animation.interpolate({

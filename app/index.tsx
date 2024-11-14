@@ -2,7 +2,6 @@ import React from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { PageView } from "@/components/PageView";
-import { useSettings } from "@/contexts/Settings";
 
 const links = [
   { key: "levels", label: "Explore Levels" },
