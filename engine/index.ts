@@ -9,6 +9,7 @@ import * as UI from "./ui";
 import { GridBox, Level, Theme } from "./types";
 import { levels } from "./levels";
 import { useSettings } from "@/contexts/Settings";
+import Toast from "react-native-toast-message";
 
 interface Player {
   play: () => void;
@@ -91,6 +92,11 @@ export default function useEngine(forceLevel: number): EngineReturn {
       // settings
     } catch (e) {
       console.error(e);
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2:  (e as any)?.message ?? "Failed to share screenshot",
+      });
       // player.play();
     }
   }
