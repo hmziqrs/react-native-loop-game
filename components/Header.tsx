@@ -27,38 +27,40 @@ export function Header({
 
   return (
     <SafeAreaView
-      className="z-10 px-4 py-4 gap-4 flex-row items-center
-      bg-zinc-200/70 dark:bg-zinc-800/50"
+      className="bg-zinc-100/90 dark:bg-zinc-800/50"
+      edges={["top"]}
       style={[baseStyle]}
     >
-      {icon && (
-        <TouchableOpacity
-          onPress={onLeft}
-          className="w-7 h-7 items-center justify-center absolute"
-        >
-          <FontAwesome6
-            name={icon as any}
-            className="dark:text-white text-black text-lg"
-          />
-        </TouchableOpacity>
-      )}
+      <View className="z-10 px-4 py-4 gap-4 flex-row items-center">
+        {icon && (
+          <TouchableOpacity
+            onPress={onLeft}
+            className="w-7 h-7 items-center justify-center absolute"
+          >
+            <FontAwesome6
+              name={icon as any}
+              className="dark:text-white text-black text-lg"
+            />
+          </TouchableOpacity>
+        )}
 
-      {typeof title === "string" ? (
-        <Text className="text-black dark:text-white text-xl">{title}</Text>
-      ) : (
-        children
-      )}
+        {typeof title === "string" ? (
+          <Text className="text-black dark:text-white text-xl">{title}</Text>
+        ) : (
+          children
+        )}
 
-      <View className="flex-1" />
+        <View className="flex-1" />
 
-      {rightIcon && (
-        <TouchableOpacity
-          onPress={onRight}
-          className="w-7 h-7 items-center justify-center"
-        >
-          <FontAwesome6 name={rightIcon as any} size={24} color={"#000"} />
-        </TouchableOpacity>
-      )}
+        {rightIcon && (
+          <TouchableOpacity
+            onPress={onRight}
+            className="w-7 h-7 items-center justify-center"
+          >
+            <FontAwesome6 name={rightIcon as any} size={24} color={"#000"} />
+          </TouchableOpacity>
+        )}
+      </View>
     </SafeAreaView>
   );
 }
