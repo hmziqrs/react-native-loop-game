@@ -10,11 +10,8 @@ import { Player } from "./player";
 import { PageView } from "@/components/PageView";
 import { SettingsAnalytics } from "./analytics";
 
-let forcePlay = false;
-
 export default function Settings() {
-  const { volume, setVolume, currentTrack, playAudio, pauseAudio } =
-    useSettings();
+  const { volume, setVolume, currentTrack } = useSettings();
   const { theme, setTheme } = useTheme();
   const { colorScheme } = useColorScheme();
   const [activeTrack, setActiveTrack] = useState(-1);
@@ -56,9 +53,7 @@ export default function Settings() {
               minimumValue={0}
               maximumValue={1}
               value={volume}
-              onSlidingStart={handleVolumeStart}
-              onSlidingComplete={handleVolumeComplete}
-              onValueChange={setVolume}
+              onValueChange={handleVolumeChange}
               minimumTrackTintColor="#007AFF"
               thumbTintColor={colorScheme === "dark" ? "#fff" : "#000"}
               maximumTrackTintColor={
@@ -100,7 +95,7 @@ export default function Settings() {
                 key={themeKey}
                 testID={`${themeKey}Theme`}
                 className="flex flex-row items-center py-3"
-                onPress={() => setTheme(themeKey as any)}
+                onPress={() => handleThemeChange(themeKey)}
               >
                 <View
                   className="w-5 h-5 rounded-full border-2 border-primary
