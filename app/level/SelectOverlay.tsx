@@ -4,10 +4,7 @@ import { router } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { initLayout } from "@/engine/ui";
 import { Theme } from "@/engine/types";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface LevelSelectOverlayProps {
   next: () => void;
@@ -29,7 +26,6 @@ export default function LevelSelectOverlay({
   const [mount, setMount] = useState(toggle);
   const [header, setHeader] = useState(false);
   const [animation] = useState(new Animated.Value(0.0));
-  const safeBottom = useSafeAreaInsets().bottom;
 
   useEffect(() => {
     if (toggle) {
@@ -61,13 +57,13 @@ export default function LevelSelectOverlay({
     return () => clearTimeout(timeout);
   }, [toggle]);
 
-  function close() {
-    init();
-    setHeader(false);
-    setTimeout(() => {
-      setToggle(false);
-    }, 300);
-  }
+  // function close() {
+  //   init();
+  //   setHeader(false);
+  //   setTimeout(() => {
+  //     setToggle(false);
+  //   }, 300);
+  // }
 
   if (!mount) {
     return <View />;

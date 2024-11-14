@@ -1,6 +1,3 @@
-import { NativeScrollEvent } from "react-native";
-import { Link } from "../data";
-
 export interface ScrollAnalytics {
   trackScrollDepth: (depth: number) => void;
 }
@@ -11,8 +8,8 @@ export interface ScreenAnalytics {
 }
 
 export interface LinkAnalytics {
-  trackLinkClick: (link: Link) => void;
-  trackLinkError: (link: Link, error: string) => void;
+  trackLinkClick: (link: any) => void;
+  trackLinkError: (link: any, error: string) => void;
 }
 
 export interface ViewportAnalytics {
