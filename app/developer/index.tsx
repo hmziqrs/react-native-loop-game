@@ -56,14 +56,13 @@ export default function AboutDeveloperScreen() {
           </Text>
 
           {/* Skills */}
-          <View className="flex-row flex-wrap gap-2 mb-6">
+          <View className="flex-row flex-wrap gap-2.5 mb-6">
             {data.skills.map((skill) => (
-              <Text
-                key={skill}
-                className="px-3.5 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full text-zinc-700 dark:text-zinc-300"
-              >
-                {skill}
-              </Text>
+              <View className="px-4 py-2 bg-zinc-200 dark:bg-zinc-800 rounded-full">
+                <Text key={skill} className="text-zinc-700 dark:text-zinc-300">
+                  {skill}
+                </Text>
+              </View>
             ))}
           </View>
 

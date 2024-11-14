@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { PageView } from "@/components/PageView";
 import { useSettings } from "@/contexts/Settings";
@@ -12,30 +12,22 @@ const links = [
 ];
 
 export default function HomeScreen() {
-  const { player } = useSettings();
-
-  React.useEffect(() => {
-    if (player) {
-      player.pauseAsync();
-    }
-  }, [player]);
-
   return (
     <PageView header={{ title: "Home" }}>
       <View className="p-4">
-        <Text className="text-3xl font-bold mb-2">Welcome</Text>
-        <Text className="text-gray-600 dark:text-gray-300 mb-6">
+        <Text className="dark:text-white text-3xl font-bold mb-2">Welcome</Text>
+        <Text className="text-zinc-600 dark:text-zinc-300 mb-6">
           Explore loop game's clone built with React Native
         </Text>
 
-        <View className="space-y-4">
+        <View className="gap-4">
           {links.map((link) => (
             <Link key={link.key} href={`/${link.key}`} asChild>
-              <Pressable className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+              <TouchableOpacity className="bg-white dark:bg-zinc-900/20 p-4 rounded-lg border border-zinc-200 dark:border-zinc-800">
                 <Text className="text-center text-lg font-semibold text-primary">
                   {link.label}
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </Link>
           ))}
         </View>
