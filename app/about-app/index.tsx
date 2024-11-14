@@ -1,65 +1,29 @@
-import React, { useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Linking,
-  ScrollView,
-  GestureResponderEvent,
-  NativeScrollEvent,
-} from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Link, links } from "./data";
+import React from "react";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { PageView } from "@/components/PageView";
 import { router } from "expo-router";
+import { links } from "./data";
 import { AboutAppAnalytics } from "./analytics";
-
-type RootStackParamList = {
-  AboutApp: undefined;
-  // Add other screens here if needed
-};
-
-type AboutAppScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "AboutApp"
->;
+import { useScreenTracking } from "@/hooks/useScreenTracking";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
+import { useLinkTracking } from "@/hooks/useLinkTracking";
 
 function AboutAppScreen() {
-  const screenStartTime = useRef(Date.now());
-  const lastScrollDepth = useRef(0);
-  // Track screen view and exit
-  useEffect(() => {
-    AboutAppAnalytics.trackScreenView();
+  // Use existing hooks with the AboutAppAnalytics implementation
+  useScreenTracking({
+    trackScreenView: AboutAppAnalytics.trackScreenView,
+    trackScreenExit: AboutAppAnalytics.trackScreenExit,
+  });
 
-    return () => {
-      const duration = (Date.now() - screenStartTime.current) / 1000; // Convert to seconds
-      AboutAppAnalytics.trackScreenExit(duration);
-    };
-  }, []);
+  const { handleScroll } = useScrollTracking({
+    trackScrollDepth: AboutAppAnalytics.trackScrollDepth,
+  });
 
-  // Handle link clicks with analytics
-  const handleLinkClick = async (link: Link) => {
-    try {
-      AboutAppAnalytics.trackLinkClick(link);
-      await Linking.openURL(link.url);
-    } catch (error) {
-      AboutAppAnalytics.trackLinkError(link, error.message);
-    }
-  };
-
-  // Track scroll depth
-  const handleScroll = (event: NativeScrollEvent) => {
-    const { contentOffset, contentSize, layoutMeasurement } = event;
-    const scrollDepth =
-      (contentOffset.y + layoutMeasurement.height) / contentSize.height;
-
-    // Only track if scroll depth has changed by more than 10%
-    if (Math.abs(scrollDepth - lastScrollDepth.current) > 0.1) {
-      lastScrollDepth.current = scrollDepth;
-      AboutAppAnalytics.trackScrollDepth(scrollDepth);
-    }
-  };
+  const { handleLinkClick } = useLinkTracking({
+    trackLinkClick: AboutAppAnalytics.trackLinkClick,
+    trackLinkError: AboutAppAnalytics.trackLinkError,
+  });
 
   return (
     <PageView
