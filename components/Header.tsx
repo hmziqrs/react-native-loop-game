@@ -31,7 +31,11 @@ export function Header({
       edges={["top"]}
       style={[baseStyle]}
     >
-      <View className="z-10 px-4 py-4 gap-4 flex-row items-center">
+      <View
+        className="
+        max-w-4xl mx-auto p-4 w-full
+        z-10 px-4 py-4 gap-4 flex-row items-center"
+      >
         {icon && (
           <TouchableOpacity
             onPress={onLeft}

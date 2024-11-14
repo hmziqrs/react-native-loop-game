@@ -34,7 +34,7 @@ export function PageView({
       <View className="flex-1 bg-zinc-50 dark:bg-zinc-900/50">
         <SafeAreaView edges={["bottom"]} {...safe} className="flex-1">
           {header && <Header {...header} />}
-          {children}
+          <View className="max-w-4xl mx-auto  w-full flex-1">{children}</View>
         </SafeAreaView>
       </View>
     </View>

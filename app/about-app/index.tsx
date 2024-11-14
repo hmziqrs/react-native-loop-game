@@ -36,7 +36,7 @@ function AboutAppScreen() {
         onLeft: () => router.back(),
       }}
     >
-      <ScrollView className="flex-1 max-w-[600px] mx-auto p-4">
+      <ScrollView className="flex-1 p-4">
         {/* Title */}
         {/* Description */}
         <Text className="text-lg text-primary">
