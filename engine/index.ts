@@ -84,8 +84,6 @@ export default function useEngine(forceLevel: number): EngineReturn {
       });
 
 
-      // await trace.stop();
-      // console.log("Trace", trace);
       await share.open({
         url: `data:image/jpeg;base64,${base64}`,
         filename: `rn-loop-game-${new Date().getTime()}.jpg`,

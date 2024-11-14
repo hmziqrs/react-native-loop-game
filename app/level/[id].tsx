@@ -96,7 +96,7 @@ export default function LevelScreen() {
           </View>
 
           <View
-            className={`absolute inset-0 w-full h-full ${success ? "visible" : "invisible"}`}
+            className={`absolute inset-0 ${success ? "visible w-full h-full" : "invisible"}`}
           >
             <TouchableOpacity style={{ flex: 1 }} onPress={controls.next}>
               <View className="flex-1" />
@@ -124,7 +124,7 @@ export default function LevelScreen() {
 
         <TouchableOpacity
           className="self-center p-4"
-          onPress={() => (!success ? capture(ref) : setToggle(!toggle))}
+          onPress={() => (success ? capture(ref) : setToggle(!toggle))}
         >
           <AnimatedFontAwesome6
             name={success ? "camera" : "bars"}

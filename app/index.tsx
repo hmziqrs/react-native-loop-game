@@ -9,6 +9,7 @@ const links = [
   { key: "about-app", label: "About App" },
   { key: "developer", label: "About Developer" },
   { key: "settings", label: "Settings" },
+  { key: "privacy", label: "Privacy" },
 ];
 
 export default function HomeScreen() {
