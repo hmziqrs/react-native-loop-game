@@ -6,7 +6,6 @@ import {
   type ViewStyle,
   TouchableOpacity,
   SafeAreaView,
-  TouchableHighlight,
 } from "react-native";
 import { useGlobalSearchParams } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
@@ -14,8 +13,6 @@ import { useSettings } from "@/contexts/Settings";
 import useEngine from "@/engine";
 import LevelSelectOverlay from "./SelectOverlay";
 import Shapes from "./Shapes";
-import { Pressable } from "react-native-gesture-handler";
-import { PageView } from "@/components/PageView";
 
 const AnimatedFontAwesome6 = Animated.createAnimatedComponent(FontAwesome6);
 
@@ -99,7 +96,7 @@ export default function LevelScreen() {
           </View>
 
           <View
-            className={`absolute inset-0 ${success ? "visible" : "invisible"}`}
+            className={`absolute inset-0 w-full h-full ${success ? "visible" : "invisible"}`}
           >
             <TouchableOpacity style={{ flex: 1 }} onPress={controls.next}>
               <View className="flex-1" />

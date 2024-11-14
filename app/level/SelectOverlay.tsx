@@ -63,17 +63,15 @@ export default function LevelSelectOverlay({
     setHeader(false);
     setTimeout(() => {
       setToggle(false);
-    }, 200);
+    }, 300);
   }
-
-  console.log("LevelSelectOverlaymount", mount);
 
   if (!mount) {
     return <View />;
   }
 
   return (
-    <View className="absolute inset-0 w-100 h-100 z-40">
+    <View className="absolute 100 inset-0 w-full h-full z-40">
       <Animated.View
         style={[
           {
