@@ -28,6 +28,7 @@
     "@react-navigation/native": "7.0.0",
     "classnames": "^2.5.1",
     "color": "^4.2.3",
+    "dom-to-image": "^2.6.0",
     "expo": "52.0.3",
     "expo-av": "^15.0.1",
     "expo-build-properties": "~0.13.1",
@@ -60,6 +61,7 @@
   "devDependencies": {
     "@babel/core": "7.26.0",
     "@types/color": "^4.2.0",
+    "@types/dom-to-image": "^2.6.7",
     "@types/jest": "^29.5.12",
     "@types/react": "18.3.12",
     "@types/react-test-renderer": "^18.0.7",

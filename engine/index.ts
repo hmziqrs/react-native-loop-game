@@ -1,7 +1,8 @@
-import { Animated, Easing, ViewStyle } from "react-native";
+import { Animated, Easing, Platform, ViewStyle } from "react-native";
 import { useState, useEffect, useMemo } from "react";
 import { captureRef } from "react-native-view-shot";
-import performance from "@react-native-firebase/perf";
+
+import domtoimage from "dom-to-image";
 import share from "react-native-share";
 
 import { rotateBox, calculateSuccess, data2Grid } from "./utils";
@@ -10,6 +11,7 @@ import { GridBox, Level, Theme } from "./types";
 import { levels } from "./levels";
 import { useSettings } from "@/contexts/Settings";
 import Toast from "react-native-toast-message";
+import { captureNShare } from "./capture";
 
 interface Player {
   play: () => void;
@@ -76,26 +78,14 @@ export default function useEngine(forceLevel: number): EngineReturn {
 
   async function capture(ref: React.RefObject<any>): Promise<void> {
     try {
-      // const trace = await performance().startTrace("capture_screenshot");
-
-      const base64 = await captureRef(ref.current, {
-        format: "jpg",
-        quality: 1.0,
-        result: "base64",
-      });
-
-
-      await share.open({
-        url: `data:image/jpeg;base64,${base64}`,
-        filename: `rn-loop-game-${new Date().getTime()}.jpg`,
-      });
+      captureNShare(ref);
       // settings
     } catch (e) {
       console.error(e);
       Toast.show({
         type: "error",
         text1: "Error",
-        text2:  (e as any)?.message ?? "Failed to share screenshot",
+        text2: (e as any)?.message ?? "Failed to share screenshot",
       });
       // player.play();
     }
