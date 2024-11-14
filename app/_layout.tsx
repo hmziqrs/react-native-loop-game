@@ -17,6 +17,7 @@ import { ThemeProvider } from "@/contexts/Theme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { cssInterop } from "nativewind";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -27,6 +28,13 @@ cssInterop(FontAwesome6, {
     nativeStyleToProp: { height: true, width: true, color: true },
   },
 });
+
+// cssInterop(StatusBar, {
+//   b: {
+//     target: false,
+//     nativeStyleToProps: { backgroundColor: 'backgroundColor' },
+//   },
+// });
 
 
 export default function RootLayout() {
@@ -46,6 +54,8 @@ export default function RootLayout() {
   }
 
   return (
+    <>
+    <StatusBar translucent />
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationThemeProvider
         value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
@@ -59,5 +69,6 @@ export default function RootLayout() {
         </SettingsProvider>
       </NavigationThemeProvider>
     </GestureHandlerRootView>
+    </>
   );
 }

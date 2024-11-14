@@ -59,7 +59,6 @@ export default function LevelScreen() {
     <PageView>
       <Animated.View ref={ref} style={bgStyle}>
         <View className="flex-1">
-          <StatusBar animated />
           <View className="flex-1 items-center justify-center">
             <Animated.Text
               style={{

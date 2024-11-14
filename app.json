@@ -20,6 +20,9 @@
         "aps-environment": "production"
       }
     },
+    "androidStatusBar": {
+      "translucent": true
+    },
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "com.onemdev.rnloop",
@@ -32,7 +35,7 @@
         "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS"
-      ],
+      ]
     },
     "web": {
       "bundler": "metro",
