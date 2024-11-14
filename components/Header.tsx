@@ -27,8 +27,8 @@ export function Header({
 
   return (
     <SafeAreaView
-      className="z-10 p-4 gap-4 flex-row items-center
-      bg-zinc-800/90 dark:bg-zinc-800/50"
+      className="z-10 px-4 py-4 gap-4 flex-row items-center
+      bg-zinc-200/70 dark:bg-zinc-800/50"
       style={[baseStyle]}
     >
       {icon && (
@@ -38,7 +38,7 @@ export function Header({
         >
           <FontAwesome6
             name={icon as any}
-            className="text-white text-lg"
+            className="dark:text-white text-black text-lg"
           />
         </TouchableOpacity>
       )}
