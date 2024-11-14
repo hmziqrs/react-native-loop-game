@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { router } from "expo-router";
 import Slider from "@react-native-community/slider";
 import { TouchableOpacity } from "react-native";
 import { useColorScheme } from "nativewind";
-import { MP3S, MP3Type, useSettings } from "@/contexts/Settings";
+import { MP3S, useSettings } from "@/contexts/Settings";
 import { THEMES, useTheme } from "@/contexts/Theme";
 import { Player } from "./player";
 import { PageView } from "@/components/PageView";
@@ -13,11 +13,19 @@ import { useScreenTracking } from "@/hooks/useScreenTracking";
 import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function Settings() {
-  const { volume, setVolume, currentTrack, playAudio, pauseAudio } =
+  const { volume, setVolume, currentTrack, pauseAudio, isPlaying } =
     useSettings();
   const { theme, setTheme } = useTheme();
   const { colorScheme } = useColorScheme();
   const [activeTrack, setActiveTrack] = useState(-1);
+
+  useEffect(() => {
+    return () => {
+      if (isPlaying) {
+        pauseAudio();
+      }
+    };
+  }, [isPlaying, pauseAudio]);
 
   // Use screen tracking hook
   useScreenTracking({
@@ -27,9 +35,7 @@ export default function Settings() {
 
   // Use scroll tracking hook
   const { handleScroll } = useScrollTracking({
-    trackScrollDepth: (depth) => {
-      // If you want to track scroll depth in settings, add it to analytics.ts first
-    },
+    trackScrollDepth: (depth) => {},
   });
 
   // Handle volume changes
