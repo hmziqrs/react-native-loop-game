@@ -36,7 +36,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: "bun"
-          command: pages deploy ./dist --project-name=movieui --branch=main
+          command: pages deploy ./dist --project-name=rnloop --branch=main
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
