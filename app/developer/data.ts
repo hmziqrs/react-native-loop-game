@@ -7,6 +7,7 @@ export interface Contact {
 export interface Support {
   link: string;
   text: string;
+  icon: string;
 }
 
 export const skills = [
@@ -53,9 +54,11 @@ export const showSupport: Support[] = [
   {
     text: "Star this github repository",
     link: "https://github.com/hmziqrs/react-native-loop-clone",
+    icon: "github",
   },
   {
     text: "Rate this app on playstore",
     link: "https://play.google.com/store/apps/details?id=com.onemdev.rnloop",
+    icon: "google-play",
   },
 ];

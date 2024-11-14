@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, ScrollView } from "react-native";
 import { router } from "expo-router";
 import * as Linking from "expo-linking";
 
@@ -42,8 +42,7 @@ export default function AboutDeveloperScreen() {
         icon: "arrow-left",
       }}
     >
-      {/* Body */}
-      <View className="flex-1 px-4">
+      <ScrollView className="flex-1 px-4">
         <View className="max-w-4xl mx-auto w-full">
           <View className="mx-auto my-8">
             <Image
@@ -73,19 +72,18 @@ export default function AboutDeveloperScreen() {
             Let's Chat!
           </Text>
 
-          <View className="space-y-3">
+          <View className="gap-4">
             {data.contacts.map((contact: Contact) => (
               <TouchableOpacity
                 key={contact.icon}
-                className="flex-row items-center space-x-3 p-2"
+                className="flex-row items-center gap-4 p-4 bg-zinc-100 dark:bg-zinc-800 rounded-xl"
                 onPress={() => open(contact)}
               >
                 <FontAwesome6
                   name={contact.icon as any} // Type assertion since FontAwesome6 has its own icon types
-                  size={24}
-                  className="text-zinc-900 dark:text-zinc-50"
+                  className="text-xl text-zinc-900 dark:text-zinc-50"
                 />
-                <Text className="text-zinc-700 dark:text-zinc-300">
+                <Text className="text-zinc-700 dark:text-zinc-300 font-medium">
                   {contact.username}
                 </Text>
               </TouchableOpacity>
@@ -102,21 +100,26 @@ export default function AboutDeveloperScreen() {
             please click any of these links and perform any action you may like.
           </Text>
 
-          <View className="space-y-2">
+          <View className="gap-4">
             {data.showSupport.map((support: Support) => (
               <TouchableOpacity
                 key={support.link}
-                className="p-2"
+                className="flex-row items-center gap-4 p-4 bg-zinc-100 dark:bg-zinc-800 rounded-xl"
                 onPress={() => Linking.openURL(support.link)}
               >
-                <Text className="text-zinc-700 dark:text-zinc-300">
-                  * {support.text}
+                <FontAwesome6
+                  name={support.icon as any}
+                  className="text-2xl text-zinc-900 dark:text-zinc-50"
+                />
+                <Text className="text-zinc-700 dark:text-zinc-300 font-medium">
+                  {support.text}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
+          <View className="h-4" />
         </View>
-      </View>
+      </ScrollView>
     </PageView>
   );
 }
