@@ -24,11 +24,6 @@ export const skills = [
 
 export const contacts: Contact[] = [
   {
-    platform: "linkedin",
-    username: "hmziqrs",
-    icon: "linkedin",
-  },
-  {
     platform: "github",
     username: "hmziqrs",
     icon: "github",
