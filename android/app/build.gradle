@@ -80,6 +80,18 @@ def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInRelea
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+def devStore = new Properties()
+def devStoreFile = rootProject.file('dev.properties')
+if (devStoreFile.exists()) {
+    devStore.load(new FileInputStream(devStoreFile))
+}
+
+def prodStore = new Properties()
+def prodStoreFile = rootProject.file('prod.properties')
+if (prodStoreFile.exists()) {
+    prodStore.load(new FileInputStream(prodStoreFile))
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -96,10 +108,16 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            keyAlias devStore['keyAlias']
+            keyPassword devStore['keyPassword']
+            storeFile file(devStore['storeFile'])
+            storePassword devStore['storePassword']
+        }
+        release {
+            keyAlias prodStore['keyAlias']
+            keyPassword prodStore['keyPassword']
+            storeFile file(prodStore['storeFile'])
+            storePassword prodStore['storePassword']
         }
     }
     buildTypes {
@@ -109,7 +127,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             shrinkResources (findProperty('android.enableShrinkResourcesInReleaseBuilds')?.toBoolean() ?: false)
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"

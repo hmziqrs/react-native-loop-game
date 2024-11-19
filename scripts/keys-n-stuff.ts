@@ -21,6 +21,7 @@ async function copyFile(source: string, destination: string): Promise<void> {
     fs.copyFileSync(source, destination);
     console.log(`Successfully copied: ${destination}`);
   } catch (e) {
+    
     throw new Error(`Failed to copy ${source} to ${destination}: ${e}`);
   }
 }
@@ -62,11 +63,9 @@ async function main(): Promise<void> {
       console.log('Successfully pulled latest changes');
     } else {
       console.log('Cloning repository...');
-      const { stderr: cloneError } = await execAsync(`git clone ${repo} ${keysDir}`);
+      await execAsync(`git clone ${repo} ${keysDir}`);
 
-      if (cloneError) {
-        throw new Error(`Failed to clone repository: ${cloneError}`);
-      }
+ 
       console.log('Successfully cloned repository');
     }
 
@@ -124,6 +123,8 @@ async function main(): Promise<void> {
 
     console.log('Setup completed successfully');
   } catch (e) {
+    console.log(e);
+    
     console.error('Error:', e);
     process.exit(1);
   }

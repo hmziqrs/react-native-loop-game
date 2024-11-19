@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "lint:fix": "expo lint --fix"
+    "lint:fix": "expo lint --fix",
+    "keys": "bun scripts/keys-n-stuff.ts"
   },
   "jest": {
     "preset": "jest-expo"
