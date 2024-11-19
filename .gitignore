@@ -36,3 +36,14 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+prod.properties
+dev.properties
+prod.jks
+dev.jks
+google-services.json
+
+GoogleService-Info.plist
+
+.keys-n-stuff/
+service-account.json
