@@ -7,7 +7,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>apprn</string>
+    <string>rnloop</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
+          <string>rnloop</string>
           <string>com.onemdev.rnloop</string>
         </array>
       </dict>
@@ -40,7 +40,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>exp+apprn</string>
+          <string>exp+rnloop</string>
         </array>
       </dict>
     </array>

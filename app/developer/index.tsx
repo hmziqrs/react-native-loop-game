@@ -12,21 +12,21 @@ import { Contact, Support } from "./data";
 
 export default function AboutDeveloperScreen() {
   function open(contact: Contact) {
-    let url = "";
+    let url = '';
     switch (contact.platform) {
-      case "linkedin":
+      case 'linkedin':
         url = `https://linkedin.com/in/${contact.username}`;
         break;
-      case "github":
+      case 'github':
         url = `https://github.com/${contact.username}`;
         break;
-      case "x":
+      case 'x':
         url = `https://x.com/${contact.username}`;
         break;
-      case "gmail":
+      case 'gmail':
         url = `mailto:${contact.username}`;
         break;
-      case "telegram":
+      case 'telegram':
         url = `https://t.me/${contact.username}`;
         break;
     }
@@ -37,27 +37,32 @@ export default function AboutDeveloperScreen() {
   return (
     <PageView
       header={{
-        title: "About developer",
+        title: 'About developer',
         onLeft: router.back,
-        icon: "arrow-left",
+        icon: 'arrow-left',
       }}
     >
       <ScrollView className="flex-1 px-4">
         <View className="mx-auto my-8">
           <Image
-            source={require("@/assets/goku.png")}
+            source={require('@/assets/goku.png')}
             className="rounded-full"
             style={{ width: 160, height: 160 }}
           />
         </View>
-        <Text className="text-2xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
+        <Text className="text-3xl font-bold text-primary">@Hmziqrs</Text>
+        <Text className="text-xl font-bold text-zinc-900 dark:text-zinc-50">
           Full stack engineer
         </Text>
+        <View className="h-4" />
 
         {/* Skills */}
         <View className="flex-row flex-wrap gap-2.5 mb-6">
           {data.skills.map((skill) => (
-            <View className="px-4 py-2 bg-zinc-200 dark:bg-zinc-800 rounded-full">
+            <View
+              key={skill}
+              className="px-4 py-2 bg-zinc-200 dark:bg-zinc-800 rounded-full"
+            >
               <Text key={skill} className="text-zinc-700 dark:text-zinc-300">
                 {skill}
               </Text>
@@ -120,3 +125,17 @@ export default function AboutDeveloperScreen() {
     </PageView>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

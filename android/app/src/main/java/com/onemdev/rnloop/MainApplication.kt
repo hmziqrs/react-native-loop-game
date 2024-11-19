@@ -1,4 +1,4 @@
-package com.anonymous.apprn
+package com.onemdev.rnloop
 
 import android.app.Application
 import android.content.res.Configuration

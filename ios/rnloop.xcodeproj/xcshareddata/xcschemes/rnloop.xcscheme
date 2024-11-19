@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "apprn.app"
-               BlueprintName = "apprn"
-               ReferencedContainer = "container:apprn.xcodeproj">
+               BuildableName = "rnloop.app"
+               BlueprintName = "rnloop"
+               ReferencedContainer = "container:rnloop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "apprnTests.xctest"
-               BlueprintName = "apprnTests"
-               ReferencedContainer = "container:apprn.xcodeproj">
+               BuildableName = "rnloopTests.xctest"
+               BlueprintName = "rnloopTests"
+               ReferencedContainer = "container:rnloop.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "apprn.app"
-            BlueprintName = "apprn"
-            ReferencedContainer = "container:apprn.xcodeproj">
+            BuildableName = "rnloop.app"
+            BlueprintName = "rnloop"
+            ReferencedContainer = "container:rnloop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "apprn.app"
-            BlueprintName = "apprn"
-            ReferencedContainer = "container:apprn.xcodeproj">
+            BuildableName = "rnloop.app"
+            BlueprintName = "rnloop"
+            ReferencedContainer = "container:rnloop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

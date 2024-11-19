@@ -1,4 +1,4 @@
-package com.anonymous.apprn
+package com.onemdev.rnloop
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

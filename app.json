@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "apprn",
-    "slug": "apprn",
+    "name": "rnloop",
+    "slug": "rnloop",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "rnloop",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true,
@@ -28,7 +28,7 @@
       "package": "com.onemdev.rnloop",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#000000"
       },
       "permissions": [
         "android.permission.RECORD_AUDIO",

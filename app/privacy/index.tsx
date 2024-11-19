@@ -8,8 +8,8 @@ export default function PrivacyPolicy() {
   return (
     <PageView
       header={{
-        title: "Privacy Policy",
-        icon: "arrow-left",
+        title: 'Privacy Policy',
+        icon: 'arrow-left',
         onLeft: () => router.back(),
       }}
     >
@@ -35,16 +35,15 @@ export default function PrivacyPolicy() {
 
           <Section title="Types of Data Stored">
             The following information may be stored locally on your device:
-
           </Section>
-            <List
-              items={[
-                "Sound settings and preferences",
-                "Theme preferences",
-                "Volume settings",
-              ]}
-            />
-            <View className="h-8" />
+          <List
+            items={[
+              'Sound settings and preferences',
+              'Theme preferences',
+              'Volume settings',
+            ]}
+          />
+          <View className="h-8" />
 
           <Section title="Data Storage">
             All game data and settings are stored locally on your device. We do
@@ -88,6 +87,7 @@ export default function PrivacyPolicy() {
             This privacy policy is effective as of Aug, 2024
           </Text>
         </View>
+        <View className="h-12" />
       </ScrollView>
     </PageView>
   );
@@ -126,3 +126,4 @@ function List({ items }: { items: string[] }) {
     </View>
   );
 }
+
