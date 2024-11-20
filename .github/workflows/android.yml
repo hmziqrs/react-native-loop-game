@@ -1,0 +1,100 @@
+name: Android Build
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    name: Android build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔑 Checkout keys repository
+        uses: actions/checkout@v4
+        with:
+          repository: hmziqrs/keys-n-stuff
+          ssh-key: ${{ secrets.KEYS_DEPLOY_KEY }}
+          path: .keys-n-stuff
+
+      - name: ⚙️ Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: 🔧 Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: 📱 Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 🔐 Setup credentials
+        run: bun scripts/keys-n-stuff.ts
+
+      - name: 📥 Install dependencies
+        run: bun install
+
+      - name: 🏗️ Build Android Bundle
+        run: bunx expo prebuild --platform android && cd android && ./gradlew bundleRelease
+
+      - name: 🏗️ Build Android APK
+        run: cd android && ./gradlew assembleRelease
+
+      - name: 📤 Upload AAB Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release-bundle
+          path: android/app/build/outputs/bundle/release/app-release.aab
+
+      - name: 📤 Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Create Android release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            android/app/build/outputs/bundle/release/app-release.aab
+            android/app/build/outputs/bundle/release/app-release.apk
+          token: ${{ secrets.TOKEN }}
+          allowUpdates: true
+
+  release:
+    name: Android release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔑 Checkout keys repository
+        uses: actions/checkout@v4
+        with:
+          repository: hmziqrs/keys-n-stuff
+          ssh-key: ${{ secrets.KEYS_DEPLOY_KEY }}
+          path: keys
+
+      - name: ⚙️ Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: 🔐 Setup credentials
+        run: bun scripts/keys-n-stuff.ts
+
+      - name: 📥 Download AAB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-release.aab
+          path: artifacts
+
+      - name: 🚀 Upload to Play Store
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: "keys/rnloop/service-account.json"
+          packageName: "com.onemdev.rnloop"
+          releaseFiles: "artifacts/*.aab"
+          track: "beta"
+          inAppUpdatePriority: 3
+          status: completed

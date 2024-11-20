@@ -2,8 +2,8 @@ name: Deploy Expo Web to Pages
 
 on:
   push:
-    branches: ["master"] # or your default branch
-  workflow_dispatch:
+    tags:
+      - "*"
 
 permissions:
   contents: read
